@@ -1,0 +1,65 @@
+
+
+.caseButton{
+    -fx-padding: 1 1 1 1;
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-background-radius: none;
+    -fx-min-width: 150;
+    -fx-min-height: 50;
+}
+
+.bigButton{
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-background-radius: none;
+    -fx-min-width: 150;
+    -fx-min-height: 70;
+}
+
+.bigButtonHalf{
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-background-radius: none;
+    -fx-min-width: 150;
+    -fx-min-height: 30;
+}
+
+.languageChoiceBox{
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-background-color: #b5bcb8;
+    -fx-background-radius: none;
+    -fx-min-width: 150;
+    -fx-min-height: 30;
+}
+
+.titleLabel{
+    -fx-font-family: "Lucida Console";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.smallLabel{
+      -fx-font-family: "Lucida Console";
+      -fx-font-size: 15px;
+      -fx-font-weight: bold;
+}
+
+.bigTextArea{
+      -fx-font-family: "Lucida Console";
+      -fx-font-size: 15px;
+      -fx-font-weight: bold;
+      -fx-padding: 1px;
+      -fx-border-insets: 1px;
+      -fx-background-insets: 1px;
+
+}
