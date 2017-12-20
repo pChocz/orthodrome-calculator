@@ -1,5 +1,3 @@
-package sample;
-
 public class Orthodrome extends Converter {
 
     //input

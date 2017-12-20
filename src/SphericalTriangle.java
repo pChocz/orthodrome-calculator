@@ -1,5 +1,3 @@
-package sample;
-
 public class SphericalTriangle extends Converter {
 
     //input

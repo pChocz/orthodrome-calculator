@@ -1,5 +1,3 @@
-package sample;
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,7 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.util.*;
 
-public class Controller extends Converter{
+public class Controller extends Converter {
 
     @FXML
     private Label titleLabel;
@@ -95,17 +93,13 @@ public class Controller extends Converter{
     private final String PROGRAM_VERSION = " v1.0";
 
 
-
-
-
-
     private final String SEPARATOR_LINE = "---------------------------------------------------------";
     private final String SEPARATOR_DASH = " - ";
 
     private final String[] CORRECT_VALUES_STRING = {
             " ------------poprawne dane",
             " -------------correct values"};
-    
+
     private final String[] GENERAL_CASE_STRING = {
             "przypadek ogólny------------",
             "general case--------------"};
@@ -249,7 +243,6 @@ public class Controller extends Converter{
             " - sail direction is "};
 
 
-
     @FXML
     public void aChangeLat() {
         String side = aLatSideTxt.getText().trim();
@@ -308,11 +301,11 @@ public class Controller extends Converter{
         allNumberInputFields.addAll(Arrays.asList(aLatDegTxt, aLongDegTxt, bLatDegTxt, bLongDegTxt));
         allNumberInputFields.addAll(Arrays.asList(aLatMinTxt, aLongMinTxt, bLatMinTxt, bLongMinTxt));
 
-        for(TextField field : Arrays.asList(aLatDegTxt, aLongDegTxt, bLatDegTxt, bLongDegTxt)) {
+        for (TextField field : Arrays.asList(aLatDegTxt, aLongDegTxt, bLatDegTxt, bLongDegTxt)) {
             setTextLimit(field, 3);
         }
 
-        for(TextField field : Arrays.asList(aLatMinTxt, aLongMinTxt, bLatMinTxt, bLongMinTxt)) {
+        for (TextField field : Arrays.asList(aLatMinTxt, aLongMinTxt, bLatMinTxt, bLongMinTxt)) {
             setTextLimit(field, 4);
         }
 
@@ -349,9 +342,6 @@ public class Controller extends Converter{
             }
         });
     }
-
-
-
 
 
     @FXML
@@ -417,15 +407,15 @@ public class Controller extends Converter{
     }
 
     public String checkOrthodromeGain(Orthodrome orthodrome, double loxodrome) {
-        double gain = loxodrome - orthodrome.getDistance()*60;
+        double gain = loxodrome - orthodrome.getDistance() * 60;
         return String.valueOf(String.format("%.2f", gain)) + " Nm.";
     }
 
     public String checkHomogeneousAngles(int languageCode, SphericalTriangle sphericalTriangle) {
-        if((sphericalTriangle.A > 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A < 90)) {
+        if ((sphericalTriangle.A > 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A < 90)) {
             return INHOMOGENEOUS_ANGLES_STRING[languageCode];
 
-        } else if((sphericalTriangle.A < 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A > 90)) {
+        } else if ((sphericalTriangle.A < 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A > 90)) {
             return HOMOGENEOUS_ANGLES_STRING[languageCode];
 
         } else {
@@ -553,7 +543,7 @@ public class Controller extends Converter{
     public boolean validateInputValues(Point aPoint, Point bPoint) {
         Point[] points = {aPoint, bPoint};
         for (Point point : points) {
-            if(!validateLatitude(point) || !validateLongitude(point)) {
+            if (!validateLatitude(point) || !validateLongitude(point)) {
                 printInstructionsInvalidData();
                 return false;
             }
@@ -579,7 +569,7 @@ public class Controller extends Converter{
 
 
     public void fillEmptyValuesWithZeros() {
-        for(TextField textField : allNumberInputFields) {
+        for (TextField textField : allNumberInputFields) {
             if (textField.getText().trim().equals("")) {
                 textField.setText("0");
             }
@@ -597,7 +587,7 @@ public class Controller extends Converter{
         clearBtn.setText(CLEAR_INFO_STRING[languageCode]);
         bottomInfoLabel.setText(PROGRAM_NAME[languageCode] + PROGRAM_VERSION);
 
-        if(checkIfFieldsHaveNonZeroValue()) {
+        if (checkIfFieldsHaveNonZeroValue()) {
             calculationProcedure();
         } else {
             printInstructions();
@@ -613,8 +603,6 @@ public class Controller extends Converter{
         }
         return false;
     }
-
-
 
 
     //general cases//

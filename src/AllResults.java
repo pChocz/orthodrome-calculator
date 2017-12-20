@@ -1,5 +1,3 @@
-package sample;
-
 public class AllResults {
 
     public Point aPoint;
