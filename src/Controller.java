@@ -66,6 +66,14 @@ public class Controller extends Converter {
     // 0 - Polish
     // 1 - English
 
+    public enum CASE {
+        SAME_POINT,
+        MERIDIAN_SAIL,
+        EQUATOR_SAIL,
+        OPPOSITE_POINTS,
+        GENERAL
+    }
+
     private final String[] INPUT_PARAMETERS_STRING = {
             "Parametry wejściowe",
             "Input parameters"};
@@ -377,6 +385,10 @@ public class Controller extends Converter {
             return false;
         }
 
+
+        System.out.println(verifySpecialCases(aPoint, bPoint));
+
+
         double loxodrome = calculateLoxodrome(aPoint, bPoint);
 
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint);
@@ -396,6 +408,54 @@ public class Controller extends Converter {
 
         return true;
     }
+
+
+    public CASE verifySpecialCases(Point aPoint, Point bPoint) {
+        double difLambda = Math.abs(aPoint.lambda - aPoint.phi);
+        double sumPhi = aPoint.phi + bPoint.phi;
+
+        if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
+            return CASE.OPPOSITE_POINTS;
+
+        } else if ((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) {
+            return CASE.SAME_POINT;
+
+        } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
+            return CASE.EQUATOR_SAIL;
+
+        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180)) {
+            return CASE.MERIDIAN_SAIL;
+
+        } else {
+            return CASE.GENERAL;
+
+        }
+    }
+
+
+
+//    //-----zweryfikowanie szczególnych przypadków-----//
+//        if      ( ( ( delta_lambda == 180 || delta_lambda == -180 ) && ( suma_fi == 0 )) || ( lambda_A == 0  && lambda_B == 0  && suma_fi == 0  ) )
+//    szczegolny_przypadek_naprzeciwko(fi_A, fi_B, lambda_A, lambda_B, a, b, ortodroma)
+//
+//        else if ( lambda_A == lambda_B    &&    fi_A == fi_B )
+//    szczegolny_przypadek_punkt(fi_A, fi_B, lambda_A, lambda_B)
+//
+//        else if ( fi_A == 0     &&    fi_B == 0 )
+//    szczegolny_przypadek_rownik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
+//
+//        else if ( ( lambda_A == lambda_B ) || ( delta_lambda == 180 || delta_lambda == -180 ) )
+//    szczegolny_przypadek_poludnik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
+//
+//        else if ( Math.abs(fi_A) == 90 || Math.abs(fi_B) == 90 )
+//    szczegolny_przypadek_poludnik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
+//    //------------------------------------------------//
+//
+//    //-----przypadek ogólny----//
+//        else
+
+
+
 
 
     public String printHelpInformation(AllResults allResults) {
