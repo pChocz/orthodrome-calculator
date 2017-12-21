@@ -353,7 +353,7 @@ public class Controller extends Converter {
 
 
     @FXML
-    public boolean calculationProcedure() {
+    public boolean inputProcedure() {
 
         fillEmptyValuesWithZeros();
 
@@ -385,9 +385,15 @@ public class Controller extends Converter {
             return false;
         }
 
+        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printResults(allResults);
+        return true;
+    }
 
+    @FXML
+
+    public AllResults calculationProcedure(Point aPoint, Point bPoint) {
         System.out.println(verifySpecialCases(aPoint, bPoint));
-
 
         double loxodrome = calculateLoxodrome(aPoint, bPoint);
 
@@ -403,10 +409,12 @@ public class Controller extends Converter {
 
         AllResults allResults = new AllResults(orthodrome, loxodrome, courseAngles, firstOrthodromeVertex, secondOrthodromeVertex);
 
+        return allResults;
+    }
+
+    public void printResults(AllResults allResults) {
         primaryTextArea.setText(printResultsValues(allResults));
         secondaryTextArea.setText(printHelpInformation(allResults));
-
-        return true;
     }
 
 
@@ -435,7 +443,8 @@ public class Controller extends Converter {
 
 
 //    //-----zweryfikowanie szczególnych przypadków-----//
-//        if      ( ( ( delta_lambda == 180 || delta_lambda == -180 ) && ( suma_fi == 0 )) || ( lambda_A == 0  && lambda_B == 0  && suma_fi == 0  ) )
+//        if      ( ( ( delta_lambda == 180 || delta_lambda == -180 ) && ( suma_fi == 0 ))
+//                                                  || ( lambda_A == 0  && lambda_B == 0  && suma_fi == 0  ) )
 //    szczegolny_przypadek_naprzeciwko(fi_A, fi_B, lambda_A, lambda_B, a, b, ortodroma)
 //
 //        else if ( lambda_A == lambda_B    &&    fi_A == fi_B )
@@ -538,7 +547,7 @@ public class Controller extends Converter {
 
     public String printOrthodromeValue(Orthodrome orthodrome) {
         return "\n" +
-                "  d = " + ddToDmString("long", orthodrome.getDistance()) + " = " + orthodrome.getDistanceNm() +
+                "  d = " + ddToDmString("long", orthodrome.getDistance()) + " = " + orthodrome.getDistanceNmString() +
                 "\n\n";
     }
 
@@ -648,7 +657,7 @@ public class Controller extends Converter {
         bottomInfoLabel.setText(PROGRAM_NAME[languageCode] + PROGRAM_VERSION);
 
         if (checkIfFieldsHaveNonZeroValue()) {
-            calculationProcedure();
+            inputProcedure();
         } else {
             printInstructions();
         }
@@ -681,7 +690,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(50°N;020°W) -> B(50°N;090°E)---//
@@ -699,7 +708,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(50°N;030°E) -> B(30°N;060°E)---//
@@ -717,7 +726,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(50°N;170°W) -> B(10°S;100°W)---//
@@ -735,7 +744,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("W");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(30°S;060°E) -> B(40°S;140°E)---//
@@ -753,7 +762,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(20°S;100°W) -> B(30°N;160°W)---//
@@ -771,7 +780,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("W");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //special cases//
@@ -790,7 +799,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(40°N;030°E) -> B(40°S;150°W)---//
@@ -808,7 +817,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("W");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A(20°N;030°E) -> B(40°S;030°E)---//
@@ -826,7 +835,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("E");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
     //---A( 0° ;010°E) -> B( 0° ;050°W)---//
@@ -844,7 +853,7 @@ public class Controller extends Converter {
         bLongSideTxt.setText("W");
 
         fillEmptyValuesWithZeros();
-        calculationProcedure();
+        inputProcedure();
     }
 
 

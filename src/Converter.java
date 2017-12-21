@@ -54,4 +54,7 @@ public class Converter {
         return returnValue;
     }
 
+    public double dmToDdDouble(double degree, double minute) {
+        return degree + minute/60;
+    }
 }

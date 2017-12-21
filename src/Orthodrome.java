@@ -39,8 +39,12 @@ public class Orthodrome extends Converter {
         return distance;
     }
 
-    public String getDistanceNm() {
+    public String getDistanceNmString() {
         return String.valueOf(String.format("%.2f", this.distance * 60)) + " Mm";
+    }
+
+    public double getDistanceNm() {
+        return this.distance * 60;
     }
 
     public Point calculateFirstOrthodromeVertex(Point aPoint, Point bPoint) {
