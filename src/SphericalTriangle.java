@@ -18,28 +18,25 @@ public class SphericalTriangle extends Converter {
     }
 
     public boolean calculateSphericalTriangle() {
-        this.a = 90 - this.bPoint.phi;
-        this.b = 90 - this.aPoint.phi;
+        a = 90 - bPoint.phi;
+        b = 90 - aPoint.phi;
 
-        this.C = calculateC(this.aPoint, this.bPoint);
+        C = calculateC();
 
-        this.A = calculateA(a, b, C);
-        this.B = calculateB(a, b, C);
-        this.d = calculateOrthodrome(a, b, C);
+        A = calculateA();
+        B = calculateB();
+        d = calculateOrthodrome();
 
         return true;
     }
 
-    public double calculateC(Point aPoint, Point bPoint) {
+    public double calculateC() {
         double C = Math.abs(bPoint.lambda - aPoint.lambda);
-        if (C <= 180) {
-            return C;
-        } else {
-            return 360 - C;
-        }
+
+        return (C <= 180) ? (C) : (360 - C);
     }
 
-    public double calculateA(double a, double b, double C) {
+    public double calculateA() {
         double aRadians = toRadians(a);
         double bRadians = toRadians(b);
         double CRadians = toRadians(C);
@@ -48,7 +45,7 @@ public class SphericalTriangle extends Converter {
         return (toDegrees(Math.acos((Math.cos(aRadians) - Math.cos(bRadians) * Math.cos(orthodromeRadians)) / (Math.sin(bRadians) * Math.sin(orthodromeRadians)))));
     }
 
-    public double calculateB(double a, double b, double C) {
+    public double calculateB() {
         double aRadians = toRadians(a);
         double bRadians = toRadians(b);
         double CRadians = toRadians(C);
@@ -57,7 +54,7 @@ public class SphericalTriangle extends Converter {
         return toDegrees(Math.acos((Math.cos(bRadians) - Math.cos(aRadians) * Math.cos(orthodromeRadians)) / (Math.sin(aRadians) * Math.sin(orthodromeRadians))));
     }
 
-    public double calculateOrthodrome(double a, double b, double C) {
+    public double calculateOrthodrome() {
         double aRadians = toRadians(a);
         double bRadians = toRadians(b);
         double CRadians = toRadians(C);
