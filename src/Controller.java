@@ -419,7 +419,7 @@ public class Controller extends Converter {
 
 
     public CASE verifySpecialCases(Point aPoint, Point bPoint) {
-        double difLambda = Math.abs(aPoint.lambda - aPoint.phi);
+        double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
         double sumPhi = aPoint.phi + bPoint.phi;
 
         if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
