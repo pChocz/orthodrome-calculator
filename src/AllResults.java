@@ -15,9 +15,10 @@ public class AllResults {
         this.courseAngles = courseAngles;
         this.firstOrthodromeVertex = firstOrthodromeVertex;
         this.secondOrthodromeVertex = secondOrthodromeVertex;
-        
+
         this.aPoint = courseAngles.aPoint;
         this.bPoint = courseAngles.bPoint;
         this.sphericalTriangle = courseAngles.sphericalTriangle;
     }
+
 }
