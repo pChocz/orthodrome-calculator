@@ -73,6 +73,7 @@ public class Controller extends Converter {
         OPPOSITE_POINTS,
         GENERAL
     }
+    public CASE caseType;
 
     private final String[] INPUT_PARAMETERS_STRING = {
             "Parametry wejściowe",
@@ -113,16 +114,16 @@ public class Controller extends Converter {
             "general case--------------"};
 
     private final String[] SPECIAL_CASE_STRING = {
-            "przypadek szczególny-------",
-            "special case---------------"};
+            "przypadek szczególny--------",
+            "special case--------------"};
 
     private final String[] SPECIAL_CASE_SAME_POINT_STRING = {
             "----------------podano identyczne punkty-----------------",
             "-----------------identical points given------------------"};
 
     private final String[] SPECIAL_CASE_OPPOSITE_STRING = {
-            "----------------punkty naprzeciwko siebie----------------",
-            "---------------------opposite points---------------------"};
+            " ----------------punkty naprzeciwko siebie---------------",
+            " ---------------------opposite points--------------------"};
 
     private final String[] SPECIAL_CASE_EQUATOR_SAILING_STRING = {
             "-----------------poruszamy się po równiku----------------",
@@ -245,6 +246,36 @@ public class Controller extends Converter {
     private final String[] ORTHODROME_GAIN_STRING = {
             " - zysk z płynięcia po ortodromie wynosi ",
             " - orthodromic gain is equal to "};
+
+    private final String[] ORTHODROME_GAIN_SPECIAL_CASE_STRING = {
+            " - w przypadkach szczególnych ortodroma jest \n   równa loksodromie",
+            " - in all special cases orthodrome is equal \n   to loxodrome"};
+
+    private final String[] SPECIAL_CASE_OPPOSITE_INFO_STRING = {
+            "\n" +
+                    " - Podane punkty są dokładnie po przeciwległej stronie" + "\n" +
+                    "   kuli ziemskiej. Do przebycia jest połowa obwodu," + "\n" +
+                    "   a do wyboru jest nieskończenie wiele ortodrom" + "\n\n\n\n\n\n\n" +
+                    " - A, B oraz h nie są wyznaczane" + "\n\n\n\n\n\n\n" +
+                    " - Odległość ortodromiczna to połowa obwodu ziemi" + "\n\n\n\n\n\n" +
+                    " - Brak możliwości określenia zysku ortodromicznego" + "\n\n\n\n\n\n" +
+                    " - Początkowy kąt drogi może być przyjęty dowolnie" + "\n\n\n\n\n\n\n" +
+                    " - Wierzchołki ortodromy mogą być dowolne i zależą od" + "\n" +
+                    "   przyjętej ortodromy.",
+            "\n" +
+                    " - Given points are exactly on opposite sides of the" + "\n" +
+                    "   globe.There is exactly half of circumference to go," + "\n" +
+                    "   and infinitely many possibilities of orthodromes to" + "\n" +
+                    "   choose" + "\n\n\n\n\n\n" +
+                    " - A, B and h are not calculated" + "\n\n\n\n\n\n\n" +
+                    " - Orthodromic distance is equal to half circumference" + "\n" +
+                    "   of the globe" + "\n\n\n\n\n" +
+                    " - It's not possible to calculate orthodromic gain" + "\n\n\n\n\n\n" +
+                    " - Initial course can be chosen freely" + "\n\n\n\n\n\n\n" +
+                    " - Orthodromic vertexes are not able to predict as" + "\n" +
+                    "   they depends on chosen orthodrome."};
+
+
 
     private final String[] SAIL_DIRECTION_STRING = {
             " - kierunek drogi to ",
@@ -385,6 +416,8 @@ public class Controller extends Converter {
             return false;
         }
 
+        caseType = verifySpecialCases(aPoint, bPoint);
+
         AllResults allResults = calculationProcedure(aPoint, bPoint);
         printResults(allResults);
         return true;
@@ -395,7 +428,6 @@ public class Controller extends Converter {
     public AllResults calculationProcedure(Point aPoint, Point bPoint) {
         System.out.println(verifySpecialCases(aPoint, bPoint));
 
-        double loxodrome = calculateLoxodrome(aPoint, bPoint);
 
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint);
         sphericalTriangle.calculateSphericalTriangle();
@@ -406,10 +438,9 @@ public class Controller extends Converter {
 
         CourseAngles courseAngles = new CourseAngles(sphericalTriangle, aPoint, bPoint);
         courseAngles.calculateCourseAngles();
+        double loxodrome = calculateLoxodrome(aPoint, bPoint, orthodrome);
 
-        AllResults allResults = new AllResults(orthodrome, loxodrome, courseAngles, firstOrthodromeVertex, secondOrthodromeVertex);
-
-        return allResults;
+        return new AllResults(orthodrome, loxodrome, courseAngles, firstOrthodromeVertex, secondOrthodromeVertex);
     }
 
     public void printResults(AllResults allResults) {
@@ -442,37 +473,27 @@ public class Controller extends Converter {
 
 
 
-//    //-----zweryfikowanie szczególnych przypadków-----//
-//        if      ( ( ( delta_lambda == 180 || delta_lambda == -180 ) && ( suma_fi == 0 ))
-//                                                  || ( lambda_A == 0  && lambda_B == 0  && suma_fi == 0  ) )
-//    szczegolny_przypadek_naprzeciwko(fi_A, fi_B, lambda_A, lambda_B, a, b, ortodroma)
-//
-//        else if ( lambda_A == lambda_B    &&    fi_A == fi_B )
-//    szczegolny_przypadek_punkt(fi_A, fi_B, lambda_A, lambda_B)
-//
-//        else if ( fi_A == 0     &&    fi_B == 0 )
-//    szczegolny_przypadek_rownik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
-//
-//        else if ( ( lambda_A == lambda_B ) || ( delta_lambda == 180 || delta_lambda == -180 ) )
-//    szczegolny_przypadek_poludnik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
-//
-//        else if ( Math.abs(fi_A) == 90 || Math.abs(fi_B) == 90 )
-//    szczegolny_przypadek_poludnik(fi_A, fi_B, lambda_A, lambda_B, a, b, C, ortodroma, alfa, beta)
-//    //------------------------------------------------//
-//
-//    //-----przypadek ogólny----//
-//        else
-
-
-
-
-
     public String printHelpInformation(AllResults allResults) {
-        return "\n" +
-                CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                checkHomogeneousAngles(languageCode, allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n\n" +
-                ORTHODROME_GAIN_STRING[languageCode] + checkOrthodromeGain(allResults.orthodrome, allResults.loxodrome) + "\n\n\n\n\n\n" +
-                SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.getDirection();
+
+        if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_OPPOSITE_STRING[languageCode] + "\n\n" +
+                    SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
+
+        } else if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n";
+
+        } else if (caseType == CASE.SAME_POINT) {
+            return "\n";
+
+        } else {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    checkHomogeneousAngles(languageCode, allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    ORTHODROME_GAIN_STRING[languageCode] + checkOrthodromeGain(allResults.orthodrome, allResults.loxodrome) + "\n\n\n\n\n\n" +
+                    SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.getDirection();
+        }
     }
 
     public String checkOrthodromeGain(Orthodrome orthodrome, double loxodrome) {
@@ -576,7 +597,7 @@ public class Controller extends Converter {
     }
 
 
-    public double calculateLoxodrome(Point aPoint, Point bPoint) {
+    public double calculateLoxodrome(Point aPoint, Point bPoint, Orthodrome orthodrome) {
 
         double aPointPhiRadians = aPoint.phi * Math.PI / 180;
         double bPointPhiRadians = bPoint.phi * Math.PI / 180;
@@ -594,7 +615,11 @@ public class Controller extends Converter {
             deltaLambdaRadians = deltaLambdaRadians > 0 ? -(2 * Math.PI - deltaLambdaRadians) : (2 * Math.PI + deltaLambdaRadians);
         }
 
-        return Math.sqrt(deltaPhiRadians * deltaPhiRadians + q * q * deltaLambdaRadians * deltaLambdaRadians) * 3440;
+        if (caseType == CASE.GENERAL) {
+            return Math.sqrt(deltaPhiRadians * deltaPhiRadians + q * q * deltaLambdaRadians * deltaLambdaRadians) * 3440;
+        } else {
+            return orthodrome.getDistanceNm();
+        }
     }
 
 
