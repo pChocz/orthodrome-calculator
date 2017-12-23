@@ -481,6 +481,9 @@ public class Controller extends Converter {
                     SPECIAL_CASE_OPPOSITE_STRING[languageCode] + "\n\n" +
                     SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
 
+        } else if (caseType == CASE.MERIDIAN_SAIL) {
+            return "\n";
+
         } else if (caseType == CASE.EQUATOR_SAIL) {
             return "\n";
 
