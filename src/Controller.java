@@ -275,7 +275,47 @@ public class Controller extends Converter {
                     " - Orthodromic vertexes are not able to predict as" + "\n" +
                     "   they depends on chosen orthodrome."};
 
+    private final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN = {
+            "\n" +
+                    " - W przypadku poruszania się po południku trójkąt" + "\n" +
+                    "   sferyczny abdABC nie istnieje, więc nie liczymy\n" +
+                    "   kątów A, B oraz h",
+            "\n" +
+                    " - In case of meridian sailing, spherical triangle" + "\n" +
+                    "   abdABC doesn't exist, so angles A, B and h are" + "\n" +
+                    "   not being calculated"};
 
+    private final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING = {
+            "\n" +
+                    " - Wierzchołkami ortodromy są odpowiednio biegun" + "\n" +
+                    "   północny oraz południowy",
+            "\n" +
+                    " - North Pole and South Pole are orthodrome" + "\n" +
+                    "   vertices"};
+
+    private final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN = {
+            "\n" +
+                    " - W przypadku poruszania się po równiku trójkąt" + "\n" +
+                    "   sferyczny abdABC posiada dwa kąty proste" + "\n",
+            "\n" +
+                    " - In case of equator sailing, spherical triangle" + "\n" +
+                    "   abdABC has two right angles" + "\n"};
+
+    private final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING = {
+            "\n" +
+                    " - Wierzchołkami ortodromy są wszystkie punkty" + "\n" +
+                    "   leżące na równiku",
+            "\n" +
+                    " - All points on the equator are orthodrome vertices"};
+
+
+    private final String[] SPECIAL_CASE_SAME_POINT_INFO_STRING = {
+            "\n" +
+                    " - Podano takie same punkty. Kalkulacja nie jest" + "\n" +
+                    "   przeprowadzana. Proszę wprowadzić poprawne dane",
+            "\n" +
+                    " - Identical points are given. Calculation is not" + "\n" +
+                    "   performed. Please type proper data"};
 
     private final String[] SAIL_DIRECTION_STRING = {
             " - kierunek drogi to ",
@@ -416,7 +456,6 @@ public class Controller extends Converter {
             return false;
         }
 
-        caseType = verifySpecialCases(aPoint, bPoint);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
         printResults(allResults);
@@ -424,10 +463,11 @@ public class Controller extends Converter {
     }
 
     @FXML
-
     public AllResults calculationProcedure(Point aPoint, Point bPoint) {
-        System.out.println(verifySpecialCases(aPoint, bPoint));
 
+        caseType = verifySpecialCases(aPoint, bPoint);
+
+        System.out.println(caseType);
 
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint);
         sphericalTriangle.calculateSphericalTriangle();
@@ -453,11 +493,11 @@ public class Controller extends Converter {
         double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
         double sumPhi = aPoint.phi + bPoint.phi;
 
-        if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
-            return CASE.OPPOSITE_POINTS;
-
-        } else if ((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) {
+        if ((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) {
             return CASE.SAME_POINT;
+
+        } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
+            return CASE.OPPOSITE_POINTS;
 
         } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
             return CASE.EQUATOR_SAIL;
@@ -482,13 +522,24 @@ public class Controller extends Converter {
                     SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
 
         } else if (caseType == CASE.MERIDIAN_SAIL) {
-            return "\n";
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_MERIDIAN_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    meridianSailCourseAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING[languageCode];
 
         } else if (caseType == CASE.EQUATOR_SAIL) {
-            return "\n";
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_EQUATOR_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    equatorSailCourseAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING[languageCode];
 
         } else if (caseType == CASE.SAME_POINT) {
-            return "\n";
+            return "\n\n\n\n" +
+                    SPECIAL_CASE_SAME_POINT_INFO_STRING[languageCode];
 
         } else {
             return "\n" +
@@ -496,6 +547,30 @@ public class Controller extends Converter {
                     checkHomogeneousAngles(languageCode, allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n\n" +
                     ORTHODROME_GAIN_STRING[languageCode] + checkOrthodromeGain(allResults.orthodrome, allResults.loxodrome) + "\n\n\n\n\n\n" +
                     SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.getDirection();
+        }
+    }
+
+    public String[] meridianSailCourseAnglesInfo(Point aPoint, Point bPoint) {
+        if (aPoint.phi > bPoint.phi) {
+            return new String[] {
+                    " - Kąt drogi wynosi stale 180°00.0' (prosto na południe)",
+                    " - Angle of the course is 180°00.0' (straight south)"};
+        } else {
+            return new String[] {
+                    " - Kąt drogi wynosi stale   0°00.0' (prosto na północ)",
+                    " - Angle of the course is   0°00.0' (straight north)"};
+        }
+    }
+
+    public String[] equatorSailCourseAnglesInfo(Point aPoint, Point bPoint) {
+        if (aPoint.lambda > bPoint.lambda) {
+            return new String[] {
+                    " - Kąt drogi wynosi stale 270°00.0' (prosto na zachód)",
+                    " - Angle of the course is 270°00.0' (straight west)"};
+        } else {
+            return new String[] {
+                    " - Kąt drogi wynosi stale  90°00.0' (prosto na wschód)",
+                    " - Angle of the course is  90°00.0' (straight east)"};
         }
     }
 
