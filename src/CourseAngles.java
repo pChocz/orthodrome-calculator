@@ -4,16 +4,18 @@ public class CourseAngles {
      SphericalTriangle sphericalTriangle;
      Point aPoint;
      Point bPoint;
+     Controller.CASE caseType;
 
     //output
      double initialCourse;
      double finalCourse;
      String direction;
 
-    public CourseAngles(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint) {
+    public CourseAngles(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, Controller.CASE caseType) {
         this.sphericalTriangle = sphericalTriangle;
         this.aPoint = aPoint;
         this.bPoint = bPoint;
+        this.caseType = caseType;
     }
 
     public double getInitialCourse() {
@@ -42,7 +44,9 @@ public class CourseAngles {
             this.direction = "WRONG";
         }
 
-        if (direction == "W->E") {
+
+
+        if (direction.equals("W->E")) {
             this.initialCourse = this.sphericalTriangle.A;
             this.finalCourse = 180 - this.sphericalTriangle.B;
         } else {
@@ -50,8 +54,35 @@ public class CourseAngles {
             this.finalCourse = 180 + this.sphericalTriangle.B;
         }
 
+        verifySpecialCasesCourseAngles();
     }
 
 
+    public void verifySpecialCasesCourseAngles() {
+        if (caseType == Controller.CASE.EQUATOR_SAIL) {
+            if (aPoint.lambda > bPoint.lambda) {
+                this.initialCourse = 270;
+                this.finalCourse = 270;
+
+            } else {
+                this.initialCourse = 90;
+                this.finalCourse = 90;
+
+            }
+
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
+            if (aPoint.phi > bPoint.phi) {
+                this.initialCourse = 180;
+                this.finalCourse = 180;
+
+            } else {
+                this.initialCourse = 0;
+                this.finalCourse = 0;
+
+            }
+        }
+    }
+
 
 }
+

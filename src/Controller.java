@@ -469,14 +469,14 @@ public class Controller extends Converter {
 
         System.out.println(caseType);
 
-        SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint);
+        SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint, caseType);
         sphericalTriangle.calculateSphericalTriangle();
 
-        Orthodrome orthodrome = new Orthodrome(sphericalTriangle);
-        Point firstOrthodromeVertex = orthodrome.calculateFirstOrthodromeVertex(aPoint, bPoint);
+        Orthodrome orthodrome = new Orthodrome(sphericalTriangle, caseType, aPoint, bPoint);
+        Point firstOrthodromeVertex = orthodrome.calculateFirstOrthodromeVertex();
         Point secondOrthodromeVertex = orthodrome.calculateSecondOrthodromeVertex(firstOrthodromeVertex);
 
-        CourseAngles courseAngles = new CourseAngles(sphericalTriangle, aPoint, bPoint);
+        CourseAngles courseAngles = new CourseAngles(sphericalTriangle, aPoint, bPoint, caseType);
         courseAngles.calculateCourseAngles();
         double loxodrome = calculateLoxodrome(aPoint, bPoint, orthodrome);
 
@@ -493,7 +493,7 @@ public class Controller extends Converter {
         double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
         double sumPhi = aPoint.phi + bPoint.phi;
 
-        if ((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) {
+        if (((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) || (aPoint.phi*bPoint.phi == 8100)) {
             return CASE.SAME_POINT;
 
         } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
@@ -502,7 +502,7 @@ public class Controller extends Converter {
         } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
             return CASE.EQUATOR_SAIL;
 
-        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180)) {
+        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100)) {
             return CASE.MERIDIAN_SAIL;
 
         } else {

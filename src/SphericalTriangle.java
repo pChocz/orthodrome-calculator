@@ -3,6 +3,7 @@ public class SphericalTriangle extends Converter {
     //input
     private Point aPoint;
     private Point bPoint;
+    Controller.CASE caseType;
 
     //output
     double a;
@@ -12,9 +13,10 @@ public class SphericalTriangle extends Converter {
     double B;
     double C;
 
-    public SphericalTriangle(Point startPoint, Point endPoint) {
+    public SphericalTriangle(Point startPoint, Point endPoint, Controller.CASE caseType) {
         this.aPoint = startPoint;
         this.bPoint = endPoint;
+        this.caseType = caseType;
     }
 
     public boolean calculateSphericalTriangle() {
@@ -26,6 +28,8 @@ public class SphericalTriangle extends Converter {
         A = calculateA();
         B = calculateB();
         d = calculateOrthodrome();
+
+        verifySpecialCasesSphericalTriangle();
 
         return true;
     }
@@ -60,6 +64,14 @@ public class SphericalTriangle extends Converter {
         double CRadians = toRadians(C);
 
         return toDegrees(Math.acos(Math.cos(aRadians) * Math.cos(bRadians) + Math.sin(aRadians) * Math.sin(bRadians) * Math.cos(CRadians)));
+    }
+
+
+    public void verifySpecialCasesSphericalTriangle() {
+        if (caseType == Controller.CASE.MERIDIAN_SAIL) {
+            this.A = 999;
+            this.B = 999;
+        }
     }
 
 }

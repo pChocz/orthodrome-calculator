@@ -2,6 +2,9 @@ public class Orthodrome extends Converter {
 
     //input
     private SphericalTriangle sphericalTriangle;
+    Controller.CASE caseType;
+    Point aPoint;
+    Point bPoint;
 
     //output
     private double distance;
@@ -26,9 +29,12 @@ public class Orthodrome extends Converter {
     }
 
 
-    public Orthodrome(SphericalTriangle sphericalTriangle) {
+    public Orthodrome(SphericalTriangle sphericalTriangle, Controller.CASE caseType, Point aPoint, Point bPoint) {
         this.sphericalTriangle = sphericalTriangle;
         this.distance = calculateDistance(sphericalTriangle);
+        this.caseType = caseType;
+        this.aPoint = aPoint;
+        this.bPoint = bPoint;
     }
 
     private double calculateDistance(SphericalTriangle sphericalTriangle) {
@@ -47,7 +53,7 @@ public class Orthodrome extends Converter {
         return this.distance * 60;
     }
 
-    public Point calculateFirstOrthodromeVertex(Point aPoint, Point bPoint) {
+    public Point calculateFirstOrthodromeVertex() {
         double numerator =
                 Math.tan(toRadians(aPoint.phi)) * Math.sin(toRadians(bPoint.lambda))
                         - Math.tan(toRadians(bPoint.phi)) * Math.sin(toRadians(aPoint.lambda));
@@ -60,7 +66,7 @@ public class Orthodrome extends Converter {
         double lambdaVertex = 90 + lambdaR;
 
         double phiVertex;
-        if (aPoint.phi == 0) {
+        if (bPoint.phi == 0) {
             phiVertex = toDegrees(Math.atan(Math.tan(toRadians(aPoint.phi)) / Math.sin(toRadians(aPoint.lambda - lambdaR))));
         } else {
             phiVertex = toDegrees(Math.atan(Math.tan(toRadians(bPoint.phi)) / Math.sin(toRadians(bPoint.lambda - lambdaR))));
@@ -68,7 +74,14 @@ public class Orthodrome extends Converter {
 
         this.setHeight1(Math.abs(phiVertex));
         this.setHeight2(180 - this.getHeight1());
+        verifySpecialCasesHeight();
+
         Point firstOrthodromeVertex = new Point(phiVertex, lambdaVertex);
+
+        if (!caseType.equals(Controller.CASE.GENERAL)) {
+            firstOrthodromeVertex = verifySpecialCasesFirstOrthodromeVertex();
+        }
+
 
         return firstOrthodromeVertex;
     }
@@ -77,4 +90,41 @@ public class Orthodrome extends Converter {
         Point secondOrthodromeVertex = new Point(firstOrthodromeVertex.phi*(-1), firstOrthodromeVertex.lambda - 180);
         return secondOrthodromeVertex;
     }
+
+    private void verifySpecialCasesHeight() {
+        if (caseType == Controller.CASE.EQUATOR_SAIL) {
+            this.setHeight1(90);
+            this.setHeight2(999);
+
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
+            this.setHeight1(999);
+            this.setHeight2(999);
+
+        }
+    }
+
+    private Point verifySpecialCasesFirstOrthodromeVertex() {
+        if (caseType == Controller.CASE.EQUATOR_SAIL) {
+            return new Point(0,999);
+
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
+            return new Point(90, 999);
+
+        } else {
+            return new Point(999,999);
+
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
