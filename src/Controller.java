@@ -321,6 +321,25 @@ public class Controller extends Converter {
             " - kierunek drogi to ",
             " - sail direction is "};
 
+    private final String[] NOT_CALCULABLE_STRING = {
+            "nie liczymy",
+            "not calculable"};
+
+    private final String[] FREE_TO_CHOOSE_STRING = {
+            "dowolny",
+            "free to choose"};
+
+    private final String[] ANY_POINT_ON_EQUATOR_STRING = {
+            "każdy punkt leżący na równiku",
+            "any point on the equator"};
+
+    private final String[] NORTH_POLE_STRING = {
+            "biegun północny",
+            "north pole"};
+
+    private final String[] SOUTH_POLE_STRING = {
+            "biegun południowy",
+            "south pole"};
 
     @FXML
     public void aChangeLat() {
@@ -502,7 +521,7 @@ public class Controller extends Converter {
         } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
             return CASE.EQUATOR_SAIL;
 
-        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100)) {
+        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100) || (Math.abs(aPoint.phi) == 90 || Math.abs(bPoint.phi) == 90)) {
             return CASE.MERIDIAN_SAIL;
 
         } else {
@@ -630,18 +649,53 @@ public class Controller extends Converter {
     }
 
     public String printSphericalTriangleValues(SphericalTriangle sphericalTriangle, Orthodrome orthodrome) {
-        return "\n" +
-                "  a = " + ddToDmString("long", sphericalTriangle.a) +
-                "\n" +
-                "  b = " + ddToDmString("long", sphericalTriangle.b) +
-                "\n\n" +
-                "  C = " + ddToDmString("long", sphericalTriangle.C) +
-                "\n" +
-                "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                "  h = " + ddToDmString("long", orthodrome.getHeight1()) + "  v " + ddToDmString("long", orthodrome.getHeight2()) +
-                "\n" +
-                "  B = " + ddToDmString("long", sphericalTriangle.B) +
-                "\n\n";
+        if (caseType == CASE.GENERAL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) + "  v " + ddToDmString("long", orthodrome.getHeight2()) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL || caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A =  " + NOT_CALCULABLE_STRING[languageCode] + "\t" +
+                    "  h =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n" +
+                    "  B =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else {
+            return "ERROR";
+
+        }
+
     }
 
     public String printOrthodromeValue(Orthodrome orthodrome) {
@@ -657,21 +711,57 @@ public class Controller extends Converter {
     }
 
     public String printCourseAngles(CourseAngles courseAngles) {
-        return "\n" +
-                "  α = " + ddToDmString("long", courseAngles.getInitialCourse()) +
-                "\n" +
-                "  β = " + ddToDmString("long", courseAngles.getFinalCourse()) +
-                "\n\n";
+        if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  α =  " + FREE_TO_CHOOSE_STRING[languageCode] +
+                    "\n" +
+                    "  β =  180° - α" +
+                    "\n\n";
+        } else {
+            return "\n" +
+                    "  α = " + ddToDmString("long", courseAngles.getInitialCourse()) +
+                    "\n" +
+                    "  β = " + ddToDmString("long", courseAngles.getFinalCourse()) +
+                    "\n\n";
+
+        }
     }
 
     public String printOrthodromeVertices(Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
-        return "\n" +
-                "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
-                "\n" +
-                "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
-                "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
-                "\n\n";
+        if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ; xxx°xx,x' E/W )" +
+                    "\n" +
+                    "     " + ANY_POINT_ON_EQUATOR_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + NORTH_POLE_STRING[languageCode] +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + SOUTH_POLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  W1  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n" +
+                    "  W2  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n\n";
+
+        } else {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
+                    "\n\n";
+
+        }
     }
 
 

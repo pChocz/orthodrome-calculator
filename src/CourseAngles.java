@@ -67,7 +67,6 @@ public class CourseAngles {
             } else {
                 this.initialCourse = 90;
                 this.finalCourse = 90;
-
             }
 
         } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
@@ -78,8 +77,11 @@ public class CourseAngles {
             } else {
                 this.initialCourse = 0;
                 this.finalCourse = 0;
-
             }
+
+        } else if (caseType == Controller.CASE.OPPOSITE_POINTS) {
+            this.initialCourse = 999;
+            this.finalCourse = 999;
         }
     }
 

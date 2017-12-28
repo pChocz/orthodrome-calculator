@@ -225,6 +225,33 @@ public class CalculationEngineTest extends Controller {
         assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
     }
 
+    @Test
+    public void generalExample_09() {
+        //input
+        Point aPoint = new Point(
+                "N", 90, 0,
+                "W", 0, 0);
+        Point bPoint = new Point(
+                "S", 15, 10,
+                "E", 100, 50);
+
+        //expected results
+        double expectedOrthodrome = 6310;
+        double expectedInitialCourse = dmToDdDouble(180, 0);
+        double expectedFinalCourse = dmToDdDouble(180, 0);
+        Point expectedOrthodromeVertex = new Point(
+                "N", 90, 0,
+                "E", 999, 0);
+
+        AllResults allResults = calculationProcedure(aPoint, bPoint);
+
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
+    }
+
 
     @Test
     public void specialExample_meridianSail_01() {

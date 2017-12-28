@@ -100,6 +100,10 @@ public class Orthodrome extends Converter {
             this.setHeight1(999);
             this.setHeight2(999);
 
+        } else if (caseType == Controller.CASE.OPPOSITE_POINTS) {
+            this.setHeight1(999);
+            this.setHeight2(999);
+
         }
     }
 

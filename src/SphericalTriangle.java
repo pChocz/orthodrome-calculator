@@ -29,7 +29,9 @@ public class SphericalTriangle extends Converter {
         B = calculateB();
         d = calculateOrthodrome();
 
-        verifySpecialCasesSphericalTriangle();
+        if (!caseType.equals(Controller.CASE.GENERAL)) {
+            verifySpecialCasesSphericalTriangle();
+        }
 
         return true;
     }
@@ -68,7 +70,7 @@ public class SphericalTriangle extends Converter {
 
 
     public void verifySpecialCasesSphericalTriangle() {
-        if (caseType == Controller.CASE.MERIDIAN_SAIL) {
+        if (caseType == Controller.CASE.MERIDIAN_SAIL || caseType == Controller.CASE.OPPOSITE_POINTS) {
             this.A = 999;
             this.B = 999;
         }
