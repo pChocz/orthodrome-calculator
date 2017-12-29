@@ -486,8 +486,6 @@ public class Controller extends Converter {
 
         caseType = verifySpecialCases(aPoint, bPoint);
 
-        System.out.println(caseType);
-
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint, caseType);
         sphericalTriangle.calculateSphericalTriangle();
 
@@ -557,7 +555,7 @@ public class Controller extends Converter {
                     SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING[languageCode];
 
         } else if (caseType == CASE.SAME_POINT) {
-            return "\n\n\n\n" +
+            return "\n\n" +
                     SPECIAL_CASE_SAME_POINT_INFO_STRING[languageCode];
 
         } else {
@@ -611,30 +609,39 @@ public class Controller extends Converter {
     }
 
     public String printResultsValues(AllResults allResults) {
-        return "\n" +
-                VALUES_LAT_LONG_STRING[languageCode] + "\n" +
-                printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
-                SEPARATOR_LINE + "\n\n" +
+        if (caseType == CASE.SAME_POINT) {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE;
 
-                VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
-                printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
-                SEPARATOR_LINE + "\n\n" +
+        } else {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE + "\n\n" +
 
-                VALUE_ORTHODROME_STRING[languageCode] + "\n" +
-                printOrthodromeValue(allResults.orthodrome) +
-                SEPARATOR_LINE + "\n\n" +
+                    VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
+                    printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
 
-                VALUE_LOXODROME_STRING[languageCode] + "\n" +
-                printLoxodromeValue(allResults.loxodrome) +
-                SEPARATOR_LINE + "\n\n" +
+                    VALUE_ORTHODROME_STRING[languageCode] + "\n" +
+                    printOrthodromeValue(allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
 
-                VALUES_COURSE_ANGLES_STRING[languageCode] + "\n" +
-                printCourseAngles(allResults.courseAngles) +
-                SEPARATOR_LINE + "\n\n" +
+                    VALUE_LOXODROME_STRING[languageCode] + "\n" +
+                    printLoxodromeValue(allResults.loxodrome) +
+                    SEPARATOR_LINE + "\n\n" +
 
-                VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
-                printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
-                SEPARATOR_LINE;
+                    VALUES_COURSE_ANGLES_STRING[languageCode] + "\n" +
+                    printCourseAngles(allResults.courseAngles) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
+                    printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
+                    SEPARATOR_LINE;
+
+        }
     }
 
 

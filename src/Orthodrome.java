@@ -74,11 +74,13 @@ public class Orthodrome extends Converter {
 
         this.setHeight1(Math.abs(phiVertex));
         this.setHeight2(180 - this.getHeight1());
-        verifySpecialCasesHeight();
+
+
 
         Point firstOrthodromeVertex = new Point(phiVertex, lambdaVertex);
 
         if (!caseType.equals(Controller.CASE.GENERAL)) {
+            verifySpecialCasesHeight();
             firstOrthodromeVertex = verifySpecialCasesFirstOrthodromeVertex();
         }
 
@@ -96,11 +98,7 @@ public class Orthodrome extends Converter {
             this.setHeight1(90);
             this.setHeight2(999);
 
-        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
-            this.setHeight1(999);
-            this.setHeight2(999);
-
-        } else if (caseType == Controller.CASE.OPPOSITE_POINTS) {
+        } else {
             this.setHeight1(999);
             this.setHeight2(999);
 

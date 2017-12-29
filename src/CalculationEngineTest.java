@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 public class CalculationEngineTest extends Controller {
 
+    private static double DELTA_LENGHT = 1;
+    private static double DELTA_ANGLE = 0.1;
+
+        /* GENERAL CASES */
 
     @Test
     public void generalExample_01() {
@@ -24,12 +28,13 @@ public class CalculationEngineTest extends Controller {
                 "E", 121, 20.3);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.1);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.1);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.1);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.1);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
 
@@ -52,14 +57,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 162, 27.7);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.1);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.1);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.1);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.1);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4a
+     *  str. 55
+     */
     @Test
     public void generalExample_03() {
         //input
@@ -79,15 +91,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 119, 8.2);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.1);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.1);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.1);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.1);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
 
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4h
+     *  str. 55
+     */
     @Test
     public void generalExample_04() {
         //input
@@ -107,14 +125,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 137, 36);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.1);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.1);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.1);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.1);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4g
+     *  str. 55
+     */
     //TODO: failing for 'orthodromeVertex.phi' assert when initial phi of one point is 0
     @Test
     public void generalExample_05() {
@@ -135,14 +160,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 164, 46);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.1);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.1);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.1);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.1);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4f
+     *  str. 55
+     */
     //TODO: check if it returns proper value - different answer comparing to book
     @Test
     public void generalExample_06() {
@@ -163,14 +195,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 36, 56.4);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4e
+     *  str. 55
+     */
     @Test
     public void generalExample_07() {
         //input
@@ -190,14 +229,21 @@ public class CalculationEngineTest extends Controller {
                 "E", 112, 17);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+    /**
+     *  trygonometria sferyczna, Krzysztof Piskórz 1999
+     *  zad. 4d
+     *  str. 55
+     */
     @Test
     public void generalExample_08() {
         //input
@@ -217,41 +263,90 @@ public class CalculationEngineTest extends Controller {
                 "E", 158, 16.1);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+
+
+    /**
+     *  skrypt dla studentów
+     *  zad. 4.31
+     *  str. 81
+     */
     @Test
     public void generalExample_09() {
         //input
         Point aPoint = new Point(
-                "N", 90, 0,
-                "W", 0, 0);
+                "N", 21, 24,
+                "E", 42, 46);
         Point bPoint = new Point(
-                "S", 15, 10,
-                "E", 100, 50);
+                "N", 10, 30,
+                "E", 170, 58);
 
         //expected results
-        double expectedOrthodrome = 6310;
-        double expectedInitialCourse = dmToDdDouble(180, 0);
-        double expectedFinalCourse = dmToDdDouble(180, 0);
+        double expectedOrthodrome = 7198.56;
+        double expectedInitialCourse = dmToDdDouble(63, 6.68);
+        double expectedFinalCourse = dmToDdDouble(122, 21.8);
         Point expectedOrthodromeVertex = new Point(
-                "N", 90, 0,
-                "E", 999, 0);
+                "N", 33, 50.87,
+                "E", 97, 00.57);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, 0.2);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+
+
+
+//    /**
+//     *  skrypt dla studentów
+//     *  zad. 4.32
+//     *  str. 81
+//     */
+//    //TODO: verify - it fails all asserts - it seems like answer in the book is not valid
+//    @Test
+//    public void generalExample_11() {
+//        //input
+//        Point aPoint = new Point(
+//                "N", 0, 0,
+//                "E", 60, 46);
+//        Point bPoint = new Point(
+//                "S", 23, 52,
+//                "E", 130, 10);
+//
+//        //expected results
+//        double expectedOrthodrome = 9232.93;
+//        double expectedInitialCourse = dmToDdDouble(156, 47.77);
+//        double expectedFinalCourse = dmToDdDouble(25, 31.28);
+//        Point expectedOrthodromeVertex = new Point(
+//                "S", 66, 47.77,
+//                "E", 150, 46);
+//
+//        AllResults allResults = calculationProcedure(aPoint, bPoint);
+//        printAllResultsForDebug(allResults);
+//
+//        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+//        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+//        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+//        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+//        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+//    }
+
+
+    /* SPECIAL CASES */ //TODO: prepare more asserts for special cases
 
     @Test
     public void specialExample_meridianSail_01() {
@@ -286,12 +381,42 @@ public class CalculationEngineTest extends Controller {
                 "E", 0, 0);
 
         AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
 
         assertEquals(CASE.MERIDIAN_SAIL, caseType);
-        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), 1);
-        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, 0.2);
-        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, 0.2);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, 0.2);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+    }
+
+
+    @Test
+    public void specialExample_meridianSail_03() {
+        //input
+        Point aPoint = new Point(
+                "N", 90, 0,
+                "W", 0, 0);
+        Point bPoint = new Point(
+                "S", 15, 10,
+                "E", 100, 50);
+
+        //expected results
+        double expectedOrthodrome = 6310;
+        double expectedInitialCourse = dmToDdDouble(180, 0);
+        double expectedFinalCourse = dmToDdDouble(180, 0);
+        Point expectedOrthodromeVertex = new Point(
+                "N", 90, 0,
+                "E", 999, 0);
+
+        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
+
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
 
@@ -353,6 +478,29 @@ public class CalculationEngineTest extends Controller {
 
         calculationProcedure(aPoint, bPoint);
         assertEquals(CASE.OPPOSITE_POINTS, caseType);
+    }
+
+
+
+    private void printAllResultsForDebug(AllResults allResults) {
+        System.out.println("case = " + caseType);
+        System.out.println("A = " + allResults.sphericalTriangle.A);
+        System.out.println("B = " + allResults.sphericalTriangle.B);
+        System.out.println("C = " + allResults.sphericalTriangle.C);
+        System.out.println("a = " + allResults.sphericalTriangle.a);
+        System.out.println("b = " + allResults.sphericalTriangle.b);
+        System.out.println("d = " + allResults.sphericalTriangle.d + " = " + allResults.orthodrome.getDistanceNmString());
+        System.out.println("α = " + allResults.courseAngles.initialCourse);
+        System.out.println("β = " + allResults.courseAngles.finalCourse);
+        System.out.println(allResults.courseAngles.direction);
+        System.out.println("W1.phi    = " + allResults.orthodrome.calculateFirstOrthodromeVertex().phi +
+                " =  " +
+                ddToDmString("lat", allResults.orthodrome.calculateFirstOrthodromeVertex().latCalculated) +
+                " " + allResults.orthodrome.calculateFirstOrthodromeVertex().latSide);
+        System.out.println("W2.phi    = " + allResults.orthodrome.calculateFirstOrthodromeVertex().lambda +
+                " = " +
+                ddToDmString("long", allResults.orthodrome.calculateFirstOrthodromeVertex().longCalculated) +
+                " " + allResults.orthodrome.calculateFirstOrthodromeVertex().longSide);
     }
 
 
