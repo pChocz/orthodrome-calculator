@@ -72,7 +72,7 @@ public class Orthodrome extends Converter {
             phiVertex = toDegrees(Math.atan(Math.tan(toRadians(bPoint.phi)) / Math.sin(toRadians(bPoint.lambda - lambdaR))));
         }
 
-        this.setHeight1(Math.abs(phiVertex));
+        this.setHeight1(90 - Math.abs(phiVertex));
         this.setHeight2(180 - this.getHeight1());
 
 

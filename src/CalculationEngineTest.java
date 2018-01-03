@@ -308,7 +308,47 @@ public class CalculationEngineTest extends Controller {
         assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
     }
 
+    @Test
+    public void generalExample_allParameters_01() {
+        //input
+        Point aPoint = new Point(
+                "N", 26, 46,
+                "E", 22, 18);
+        Point bPoint = new Point(
+                "S", 32, 0,
+                "E", 175, 50);
 
+        //expected results
+        double expected_a = dmToDdDouble(122, 0);
+        double expected_b = dmToDdDouble(63, 14);
+        double expected_C = dmToDdDouble(153, 32);
+        double expected_A = dmToDdDouble(109, 8.9);
+        double expected_B = dmToDdDouble(95, 58.3);
+        double expected_h1 = dmToDdDouble(57, 30.4);
+        double expected_h2 = dmToDdDouble(122, 29.6);
+        double expectedOrthodrome = 9384.96;
+        double expectedInitialCourse = dmToDdDouble(109, 8.9);
+        double expectedFinalCourse = dmToDdDouble(84, 1.7);
+        Point expectedOrthodromeVertex = new Point(
+                "S", 32, 29.6,
+                "E", 164, 40);
+
+        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        printAllResultsForDebug(allResults);
+
+        assertEquals(expected_a, allResults.sphericalTriangle.a, DELTA_ANGLE);
+        assertEquals(expected_b, allResults.sphericalTriangle.b, DELTA_ANGLE);
+        assertEquals(expected_C, allResults.sphericalTriangle.C, DELTA_ANGLE);
+        assertEquals(expected_A, allResults.sphericalTriangle.A, DELTA_ANGLE);
+        assertEquals(expected_B, allResults.sphericalTriangle.B, DELTA_ANGLE);
+        assertEquals(expected_h1, allResults.orthodrome.getHeight1(), DELTA_ANGLE);
+        assertEquals(expected_h2, allResults.orthodrome.getHeight2(), DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.orthodrome.getDistanceNm(), DELTA_LENGHT);
+        assertEquals(expectedInitialCourse, allResults.courseAngles.initialCourse, DELTA_ANGLE);
+        assertEquals(expectedFinalCourse, allResults.courseAngles.finalCourse, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+    }
 
 
 //    /**
