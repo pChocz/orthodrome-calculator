@@ -1,20 +1,19 @@
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+class Point extends Controller{
 
-public class Point {
+    String latSide;
+    double latDeg;
+    double latMin;
+    String longSide;
+    double longDeg;
+    double longMin;
+    double latCalculated;
+    double longCalculated;
+    double phi;
+    double lambda;
+    double phiRadians;
+    double lambdaRadians;
 
-    public String latSide;
-    public double latDeg;
-    public double latMin;
-    public String longSide;
-    public double longDeg;
-    public double longMin;
-    public double latCalculated;
-    public double longCalculated;
-    public double phi;
-    public double lambda;
-
-    public Point(String latSide, double latDeg, double latMin, String longSide, double longDeg, double longMin) {
+    Point(String latSide, double latDeg, double latMin, String longSide, double longDeg, double longMin) {
         this.latSide = latSide;
         this.latDeg = latDeg;
         this.latMin = latMin;
@@ -30,19 +29,24 @@ public class Point {
         if (latSide.equals("S")) {
             this.phi *= -1;
         }
+        phiRadians = toRadians(this.phi);
 
         this.lambda = longDeg + longMin / 60;
         if (longSide.equals("W")) {
             this.lambda *= -1;
         }
+        lambdaRadians = toRadians(this.lambda);
+
     }
 
-    public Point(double phi, double lambda) {
+    Point(double phi, double lambda) {
 
         this.phi = phi;
+        this.phiRadians = toRadians(phi);
         this.latCalculated = Math.abs(phi);
 
         this.lambda = lambda;
+        this.lambdaRadians = toRadians(lambda);
         this.longCalculated = Math.abs(lambda);
 
         if (phi < 0) {

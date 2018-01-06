@@ -1,70 +1,73 @@
-public class SphericalTriangle extends Converter {
+public class SphericalTriangle extends Controller {
 
     //input
     private Point aPoint;
     private Point bPoint;
-    Controller.CASE caseType;
+    CASE caseType;
 
     //output
     double a;
+    double aRadians;
     double b;
+    double bRadians;
     double d;
+    double dRadians;
     double A;
+    double ARadians;
     double B;
+    double BRadians;
     double C;
+    double CRadians;
 
-    public SphericalTriangle(Point startPoint, Point endPoint, Controller.CASE caseType) {
+    public SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
         this.aPoint = startPoint;
         this.bPoint = endPoint;
         this.caseType = caseType;
+
+        calculateSphericalTriangle();
     }
 
     public boolean calculateSphericalTriangle() {
-        a = 90 - bPoint.phi;
-        b = 90 - aPoint.phi;
+        this.a = 90 - bPoint.phi;
+        this.aRadians = toRadians(a);
 
-        C = calculateC();
+        this.b = 90 - aPoint.phi;
+        this.bRadians = toRadians(b);
 
-        A = calculateA();
-        B = calculateB();
-        d = calculateOrthodrome();
+        this.C = calculateC();
+        this.CRadians = toRadians(C);
+
+        this.A = calculateA();
+        this.ARadians = toRadians(A);
+
+        this.B = calculateB();
+        this.BRadians = toRadians(B);
+
+        this.d = calculateOrthodrome();
+        this.dRadians = toRadians(d);
 
         if (!caseType.equals(Controller.CASE.GENERAL)) {
             verifySpecialCasesSphericalTriangle();
         }
-
         return true;
     }
 
     public double calculateC() {
         double C = Math.abs(bPoint.lambda - aPoint.lambda);
-
         return (C <= 180) ? (C) : (360 - C);
     }
 
     public double calculateA() {
-        double aRadians = toRadians(a);
-        double bRadians = toRadians(b);
-        double CRadians = toRadians(C);
-
         double orthodromeRadians = Math.acos(Math.cos(aRadians) * Math.cos(bRadians) + Math.sin(aRadians) * Math.sin(bRadians) * Math.cos(CRadians));
         return (toDegrees(Math.acos((Math.cos(aRadians) - Math.cos(bRadians) * Math.cos(orthodromeRadians)) / (Math.sin(bRadians) * Math.sin(orthodromeRadians)))));
     }
 
     public double calculateB() {
-        double aRadians = toRadians(a);
-        double bRadians = toRadians(b);
-        double CRadians = toRadians(C);
-
         double orthodromeRadians = Math.acos(Math.cos(aRadians) * Math.cos(bRadians) + Math.sin(aRadians) * Math.sin(bRadians) * Math.cos(CRadians));
         return toDegrees(Math.acos((Math.cos(bRadians) - Math.cos(aRadians) * Math.cos(orthodromeRadians)) / (Math.sin(aRadians) * Math.sin(orthodromeRadians))));
     }
 
     public double calculateOrthodrome() {
-        double aRadians = toRadians(a);
-        double bRadians = toRadians(b);
-        double CRadians = toRadians(C);
-
         return toDegrees(Math.acos(Math.cos(aRadians) * Math.cos(bRadians) + Math.sin(aRadians) * Math.sin(bRadians) * Math.cos(CRadians)));
     }
 

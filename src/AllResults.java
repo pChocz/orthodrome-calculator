@@ -1,15 +1,20 @@
-public class AllResults {
+class AllResults {
 
-    public Point aPoint;
-    public Point bPoint;
-    public Orthodrome orthodrome;
-    public double loxodrome;
-    public SphericalTriangle sphericalTriangle;
-    public CourseAngles courseAngles;
-    public Point firstOrthodromeVertex;
-    public Point secondOrthodromeVertex;
+    Point aPoint;
+    Point bPoint;
+    Orthodrome orthodrome;
+    double loxodrome;
+    SphericalTriangle sphericalTriangle;
+    CourseAngles courseAngles;
+    Point firstOrthodromeVertex;
+    Point secondOrthodromeVertex;
 
-    public AllResults(Orthodrome orthodrome, double loxodrome, CourseAngles courseAngles, Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
+    /**
+     * It summarizes all results needed for printing out
+     * the results for easier access by other methods
+     *
+     */
+    AllResults(Orthodrome orthodrome, double loxodrome, CourseAngles courseAngles, Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
         this.orthodrome = orthodrome;
         this.loxodrome = loxodrome;
         this.courseAngles = courseAngles;

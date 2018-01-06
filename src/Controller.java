@@ -1,12 +1,11 @@
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Controller extends Converter {
 
@@ -63,8 +62,8 @@ public class Controller extends Converter {
 
 
     public int languageCode;
-    // 0 - Polish
-    // 1 - English
+    private final int PL_LANGUAGE_CODE = 0;
+    private final int EN_LANGUAGE_CODE = 1;
 
     public enum CASE {
         SAME_POINT,
@@ -99,7 +98,7 @@ public class Controller extends Converter {
             "kalkulator ortodromy",
             "orthodrome calculator"};
 
-    private final String PROGRAM_VERSION = " v1.0";
+    private final String PROGRAM_VERSION = " v1.06";
 
 
     private final String SEPARATOR_LINE = "---------------------------------------------------------";
@@ -116,10 +115,6 @@ public class Controller extends Converter {
     private final String[] SPECIAL_CASE_STRING = {
             "przypadek szczególny--------",
             "special case--------------"};
-
-    private final String[] SPECIAL_CASE_SAME_POINT_STRING = {
-            "----------------podano identyczne punkty-----------------",
-            "-----------------identical points given------------------"};
 
     private final String[] SPECIAL_CASE_OPPOSITE_STRING = {
             " ----------------punkty naprzeciwko siebie---------------",
@@ -341,58 +336,12 @@ public class Controller extends Converter {
             "biegun południowy",
             "south pole"};
 
-    @FXML
-    public void aChangeLat() {
-        String side = aLatSideTxt.getText().trim();
-        if (side.equals("N")) {
-            aLatSideTxt.setText("S");
-        } else if (side.equals("S")) {
-            aLatSideTxt.setText("N");
-        }
-    }
+    private final String LENGTH_UNIT_km = "km";
 
     @FXML
-    public void aChangeLong() {
-        String side = aLongSideTxt.getText().trim();
-        if (side.equals("E")) {
-            aLongSideTxt.setText("W");
-        } else if (side.equals("W")) {
-            aLongSideTxt.setText("E");
-        }
-    }
-
-    @FXML
-    public void bChangeLat() {
-        String side = bLatSideTxt.getText().trim();
-        if (side.equals("N")) {
-            bLatSideTxt.setText("S");
-        } else if (side.equals("S")) {
-            bLatSideTxt.setText("N");
-        }
-    }
-
-    @FXML
-    public void bChangeLong() {
-        String side = bLongSideTxt.getText().trim();
-        if (side.equals("E")) {
-            bLongSideTxt.setText("W");
-        } else if (side.equals("W")) {
-            bLongSideTxt.setText("E");
-        }
-    }
-
-
-    @FXML
-    public void clearParameters() {
-        for (TextField textField : allNumberInputFields) {
-            textField.clear();
-        }
-        aLatSideTxt.setText("N");
-        aLongSideTxt.setText("E");
-        bLatSideTxt.setText("N");
-        bLongSideTxt.setText("E");
-        printInstructions();
-    }
+    private final String[] LENGTH_UNIT_NM = {
+            "Nm",
+            "Mm"};
 
 
     public void initialize() {
@@ -407,29 +356,16 @@ public class Controller extends Converter {
             setTextLimit(field, 4);
         }
 
-        languageCb.getItems().add("Polski");
-        languageCb.getItems().add("English");
-        languageCb.setValue("Polski");
+        languageCb.getItems().add("PL");
+        languageCb.getItems().add("EN");
+        languageCb.setValue("PL");
         languageCb.getSelectionModel()
                 .selectedItemProperty()
                 .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> changeLanguage());
 
-        languageCode = 0;
+        languageCode = PL_LANGUAGE_CODE;
         clearParameters();
     }
-
-
-    public void printInstructions() {
-        primaryTextArea.setText(PRIMARY_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INSTRUCTION_STRING[languageCode]);
-    }
-
-
-    public void printInstructionsInvalidData() {
-        primaryTextArea.setText(PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
-    }
-
 
     public static void setTextLimit(TextField textField, int length) {
         textField.setOnKeyTyped(event -> {
@@ -441,6 +377,44 @@ public class Controller extends Converter {
         });
     }
 
+    public void changeLanguage() {
+        languageCode = languageCb.getValue().equals("PL") ? PL_LANGUAGE_CODE : EN_LANGUAGE_CODE;
+
+        titleLabel.setText(INPUT_PARAMETERS_STRING[languageCode]);
+        generalCasesLabel.setText(GENERAL_CASES_STRING[languageCode]);
+        specialCasesLabel.setText(SPECIAL_CASES_STRING[languageCode]);
+        calculateBtn.setText(CALCULATE_STRING[languageCode]);
+        clearBtn.setText(CLEAR_INFO_STRING[languageCode]);
+        bottomInfoLabel.setText(PROGRAM_NAME[languageCode] + PROGRAM_VERSION);
+
+        if (checkIfFieldsHaveNonZeroValue()) {
+            inputProcedure();
+        } else {
+            printInstructions();
+        }
+    }
+
+    public boolean checkIfFieldsHaveNonZeroValue() {
+        for (TextField field : allNumberInputFields) {
+            String inputFieldValue = field.getText().trim();
+            if (!inputFieldValue.equals("0") && !inputFieldValue.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @FXML
+    public void clearParameters() {
+        for (TextField textField : allNumberInputFields) {
+            textField.clear();
+        }
+        aLatSideTxt.setText("N");
+        aLongSideTxt.setText("E");
+        bLatSideTxt.setText("N");
+        bLongSideTxt.setText("E");
+        printInstructions();
+    }
 
     @FXML
     public boolean inputProcedure() {
@@ -475,35 +449,196 @@ public class Controller extends Converter {
             return false;
         }
 
-
         AllResults allResults = calculationProcedure(aPoint, bPoint);
         printResults(allResults);
         return true;
     }
 
+    public void fillEmptyValuesWithZeros() {
+        for (TextField textField : allNumberInputFields) {
+            if (textField.getText().trim().equals("")) {
+                textField.setText("0");
+            }
+        }
+    }
+
+    public boolean validateInputFormat() {
+        for (TextField inputField : allNumberInputFields) {
+            if (!inputField.getText().matches("[0-9]{1,13}(\\.[0-9]*)?")) {
+                printInstructionsInvalidData();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean validateInputValues(Point aPoint, Point bPoint) {
+        Point[] points = {aPoint, bPoint};
+        for (Point point : points) {
+            if (!validateLatitude(point) || !validateLongitude(point)) {
+                printInstructionsInvalidData();
+                return false;
+            }
+        }
+        return true;
+    }
+
     @FXML
     public AllResults calculationProcedure(Point aPoint, Point bPoint) {
-
         caseType = verifySpecialCases(aPoint, bPoint);
 
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint, caseType);
-        sphericalTriangle.calculateSphericalTriangle();
-
-        Orthodrome orthodrome = new Orthodrome(sphericalTriangle, caseType, aPoint, bPoint);
-        Point firstOrthodromeVertex = orthodrome.calculateFirstOrthodromeVertex();
-        Point secondOrthodromeVertex = orthodrome.calculateSecondOrthodromeVertex(firstOrthodromeVertex);
-
+        Orthodrome orthodrome = new Orthodrome(sphericalTriangle, aPoint, bPoint, caseType);
         CourseAngles courseAngles = new CourseAngles(sphericalTriangle, aPoint, bPoint, caseType);
-        courseAngles.calculateCourseAngles();
-        double loxodrome = calculateLoxodrome(aPoint, bPoint, orthodrome);
+        Loxodrome loxodromePROPER = new Loxodrome(aPoint, bPoint, orthodrome, caseType);
 
-        return new AllResults(orthodrome, loxodrome, courseAngles, firstOrthodromeVertex, secondOrthodromeVertex);
+        return new AllResults(orthodrome, loxodromePROPER.lengthNm, courseAngles, orthodrome.firstOrthodromeVertex, orthodrome.secondOrthodromeVertex);
     }
+
 
     public void printResults(AllResults allResults) {
         primaryTextArea.setText(printResultsValues(allResults));
         secondaryTextArea.setText(printHelpInformation(allResults));
     }
+
+
+    public void printInstructions() {
+        primaryTextArea.setText(PRIMARY_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SECONDARY_INSTRUCTION_STRING[languageCode]);
+    }
+
+
+    public void printInstructionsInvalidData() {
+        primaryTextArea.setText(PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+    }
+
+    public boolean validateLatitude(Point point) {
+        if ((point.latCalculated > 90) || (point.latMin < 0 || point.latMin >= 60) || (point.latDeg < 0 || point.latDeg > 90)) {
+            printInstructionsInvalidData();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateLongitude(Point point) {
+        if ((point.longCalculated > 180) || (point.longMin < 0 || point.longMin >= 60) || (point.longDeg < 0 || point.longDeg > 180)) {
+            printInstructionsInvalidData();
+            return false;
+        }
+        return true;
+    }
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     * Methods responsible for switching latitudes/longitudes of given
+     * Points by pressing mouse button or ENTER/SPACE key
+     *
+     */
+    @FXML
+    public void aChangeLatOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            aChangeLat();
+        }
+    }
+    @FXML
+    public void aChangeLat() {
+        String side = aLatSideTxt.getText().trim();
+        if (side.equals("N")) {
+            aLatSideTxt.setText("S");
+        } else if (side.equals("S")) {
+            aLatSideTxt.setText("N");
+        }
+    }
+
+    @FXML
+    public void aChangeLongOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            aChangeLong();
+        }
+    }
+    @FXML
+    public void aChangeLong() {
+        String side = aLongSideTxt.getText().trim();
+        if (side.equals("E")) {
+            aLongSideTxt.setText("W");
+        } else if (side.equals("W")) {
+            aLongSideTxt.setText("E");
+        }
+    }
+
+    @FXML
+    public void bChangeLatOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            bChangeLat();
+        }
+    }
+    @FXML
+    public void bChangeLat() {
+        String side = bLatSideTxt.getText().trim();
+        if (side.equals("N")) {
+            bLatSideTxt.setText("S");
+        } else if (side.equals("S")) {
+            bLatSideTxt.setText("N");
+        }
+    }
+
+    @FXML
+    public void bChangeLongOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            bChangeLong();
+        }
+    }
+    @FXML
+    public void bChangeLong() {
+        String side = bLongSideTxt.getText().trim();
+        if (side.equals("E")) {
+            bLongSideTxt.setText("W");
+        } else if (side.equals("W")) {
+            bLongSideTxt.setText("E");
+        }
+    }
+
+
+
+    @FXML
+    public void inputProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            inputProcedure();
+        }
+    }
+
+    @FXML
+    public void clearProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            clearParameters();
+        }
+    }
+
+    @FXML
+    public void inputProcedureOnEnter(KeyEvent keyEvent) {
+        if(isEnterPressed(keyEvent)) {
+            inputProcedure();
+        }
+    }
+
+    public boolean isSpaceOrEnterPressed(KeyEvent keyEvent) {
+        return (keyEvent.getCode().toString().equals("ENTER") || keyEvent.getCode().toString().equals("SPACE"));
+    }
+
+    public boolean isEnterPressed(KeyEvent keyEvent) {
+        return (keyEvent.getCode().toString().equals("ENTER"));
+    }
+
+
+
+
+
+
 
 
     public CASE verifySpecialCases(Point aPoint, Point bPoint) {
@@ -563,7 +698,7 @@ public class Controller extends Converter {
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
                     checkHomogeneousAngles(languageCode, allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n\n" +
                     ORTHODROME_GAIN_STRING[languageCode] + checkOrthodromeGain(allResults.orthodrome, allResults.loxodrome) + "\n\n\n\n\n\n" +
-                    SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.getDirection();
+                    SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.direction;
         }
     }
 
@@ -591,9 +726,10 @@ public class Controller extends Converter {
         }
     }
 
+    //TODO: deprecate this, move to Loxodrome class
     public String checkOrthodromeGain(Orthodrome orthodrome, double loxodrome) {
-        double gain = loxodrome - orthodrome.getDistance() * 60;
-        return String.valueOf(String.format("%.2f", gain)) + " Nm.";
+        double gain = loxodrome - orthodrome.distanceAngles * 60;
+        return String.valueOf(String.format("%.2f", gain)) + " " + LENGTH_UNIT_NM[languageCode] + ".";
     }
 
     public String checkHomogeneousAngles(int languageCode, SphericalTriangle sphericalTriangle) {
@@ -665,7 +801,7 @@ public class Controller extends Converter {
                     "  C = " + ddToDmString("long", sphericalTriangle.C) +
                     "\n" +
                     "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) + "  v " + ddToDmString("long", orthodrome.getHeight2()) +
+                    "  h = " + ddToDmString("long", orthodrome.height1) + "  v " + ddToDmString("long", orthodrome.height2) +
                     "\n" +
                     "  B = " + ddToDmString("long", sphericalTriangle.B) +
                     "\n\n";
@@ -693,7 +829,7 @@ public class Controller extends Converter {
                     "  C = " + ddToDmString("long", sphericalTriangle.C) +
                     "\n" +
                     "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) +
+                    "  h = " + ddToDmString("long", orthodrome.height1) +
                     "\n" +
                     "  B = " + ddToDmString("long", sphericalTriangle.B) +
                     "\n\n";
@@ -707,13 +843,13 @@ public class Controller extends Converter {
 
     public String printOrthodromeValue(Orthodrome orthodrome) {
         return "\n" +
-                "  d = " + ddToDmString("long", orthodrome.getDistance()) + " = " + orthodrome.getDistanceNmString() +
+                "  d = " + ddToDmString("long", orthodrome.distanceAngles) + " = " + String.valueOf(String.format("%.2f", orthodrome.distanceNm)) + " " + LENGTH_UNIT_NM[languageCode] +
                 "\n\n";
     }
 
     public String printLoxodromeValue(double loxodrome) {
         return "\n" +
-                "  s =              " + String.valueOf(String.format("%.2f", loxodrome)) + " Mm" +
+                "  s =              " + String.valueOf(String.format("%.2f", loxodrome)) + " " + LENGTH_UNIT_NM[languageCode] +
                 "\n\n";
     }
 
@@ -726,9 +862,9 @@ public class Controller extends Converter {
                     "\n\n";
         } else {
             return "\n" +
-                    "  α = " + ddToDmString("long", courseAngles.getInitialCourse()) +
+                    "  α = " + ddToDmString("long", courseAngles.initialCourse) +
                     "\n" +
-                    "  β = " + ddToDmString("long", courseAngles.getFinalCourse()) +
+                    "  β = " + ddToDmString("long", courseAngles.finalCourse) +
                     "\n\n";
 
         }
@@ -772,110 +908,16 @@ public class Controller extends Converter {
     }
 
 
-    public double calculateLoxodrome(Point aPoint, Point bPoint, Orthodrome orthodrome) {
-
-        double aPointPhiRadians = aPoint.phi * Math.PI / 180;
-        double bPointPhiRadians = bPoint.phi * Math.PI / 180;
-
-        double aPointLambdaRadians = aPoint.lambda * Math.PI / 180;
-        double bPointLambdaRadians = bPoint.lambda * Math.PI / 180;
-
-        double deltaPhiRadians = bPointPhiRadians - aPointPhiRadians;
-        double deltaLambdaRadians = bPointLambdaRadians - aPointLambdaRadians;
-
-        double deltaPsi = Math.log(Math.tan(Math.PI / 4 + bPointPhiRadians / 2) / Math.tan(Math.PI / 4 + aPointPhiRadians / 2));
-        double q = Math.abs(deltaPsi) > 10e-12 ? deltaPhiRadians / deltaPsi : Math.cos(aPointPhiRadians);
-
-        if (Math.abs(deltaLambdaRadians) > Math.PI) {
-            deltaLambdaRadians = deltaLambdaRadians > 0 ? -(2 * Math.PI - deltaLambdaRadians) : (2 * Math.PI + deltaLambdaRadians);
-        }
-
-        if (caseType == CASE.GENERAL) {
-            return Math.sqrt(deltaPhiRadians * deltaPhiRadians + q * q * deltaLambdaRadians * deltaLambdaRadians) * 3440;
-        } else {
-            return orthodrome.getDistanceNm();
-        }
-    }
-
-
-    public boolean validateInputFormat() {
-        for (TextField inputField : allNumberInputFields) {
-            if (!inputField.getText().matches("[0-9]{1,13}(\\.[0-9]*)?")) {
-                printInstructionsInvalidData();
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    public boolean validateInputValues(Point aPoint, Point bPoint) {
-        Point[] points = {aPoint, bPoint};
-        for (Point point : points) {
-            if (!validateLatitude(point) || !validateLongitude(point)) {
-                printInstructionsInvalidData();
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean validateLatitude(Point point) {
-        if ((point.latCalculated > 90) || (point.latMin < 0 || point.latMin >= 60) || (point.latDeg < 0 || point.latDeg > 90)) {
-            printInstructionsInvalidData();
-            return false;
-        }
-        return true;
-    }
-
-    public boolean validateLongitude(Point point) {
-        if ((point.longCalculated > 180) || (point.longMin < 0 || point.longMin >= 60) || (point.longDeg < 0 || point.longDeg > 180)) {
-            printInstructionsInvalidData();
-            return false;
-        }
-        return true;
-    }
-
-
-    public void fillEmptyValuesWithZeros() {
-        for (TextField textField : allNumberInputFields) {
-            if (textField.getText().trim().equals("")) {
-                textField.setText("0");
-            }
-        }
-    }
-
-
-    public void changeLanguage() {
-        languageCode = languageCb.getValue().equals("Polski") ? 0 : 1;
-
-        titleLabel.setText(INPUT_PARAMETERS_STRING[languageCode]);
-        generalCasesLabel.setText(GENERAL_CASES_STRING[languageCode]);
-        specialCasesLabel.setText(SPECIAL_CASES_STRING[languageCode]);
-        calculateBtn.setText(CALCULATE_STRING[languageCode]);
-        clearBtn.setText(CLEAR_INFO_STRING[languageCode]);
-        bottomInfoLabel.setText(PROGRAM_NAME[languageCode] + PROGRAM_VERSION);
-
-        if (checkIfFieldsHaveNonZeroValue()) {
-            inputProcedure();
-        } else {
-            printInstructions();
-        }
-    }
-
-    public boolean checkIfFieldsHaveNonZeroValue() {
-        for (TextField field : allNumberInputFields) {
-            String inputFieldValue = field.getText().trim();
-            if (!inputFieldValue.equals("0") && !inputFieldValue.isEmpty()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
+    /**
+     * Specific examples implemented on button pressed in GUI
+     */
     //general cases//
     //---A(10°N;050°E) -> B(20°N;170°E)---//
+    public void generalCase01onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase01();
+        }
+    }
     public void generalCase01() {
         clearParameters();
 
@@ -894,6 +936,11 @@ public class Controller extends Converter {
     }
 
     //---A(50°N;020°W) -> B(50°N;090°E)---//
+    public void generalCase02onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase02();
+        }
+    }
     public void generalCase02() {
         clearParameters();
 
@@ -912,6 +959,11 @@ public class Controller extends Converter {
     }
 
     //---A(50°N;030°E) -> B(30°N;060°E)---//
+    public void generalCase03onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase03();
+        }
+    }
     public void generalCase03() {
         clearParameters();
 
@@ -930,6 +982,11 @@ public class Controller extends Converter {
     }
 
     //---A(50°N;170°W) -> B(10°S;100°W)---//
+    public void generalCase04onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase04();
+        }
+    }
     public void generalCase04() {
         clearParameters();
 
@@ -948,6 +1005,11 @@ public class Controller extends Converter {
     }
 
     //---A(30°S;060°E) -> B(40°S;140°E)---//
+    public void generalCase05onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase05();
+        }
+    }
     public void generalCase05() {
         clearParameters();
 
@@ -966,6 +1028,11 @@ public class Controller extends Converter {
     }
 
     //---A(20°S;100°W) -> B(30°N;160°W)---//
+    public void generalCase06onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            generalCase06();
+        }
+    }
     public void generalCase06() {
         clearParameters();
 
@@ -985,6 +1052,11 @@ public class Controller extends Converter {
 
     //special cases//
     //---A(90°N      ) -> B(90°S      )---//
+    public void specialCase01onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            specialCase01();
+        }
+    }
     public void specialCase01() {
         clearParameters();
 
@@ -1003,6 +1075,11 @@ public class Controller extends Converter {
     }
 
     //---A(40°N;030°E) -> B(40°S;150°W)---//
+    public void specialCase02onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            specialCase02();
+        }
+    }
     public void specialCase02() {
         clearParameters();
 
@@ -1021,6 +1098,11 @@ public class Controller extends Converter {
     }
 
     //---A(20°N;030°E) -> B(40°S;030°E)---//
+    public void specialCase03onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            specialCase03();
+        }
+    }
     public void specialCase03() {
         clearParameters();
 
@@ -1039,6 +1121,11 @@ public class Controller extends Converter {
     }
 
     //---A( 0° ;010°E) -> B( 0° ;050°W)---//
+    public void specialCase04onSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            specialCase04();
+        }
+    }
     public void specialCase04() {
         clearParameters();
 
@@ -1055,6 +1142,5 @@ public class Controller extends Converter {
         fillEmptyValuesWithZeros();
         inputProcedure();
     }
-
 
 }

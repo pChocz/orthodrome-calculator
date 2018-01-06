@@ -1,36 +1,27 @@
-public class CourseAngles {
+class CourseAngles extends Controller{
 
     //input
      SphericalTriangle sphericalTriangle;
      Point aPoint;
      Point bPoint;
-     Controller.CASE caseType;
+     private CASE caseType;
 
-    //output
+     //output
      double initialCourse;
      double finalCourse;
      String direction;
 
-    public CourseAngles(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, Controller.CASE caseType) {
+
+    CourseAngles(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, CASE caseType) {
         this.sphericalTriangle = sphericalTriangle;
         this.aPoint = aPoint;
         this.bPoint = bPoint;
         this.caseType = caseType;
+
+        calculateCourseAngles();
     }
 
-    public double getInitialCourse() {
-        return initialCourse;
-    }
-
-    public double getFinalCourse() {
-        return finalCourse;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void calculateCourseAngles() {
+    private void calculateCourseAngles() {
         double sumPhi = this.bPoint.phi + this.aPoint.phi;
         double deltaLambda = this.bPoint.lambda - this.aPoint.lambda;
 
@@ -44,8 +35,6 @@ public class CourseAngles {
             this.direction = "WRONG";
         }
 
-
-
         if (direction.equals("W->E")) {
             this.initialCourse = this.sphericalTriangle.A;
             this.finalCourse = 180 - this.sphericalTriangle.B;
@@ -57,8 +46,7 @@ public class CourseAngles {
         verifySpecialCasesCourseAngles();
     }
 
-
-    public void verifySpecialCasesCourseAngles() {
+    private void verifySpecialCasesCourseAngles() {
         if (caseType == Controller.CASE.EQUATOR_SAIL) {
             if (aPoint.lambda > bPoint.lambda) {
                 this.initialCourse = 270;
@@ -84,7 +72,6 @@ public class CourseAngles {
             this.finalCourse = 999;
         }
     }
-
 
 }
 
