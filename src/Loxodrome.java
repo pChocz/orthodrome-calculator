@@ -11,6 +11,7 @@ class Loxodrome extends Controller{
     double lengthNm;
     double orthodromeGainKm;
     double orthodromeGainNm;
+    double bearing;
 
     Loxodrome(Point aPoint, Point bPoint, Orthodrome orthodrome, CASE caseType) {
         this.aPoint = aPoint;
@@ -23,24 +24,40 @@ class Loxodrome extends Controller{
 
         this.orthodromeGainNm = this.lengthNm - orthodrome.distanceNm;
         this.orthodromeGainKm = this.orthodromeGainNm * 1.852;
+
+        this.bearing = calculateBearing();
     }
 
     private double calculateLoxodrome() {
         double deltaPhiRadians = bPoint.phiRadians - aPoint.phiRadians;
         double deltaLambdaRadians = bPoint.lambdaRadians - aPoint.lambdaRadians;
 
-        double deltaPsi = Math.log(Math.tan(Math.PI / 4 + bPoint.phiRadians / 2) / Math.tan(Math.PI / 4 + aPoint.phiRadians / 2));
-        double q = Math.abs(deltaPsi) > 10e-12 ? deltaPhiRadians / deltaPsi : Math.cos(aPoint.phiRadians);
+        double deltaPsiRadians = Math.log(Math.tan(Math.PI/4 + bPoint.phiRadians/2)/Math.tan(Math.PI/4 + aPoint.phiRadians/2));
+        double q = Math.abs(deltaPsiRadians) > 10e-12 ? deltaPhiRadians/deltaPsiRadians : Math.cos(aPoint.phiRadians);
 
         if (Math.abs(deltaLambdaRadians) > Math.PI) {
-            deltaLambdaRadians = deltaLambdaRadians > 0 ? -(2 * Math.PI - deltaLambdaRadians) : (2 * Math.PI + deltaLambdaRadians);
+            deltaLambdaRadians = deltaLambdaRadians > 0 ? -(2*Math.PI - deltaLambdaRadians) : (2*Math.PI + deltaLambdaRadians);
         }
 
         if (caseType == CASE.GENERAL) {
-            return Math.sqrt(deltaPhiRadians * deltaPhiRadians + q * q * deltaLambdaRadians * deltaLambdaRadians) * 3440;
+            return Math.sqrt(deltaPhiRadians*deltaPhiRadians + q*q*deltaLambdaRadians*deltaLambdaRadians)*3440;
         } else {
             return orthodrome.distanceNm;
         }
+    }
+
+    private double calculateBearing() {
+        double bearing;
+        double deltaPsiRadians = Math.log(Math.tan(Math.PI/4 + bPoint.phiRadians/2)/Math.tan(Math.PI/4 + aPoint.phiRadians/2));
+        double deltaLambdaRadians = bPoint.lambdaRadians - aPoint.lambdaRadians;
+
+        if (Math.abs(deltaLambdaRadians) > Math.PI) {
+            deltaLambdaRadians = deltaLambdaRadians > 0 ? -(2*Math.PI - deltaLambdaRadians) : (2*Math.PI + deltaLambdaRadians);
+        }
+        bearing = toDegrees(Math.atan2(deltaLambdaRadians, deltaPsiRadians));
+        bearing = (bearing<0) ? (360+bearing) : bearing;
+
+        return bearing;
     }
 
 }

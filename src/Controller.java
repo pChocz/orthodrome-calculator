@@ -44,13 +44,12 @@ public class Controller extends Converter {
     @FXML
     public TextField bLongMinTxt;
 
-    public List<TextField> allNumberInputFields = new ArrayList<>();
+    private List<TextField> allNumberInputFields = new ArrayList<>();
 
     @FXML
     private Button calculateBtn;
     @FXML
     private Button clearBtn;
-
 
     @FXML
     private TextArea primaryTextArea;
@@ -60,102 +59,100 @@ public class Controller extends Converter {
     @FXML
     private ChoiceBox<String> languageCb;
 
-
     public int languageCode;
     private final int PL_LANGUAGE_CODE = 0;
     private final int EN_LANGUAGE_CODE = 1;
 
+    public CASE caseType;
     public enum CASE {
         SAME_POINT,
         MERIDIAN_SAIL,
         EQUATOR_SAIL,
         OPPOSITE_POINTS,
         GENERAL
-    }
-    public CASE caseType;
 
-    private final String[] INPUT_PARAMETERS_STRING = {
+        }
+
+    private static final String PROGRAM_VERSION = " v1.06";
+    private static final String SEPARATOR_LINE = " ---------------------------------------------------------";
+    private static final String SEPARATOR_DASH = " - ";
+
+    private static final String[] INPUT_PARAMETERS_STRING = {
             "Parametry wejściowe",
             "Input parameters"};
 
-    private final String[] GENERAL_CASES_STRING = {
+    private static final String[] GENERAL_CASES_STRING = {
             "Przypadki ogólne",
             "General cases"};
 
-    private final String[] SPECIAL_CASES_STRING = {
+    private static final String[] SPECIAL_CASES_STRING = {
             "Przypadki szczególne",
             "Special cases"};
 
-    private final String[] CALCULATE_STRING = {
+    private static final String[] CALCULATE_STRING = {
             "Oblicz",
             "Calculate"};
 
-    private final String[] CLEAR_INFO_STRING = {
+    private static final String[] CLEAR_INFO_STRING = {
             "Wyczyść/Info",
             "Clear/Info"};
 
-    private final String[] PROGRAM_NAME = {
+    private static final String[] PROGRAM_NAME = {
             "kalkulator ortodromy",
             "orthodrome calculator"};
 
-    private final String PROGRAM_VERSION = " v1.06";
-
-
-    private final String SEPARATOR_LINE = "---------------------------------------------------------";
-    private final String SEPARATOR_DASH = " - ";
-
-    private final String[] CORRECT_VALUES_STRING = {
+    private static final String[] CORRECT_VALUES_STRING = {
             " ------------poprawne dane",
             " -------------correct values"};
 
-    private final String[] GENERAL_CASE_STRING = {
-            "przypadek ogólny------------",
-            "general case--------------"};
+    private static final String[] GENERAL_CASE_STRING = {
+            "przypadek ogólny-------------",
+            "general case---------------"};
 
-    private final String[] SPECIAL_CASE_STRING = {
-            "przypadek szczególny--------",
-            "special case--------------"};
+    private static final String[] SPECIAL_CASE_STRING = {
+            "przypadek szczególny---------",
+            "special case---------------"};
 
-    private final String[] SPECIAL_CASE_OPPOSITE_STRING = {
-            " ----------------punkty naprzeciwko siebie---------------",
-            " ---------------------opposite points--------------------"};
+    private static final String[] SPECIAL_CASE_OPPOSITE_STRING = {
+            " ----------------punkty naprzeciwko siebie----------------",
+            " ---------------------opposite points---------------------"};
 
-    private final String[] SPECIAL_CASE_EQUATOR_SAILING_STRING = {
-            "-----------------poruszamy się po równiku----------------",
-            "----------------------equator sailing--------------------"};
+    private static final String[] SPECIAL_CASE_EQUATOR_SAILING_STRING = {
+            " -----------------poruszamy się po równiku----------------",
+            " ----------------------equator sailing--------------------"};
 
-    private final String[] SPECIAL_CASE_MERIDIAN_SAILING_STRING = {
-            "----------------poruszamy się po południku---------------",
-            "----------------------meridian sailing-------------------"};
+    private static final String[] SPECIAL_CASE_MERIDIAN_SAILING_STRING = {
+            " ----------------poruszamy się po południku---------------",
+            " ----------------------meridian sailing-------------------"};
 
-    private final String[] VALUES_LAT_LONG_STRING = {
-            " ----przeliczone szerokości/długości punktów A oraz B----",
-            " ----calculated latitudes/longitudes of points A and B---"};
+    private static final String[] VALUES_LAT_LONG_STRING = {
+            " ----przeliczone szerokości/długości punktów A oraz B-----",
+            " ----calculated latitudes/longitudes of points A and B----"};
 
-    private final String[] VALUES_SPHERICAL_TRIANGLE_STRING = {
-            "--------podstawowe długości oraz kąty w trójkącie--------",
-            "-----values of sides and angles in spherical triangle----"};
+    private static final String[] VALUES_SPHERICAL_TRIANGLE_STRING = {
+            " --------podstawowe długości oraz kąty w trójkącie--------",
+            " -----values of sides and angles in spherical triangle----"};
 
-    private final String[] VALUE_ORTHODROME_STRING = {
-            "-----------------odległość ortodromiczna-----------------",
-            "-----------orthodromic (great circle) distance-----------"};
+    private static final String[] VALUE_ORTHODROME_STRING = {
+            " -----------------odległość ortodromiczna-----------------",
+            " -----------orthodromic (great circle) distance-----------"};
 
-    private final String[] VALUE_LOXODROME_STRING = {
-            "-----------------odległość loksodromiczna----------------",
-            "-------------------loxodromic distance-------------------"};
+    private static final String[] VALUE_LOXODROME_STRING = {
+            " -----------------odległość loksodromiczna----------------",
+            " -------------------loxodromic distance-------------------"};
 
-    private final String[] VALUES_COURSE_ANGLES_STRING = {
-            "-----------------------kąty drogi------------------------",
-            "----------------------course angles----------------------"};
+    private static final String[] VALUES_BEARING_ANGLES_STRING = {
+            " -----------------------kąty drogi------------------------",
+            " ----------------------bearing angles----------------------"};
 
-    private final String[] VALUES_ORTHODROMIC_VERTICES_STRING = {
-            "------------------wierzchołki ortodromy------------------",
-            "-----------orthodromic (great circle) vertices-----------"};
+    private static final String[] VALUES_ORTHODROMIC_VERTICES_STRING = {
+            " ------------------wierzchołki ortodromy------------------",
+            " -----------orthodromic (great circle) vertices-----------"};
 
-    private final String[] PRIMARY_INSTRUCTION_STRING = {
+    private static final String[] PRIMARY_INSTRUCTION_STRING = {
             "\n" +
-                    "  -------------------Kalkulator Ortodromy-----------------" + "\n\n" +
-                    "  -----------------------O PROGRAMIE----------------------" + "\n\n" +
+                    " -------------------Kalkulator ortodromy------------------" + "\n\n" +
+                    " -----------------------O PROGRAMIE-----------------------" + "\n\n" +
                     "  Program wyznaczający podstawowe parametry ortodromy" + "\n" +
                     "  mając dane współrzędne geograficzne dwóch punktów A,B:" + "\n\n" +
                     "  - odległość ortodromiczną (w stopniach oraz Mm)," + "\n" +
@@ -164,33 +161,33 @@ public class Controller extends Converter {
                     "  Dodatkowo program oblicza i wypisuje wszystkie parametry " + "\n" +
                     "  wymagane do obliczeń.",
             "\n" +
-                    "  -------------------Orthodrome calculator----------------" + "\n\n" +
-                    "  ---------------------ABOUT APPLICATION------------------" + "\n\n" +
+                    " -------------------Orthodrome calculator-----------------" + "\n\n" +
+                    " ---------------------ABOUT APPLICATION-------------------" + "\n\n" +
                     "  Application calculates basic parameters of orthodrome" + "\n" +
                     "  having geographical coordinates of two points A,B:" + "\n\n" +
                     "  - orthodromic distance (given in degrees and NM)," + "\n" +
-                    "  - initial and final course," + "\n" +
+                    "  - initial and final bearing," + "\n" +
                     "  - vertices of the orthodrome." + "\n\n" +
                     "  Additionally application is calculating all parameters" + "\n" +
                     "  that are needed during the calculation."};
 
-    private final String[] SECONDARY_INSTRUCTION_STRING = {
+    private static final String[] SECONDARY_INSTRUCTION_STRING = {
             "\n\n\n" +
-                    "  -----------------------INSTRUKCJA-----------------------" + "\n\n" +
+                    " -----------------------INSTRUKCJA------------------------" + "\n\n" +
                     "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
                     "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
                     "  długość   od 0°00.0'' do 180°00.0'' " + "\n\n" +
                     "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
                     "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
             "\n\n\n" +
-                    "  ----------------------INSTRUCTION----------------------" + "\n\n" +
+                    " -----------------------INSTRUCTION----------------------" + "\n\n" +
                     "  Acceptable range of input parameters are:" + "\n\n" +
                     "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
                     "  longitude from 0°00.0'' to 180°00.0'' " + "\n\n" +
                     "  Degrees are to be given as integers from 0   to 180  " + "\n" +
                     "  Minutes as floating numbers         from 0.0 do  59.9"};
 
-    private final String[] PRIMARY_INVALID_DATA_INSTRUCTION_STRING = {
+    private static final String[] PRIMARY_INVALID_DATA_INSTRUCTION_STRING = {
             "\n" +
                     "                ----------------------------  " + "\n" +
                     "                ----------------------------  " + "\n" +
@@ -208,9 +205,9 @@ public class Controller extends Converter {
                     "                ----------------------------  " + "\n" +
                     "                ----------------------------  "};
 
-    private final String[] SECONDARY_INVALID_DATA_INSTRUCTION_STRING = {
+    private static final String[] SECONDARY_INVALID_DATA_INSTRUCTION_STRING = {
             "\n" +
-                    "  --------------------danie niepoprawne-------------------" + "\n\n" +
+                    " ---------------------danie niepoprawne-------------------" + "\n\n" +
                     "  Proszę o podanie poprawnych danych" + "\n\n" +
                     "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
                     "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
@@ -218,7 +215,7 @@ public class Controller extends Converter {
                     "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
                     "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
             "\n" +
-                    "  ---------------------not valid data---------------------" + "\n\n" +
+                    " ----------------------not valid data---------------------" + "\n\n" +
                     "  Please enter proper input data" + "\n\n" +
                     "  Acceptable range of input parameters are:" + "\n\n" +
                     "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
@@ -226,27 +223,27 @@ public class Controller extends Converter {
                     "  Degrees are to be given as integers from 0   to 180  " + "\n" +
                     "  Minutes as floating numbers         from 0.0 do  59.9"};
 
-    private final String[] INHOMOGENEOUS_ANGLES_STRING = {
+    private static final String[] INHOMOGENEOUS_ANGLES_STRING = {
             " - Kąty A,B są niejednorodne, więc wysokość leży na \n   zewnątrz trójkąta",
             " - A, B angles are inhomogeneous, so height of the \n   triangle lies outside"};
 
-    private final String[] HOMOGENEOUS_ANGLES_STRING = {
+    private static final String[] HOMOGENEOUS_ANGLES_STRING = {
             " - Kąty A,B są jednorodne, więc wysokość leży wewnątrz \n   trójkąta",
             " - A, B angles are homogeneous, so height of the triangle \n   lies inside"};
 
-    private final String[] RIGHT_ANGLED_TRIANGLE = {
+    private static final String[] RIGHT_ANGLED_TRIANGLE = {
             " - Jeden z kątów jest prosty, więc jeden bok jest \n   wysokością trójkąta",
             " - One of the angle is right, so one of the sides is \n   height of the triangle"};
 
-    private final String[] ORTHODROME_GAIN_STRING = {
-            " - zysk z płynięcia po ortodromie wynosi ",
+    private static final String[] ORTHODROME_GAIN_STRING = {
+            " - zysk ortodromiczny wynosi ",
             " - orthodromic gain is equal to "};
 
-    private final String[] ORTHODROME_GAIN_SPECIAL_CASE_STRING = {
-            " - w przypadkach szczególnych ortodroma jest \n   równa loksodromie",
-            " - in all special cases orthodrome is equal \n   to loxodrome"};
+    private static final String[] LOXODROMIC_BEARING_STRING = {
+            " - loksodromiczny kąt drogi wynosi ",
+            " - loxodromic bearing is equal to "};
 
-    private final String[] SPECIAL_CASE_OPPOSITE_INFO_STRING = {
+    private static final String[] SPECIAL_CASE_OPPOSITE_INFO_STRING = {
             "\n" +
                     " - Podane punkty są dokładnie po przeciwległej stronie" + "\n" +
                     "   kuli ziemskiej. Do przebycia jest połowa obwodu," + "\n" +
@@ -266,11 +263,11 @@ public class Controller extends Converter {
                     " - Orthodromic distance is equal to half circumference" + "\n" +
                     "   of the globe" + "\n\n\n\n\n" +
                     " - It's not possible to calculate orthodromic gain" + "\n\n\n\n\n\n" +
-                    " - Initial course can be chosen freely" + "\n\n\n\n\n\n\n" +
+                    " - Initial bearing can be chosen freely" + "\n\n\n\n\n\n\n" +
                     " - Orthodromic vertexes are not able to predict as" + "\n" +
                     "   they depends on chosen orthodrome."};
 
-    private final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN = {
+    private static final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN = {
             "\n" +
                     " - W przypadku poruszania się po południku trójkąt" + "\n" +
                     "   sferyczny abdABC nie istnieje, więc nie liczymy\n" +
@@ -280,7 +277,7 @@ public class Controller extends Converter {
                     "   abdABC doesn't exist, so angles A, B and h are" + "\n" +
                     "   not being calculated"};
 
-    private final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING = {
+    private static final String[] SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING = {
             "\n" +
                     " - Wierzchołkami ortodromy są odpowiednio biegun" + "\n" +
                     "   północny oraz południowy",
@@ -288,7 +285,7 @@ public class Controller extends Converter {
                     " - North Pole and South Pole are orthodrome" + "\n" +
                     "   vertices"};
 
-    private final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN = {
+    private static final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN = {
             "\n" +
                     " - W przypadku poruszania się po równiku trójkąt" + "\n" +
                     "   sferyczny abdABC posiada dwa kąty proste" + "\n",
@@ -296,7 +293,7 @@ public class Controller extends Converter {
                     " - In case of equator sailing, spherical triangle" + "\n" +
                     "   abdABC has two right angles" + "\n"};
 
-    private final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING = {
+    private static final String[] SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING = {
             "\n" +
                     " - Wierzchołkami ortodromy są wszystkie punkty" + "\n" +
                     "   leżące na równiku",
@@ -304,7 +301,7 @@ public class Controller extends Converter {
                     " - All points on the equator are orthodrome vertices"};
 
 
-    private final String[] SPECIAL_CASE_SAME_POINT_INFO_STRING = {
+    private static final String[] SPECIAL_CASE_SAME_POINT_INFO_STRING = {
             "\n" +
                     " - Podano takie same punkty. Kalkulacja nie jest" + "\n" +
                     "   przeprowadzana. Proszę wprowadzić poprawne dane",
@@ -312,38 +309,42 @@ public class Controller extends Converter {
                     " - Identical points are given. Calculation is not" + "\n" +
                     "   performed. Please type proper data"};
 
-    private final String[] SAIL_DIRECTION_STRING = {
+    private static final String[] SAIL_DIRECTION_STRING = {
             " - kierunek drogi to ",
             " - sail direction is "};
 
-    private final String[] NOT_CALCULABLE_STRING = {
+    private static final String[] NOT_CALCULABLE_STRING = {
             "nie liczymy",
             "not calculable"};
 
-    private final String[] FREE_TO_CHOOSE_STRING = {
+    private static final String[] FREE_TO_CHOOSE_STRING = {
             "dowolny",
             "free to choose"};
 
-    private final String[] ANY_POINT_ON_EQUATOR_STRING = {
+    private static final String[] ANY_POINT_ON_EQUATOR_STRING = {
             "każdy punkt leżący na równiku",
             "any point on the equator"};
 
-    private final String[] NORTH_POLE_STRING = {
+    private static final String[] NORTH_POLE_STRING = {
             "biegun północny",
             "north pole"};
 
-    private final String[] SOUTH_POLE_STRING = {
+    private static final String[] SOUTH_POLE_STRING = {
             "biegun południowy",
             "south pole"};
 
-    private final String LENGTH_UNIT_km = "km";
-
-    @FXML
-    private final String[] LENGTH_UNIT_NM = {
+    private static final String[] LENGTH_UNIT_NM = {
             "Nm",
             "Mm"};
 
+    private static final String LENGTH_UNIT_KM = "km";
 
+
+
+    /**
+     * Initialization and GUI-handling methods
+     *
+     */
     public void initialize() {
         allNumberInputFields.addAll(Arrays.asList(aLatDegTxt, aLongDegTxt, bLatDegTxt, bLongDegTxt));
         allNumberInputFields.addAll(Arrays.asList(aLatMinTxt, aLongMinTxt, bLatMinTxt, bLongMinTxt));
@@ -416,6 +417,14 @@ public class Controller extends Converter {
         printInstructions();
     }
 
+
+    /**
+     * MAIN METHOD
+     *
+     * method called always when new input
+     * data is entered in GUI
+     *
+     */
     @FXML
     public boolean inputProcedure() {
 
@@ -483,34 +492,25 @@ public class Controller extends Converter {
         return true;
     }
 
+
+
+    /**
+     * MAIN CALCULATION PROCEDURE
+     *
+     * Constructors used in this procedure are also responsible
+     * for calculating all numeric results
+     *
+     */
     @FXML
     public AllResults calculationProcedure(Point aPoint, Point bPoint) {
         caseType = verifySpecialCases(aPoint, bPoint);
 
         SphericalTriangle sphericalTriangle = new SphericalTriangle(aPoint, bPoint, caseType);
         Orthodrome orthodrome = new Orthodrome(sphericalTriangle, aPoint, bPoint, caseType);
-        CourseAngles courseAngles = new CourseAngles(sphericalTriangle, aPoint, bPoint, caseType);
+        BearingAngles bearingAngles = new BearingAngles(sphericalTriangle, aPoint, bPoint, caseType);
         Loxodrome loxodromePROPER = new Loxodrome(aPoint, bPoint, orthodrome, caseType);
 
-        return new AllResults(orthodrome, loxodromePROPER.lengthNm, courseAngles, orthodrome.firstOrthodromeVertex, orthodrome.secondOrthodromeVertex);
-    }
-
-
-    public void printResults(AllResults allResults) {
-        primaryTextArea.setText(printResultsValues(allResults));
-        secondaryTextArea.setText(printHelpInformation(allResults));
-    }
-
-
-    public void printInstructions() {
-        primaryTextArea.setText(PRIMARY_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INSTRUCTION_STRING[languageCode]);
-    }
-
-
-    public void printInstructionsInvalidData() {
-        primaryTextArea.setText(PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+        return new AllResults(orthodrome, loxodromePROPER, bearingAngles, orthodrome.firstOrthodromeVertex, orthodrome.secondOrthodromeVertex);
     }
 
     public boolean validateLatitude(Point point) {
@@ -529,14 +529,311 @@ public class Controller extends Converter {
         return true;
     }
 
+    public CASE verifySpecialCases(Point aPoint, Point bPoint) {
+        double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
+        double sumPhi = aPoint.phi + bPoint.phi;
 
+        if (((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) || (aPoint.phi*bPoint.phi == 8100)) {
+            return CASE.SAME_POINT;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
+            return CASE.OPPOSITE_POINTS;
+
+        } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
+            return CASE.EQUATOR_SAIL;
+
+        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100) || (Math.abs(aPoint.phi) == 90 || Math.abs(bPoint.phi) == 90)) {
+            return CASE.MERIDIAN_SAIL;
+
+        } else {
+            return CASE.GENERAL;
+
+        }
+    }
+
 
 
     /**
-     * Methods responsible for switching latitudes/longitudes of given
-     * Points by pressing mouse button or ENTER/SPACE key
+     *  RESULTS HANDLING
+     *
+     *  Methods responsible for data results
+     *  preparation to be viewed in GUI
+     *
+     */
+    public void printResults(AllResults allResults) {
+        primaryTextArea.setText(printResultsValues(allResults));
+        secondaryTextArea.setText(printHelpInformation(allResults));
+    }
+
+    public void printInstructions() {
+        primaryTextArea.setText(PRIMARY_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SECONDARY_INSTRUCTION_STRING[languageCode]);
+    }
+
+    public void printInstructionsInvalidData() {
+        primaryTextArea.setText(PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+    }
+
+
+
+    /**
+     *  Primary text area printing
+     *
+     */
+    public String printResultsValues(AllResults allResults) {
+        if (caseType == CASE.SAME_POINT) {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE;
+
+        } else {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
+                    printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUE_ORTHODROME_STRING[languageCode] + "\n" +
+                    printOrthodromeValue(allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUE_LOXODROME_STRING[languageCode] + "\n" +
+                    printLoxodromeValue(allResults.loxodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_BEARING_ANGLES_STRING[languageCode] + "\n" +
+                    printBearingAngles(allResults.bearingAngles) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
+                    printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
+                    SEPARATOR_LINE;
+
+        }
+    }
+
+    public String printPhiAndLambdaValues(Point aPoint, Point bPoint) {
+        return "\n" +
+                "  φ_A =" + ddToDmString("lat", aPoint.phi) + "\t\t" +
+                "  λ_A =" + ddToDmString("long", aPoint.lambda) +
+                "\n" +
+                "  φ_B =" + ddToDmString("lat", bPoint.phi) + "\t\t" +
+                "  λ_B =" + ddToDmString("long", bPoint.lambda) +
+                "\n\n";
+    }
+
+    public String printSphericalTriangleValues(SphericalTriangle sphericalTriangle, Orthodrome orthodrome) {
+        if (caseType == CASE.GENERAL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.height1) + "  v " + ddToDmString("long", orthodrome.height2) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL || caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A =  " + NOT_CALCULABLE_STRING[languageCode] + "\t" +
+                    "  h =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n" +
+                    "  B =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.height1) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else {
+            return "ERROR";
+
+        }
+    }
+
+    public String printOrthodromeValue(Orthodrome orthodrome) {
+        return "\n" +
+                "  d = " + ddToDmString("long", orthodrome.distanceAngles) +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceKm)) + " " + LENGTH_UNIT_KM +
+                "\n\n";
+    }
+
+    public String printLoxodromeValue(Loxodrome loxodrome) {
+        return "\n" +
+                "  s =           " +
+                "   " + String.valueOf(String.format("%.2f", loxodrome.lengthNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                " = " + String.valueOf(String.format("%.2f", loxodrome.lengthKm)) + " " + LENGTH_UNIT_KM +
+                "\n\n";
+    }
+
+    public String printBearingAngles(BearingAngles bearingAngles) {
+        if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  α =  " + FREE_TO_CHOOSE_STRING[languageCode] +
+                    "\n" +
+                    "  β =  180° - α" +
+                    "\n\n";
+        } else {
+            return "\n" +
+                    "  α = " + ddToDmString("long", bearingAngles.initialBearing) +
+                    "\n" +
+                    "  β = " + ddToDmString("long", bearingAngles.finalBearing) +
+                    "\n\n";
+
+        }
+    }
+
+    public String printOrthodromeVertices(Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
+        if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ; xxx°xx,x' E/W )" +
+                    "\n" +
+                    "     " + ANY_POINT_ON_EQUATOR_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + NORTH_POLE_STRING[languageCode] +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + SOUTH_POLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  W1  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n" +
+                    "  W2  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n\n";
+
+        } else {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
+                    "\n\n";
+
+        }
+    }
+
+
+
+    /**
+     *  Secondary text area printing
+     *
+     */
+    public String printHelpInformation(AllResults allResults) {
+
+        if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_OPPOSITE_STRING[languageCode] + "\n\n" +
+                    SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
+
+        } else if (caseType == CASE.MERIDIAN_SAIL) {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_MERIDIAN_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    meridianSailBearingAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING[languageCode];
+
+        } else if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
+                    SPECIAL_CASE_EQUATOR_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    equatorSailBearingAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING[languageCode];
+
+        } else if (caseType == CASE.SAME_POINT) {
+            return "\n\n" +
+                    SPECIAL_CASE_SAME_POINT_INFO_STRING[languageCode];
+
+        } else {
+            return "\n" +
+                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                    checkHomogeneousAngles(allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    ORTHODROME_GAIN_STRING[languageCode] +
+                    String.valueOf(String.format("%.2f", allResults.loxodrome.orthodromeGainNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                    " (" +  String.valueOf(String.format("%.2f", allResults.loxodrome.orthodromeGainKm)) + " " + LENGTH_UNIT_KM + ")." + "\n\n" +
+                    LOXODROMIC_BEARING_STRING[languageCode] + ddToDmString("", allResults.loxodrome.bearing) + "\n\n\n\n\n" +
+                    SAIL_DIRECTION_STRING[languageCode] + allResults.bearingAngles.direction;
+
+        }
+    }
+
+    public String[] meridianSailBearingAnglesInfo(Point aPoint, Point bPoint) {
+        if (aPoint.phi > bPoint.phi) {
+            return new String[] {
+                    " - Kąt drogi wynosi stale 180°00.0' (prosto na południe)",
+                    " - Angle of the bearing is 180°00.0' (straight south)"};
+        } else {
+            return new String[] {
+                    " - Kąt drogi wynosi stale   0°00.0' (prosto na północ)",
+                    " - Angle of the bearing is   0°00.0' (straight north)"};
+        }
+    }
+
+    public String[] equatorSailBearingAnglesInfo(Point aPoint, Point bPoint) {
+        if (aPoint.lambda > bPoint.lambda) {
+            return new String[] {
+                    " - Kąt drogi wynosi stale 270°00.0' (prosto na zachód)",
+                    " - Angle of the bearing is 270°00.0' (straight west)"};
+        } else {
+            return new String[] {
+                    " - Kąt drogi wynosi stale  90°00.0' (prosto na wschód)",
+                    " - Angle of the bearing is  90°00.0' (straight east)"};
+        }
+    }
+
+    public String checkHomogeneousAngles(SphericalTriangle sphericalTriangle) {
+        if ((sphericalTriangle.A > 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A < 90)) {
+            return INHOMOGENEOUS_ANGLES_STRING[languageCode];
+
+        } else if ((sphericalTriangle.A < 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A > 90)) {
+            return HOMOGENEOUS_ANGLES_STRING[languageCode];
+
+        } else {
+            return RIGHT_ANGLED_TRIANGLE[languageCode];
+        }
+    }
+
+
+
+    /**
+     * Methods responsible for switching latitudes/longitudes of given Points
+     * with implemented key events handlers for ENTER/SPACE button
      *
      */
     @FXML
@@ -605,311 +902,10 @@ public class Controller extends Converter {
 
 
 
-    @FXML
-    public void inputProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
-        if(isSpaceOrEnterPressed(keyEvent)) {
-            inputProcedure();
-        }
-    }
-
-    @FXML
-    public void clearProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
-        if(isSpaceOrEnterPressed(keyEvent)) {
-            clearParameters();
-        }
-    }
-
-    @FXML
-    public void inputProcedureOnEnter(KeyEvent keyEvent) {
-        if(isEnterPressed(keyEvent)) {
-            inputProcedure();
-        }
-    }
-
-    public boolean isSpaceOrEnterPressed(KeyEvent keyEvent) {
-        return (keyEvent.getCode().toString().equals("ENTER") || keyEvent.getCode().toString().equals("SPACE"));
-    }
-
-    public boolean isEnterPressed(KeyEvent keyEvent) {
-        return (keyEvent.getCode().toString().equals("ENTER"));
-    }
-
-
-
-
-
-
-
-
-    public CASE verifySpecialCases(Point aPoint, Point bPoint) {
-        double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
-        double sumPhi = aPoint.phi + bPoint.phi;
-
-        if (((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) || (aPoint.phi*bPoint.phi == 8100)) {
-            return CASE.SAME_POINT;
-
-        } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
-            return CASE.OPPOSITE_POINTS;
-
-        } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
-            return CASE.EQUATOR_SAIL;
-
-        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100) || (Math.abs(aPoint.phi) == 90 || Math.abs(bPoint.phi) == 90)) {
-            return CASE.MERIDIAN_SAIL;
-
-        } else {
-            return CASE.GENERAL;
-
-        }
-    }
-
-
-
-    public String printHelpInformation(AllResults allResults) {
-
-        if (caseType == CASE.OPPOSITE_POINTS) {
-            return "\n" +
-                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
-                    SPECIAL_CASE_OPPOSITE_STRING[languageCode] + "\n\n" +
-                    SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
-
-        } else if (caseType == CASE.MERIDIAN_SAIL) {
-            return "\n" +
-                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
-                    SPECIAL_CASE_MERIDIAN_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
-                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    meridianSailCourseAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
-                    SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING[languageCode];
-
-        } else if (caseType == CASE.EQUATOR_SAIL) {
-            return "\n" +
-                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
-                    SPECIAL_CASE_EQUATOR_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
-                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    equatorSailCourseAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
-                    SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING[languageCode];
-
-        } else if (caseType == CASE.SAME_POINT) {
-            return "\n\n" +
-                    SPECIAL_CASE_SAME_POINT_INFO_STRING[languageCode];
-
-        } else {
-            return "\n" +
-                    CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    checkHomogeneousAngles(languageCode, allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    ORTHODROME_GAIN_STRING[languageCode] + checkOrthodromeGain(allResults.orthodrome, allResults.loxodrome) + "\n\n\n\n\n\n" +
-                    SAIL_DIRECTION_STRING[languageCode] + allResults.courseAngles.direction;
-        }
-    }
-
-    public String[] meridianSailCourseAnglesInfo(Point aPoint, Point bPoint) {
-        if (aPoint.phi > bPoint.phi) {
-            return new String[] {
-                    " - Kąt drogi wynosi stale 180°00.0' (prosto na południe)",
-                    " - Angle of the course is 180°00.0' (straight south)"};
-        } else {
-            return new String[] {
-                    " - Kąt drogi wynosi stale   0°00.0' (prosto na północ)",
-                    " - Angle of the course is   0°00.0' (straight north)"};
-        }
-    }
-
-    public String[] equatorSailCourseAnglesInfo(Point aPoint, Point bPoint) {
-        if (aPoint.lambda > bPoint.lambda) {
-            return new String[] {
-                    " - Kąt drogi wynosi stale 270°00.0' (prosto na zachód)",
-                    " - Angle of the course is 270°00.0' (straight west)"};
-        } else {
-            return new String[] {
-                    " - Kąt drogi wynosi stale  90°00.0' (prosto na wschód)",
-                    " - Angle of the course is  90°00.0' (straight east)"};
-        }
-    }
-
-    //TODO: deprecate this, move to Loxodrome class
-    public String checkOrthodromeGain(Orthodrome orthodrome, double loxodrome) {
-        double gain = loxodrome - orthodrome.distanceAngles * 60;
-        return String.valueOf(String.format("%.2f", gain)) + " " + LENGTH_UNIT_NM[languageCode] + ".";
-    }
-
-    public String checkHomogeneousAngles(int languageCode, SphericalTriangle sphericalTriangle) {
-        if ((sphericalTriangle.A > 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A < 90)) {
-            return INHOMOGENEOUS_ANGLES_STRING[languageCode];
-
-        } else if ((sphericalTriangle.A < 90 && sphericalTriangle.B < 90) || (sphericalTriangle.B > 90 && sphericalTriangle.A > 90)) {
-            return HOMOGENEOUS_ANGLES_STRING[languageCode];
-
-        } else {
-            return RIGHT_ANGLED_TRIANGLE[languageCode];
-        }
-    }
-
-    public String printResultsValues(AllResults allResults) {
-        if (caseType == CASE.SAME_POINT) {
-            return "\n" +
-                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
-                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
-                    SEPARATOR_LINE;
-
-        } else {
-            return "\n" +
-                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
-                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
-                    SEPARATOR_LINE + "\n\n" +
-
-                    VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
-                    printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
-                    SEPARATOR_LINE + "\n\n" +
-
-                    VALUE_ORTHODROME_STRING[languageCode] + "\n" +
-                    printOrthodromeValue(allResults.orthodrome) +
-                    SEPARATOR_LINE + "\n\n" +
-
-                    VALUE_LOXODROME_STRING[languageCode] + "\n" +
-                    printLoxodromeValue(allResults.loxodrome) +
-                    SEPARATOR_LINE + "\n\n" +
-
-                    VALUES_COURSE_ANGLES_STRING[languageCode] + "\n" +
-                    printCourseAngles(allResults.courseAngles) +
-                    SEPARATOR_LINE + "\n\n" +
-
-                    VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
-                    printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
-                    SEPARATOR_LINE;
-
-        }
-    }
-
-
-    public String printPhiAndLambdaValues(Point aPoint, Point bPoint) {
-        return "\n" +
-                "  φ_A =" + ddToDmString("lat", aPoint.phi) + "\t\t" +
-                "  λ_A =" + ddToDmString("long", aPoint.lambda) +
-                "\n" +
-                "  φ_B =" + ddToDmString("lat", bPoint.phi) + "\t\t" +
-                "  λ_B =" + ddToDmString("long", bPoint.lambda) +
-                "\n\n";
-    }
-
-    public String printSphericalTriangleValues(SphericalTriangle sphericalTriangle, Orthodrome orthodrome) {
-        if (caseType == CASE.GENERAL) {
-            return "\n" +
-                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
-                    "\n" +
-                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
-                    "\n\n" +
-                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
-                    "\n" +
-                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.height1) + "  v " + ddToDmString("long", orthodrome.height2) +
-                    "\n" +
-                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
-                    "\n\n";
-
-        } else if (caseType == CASE.MERIDIAN_SAIL || caseType == CASE.OPPOSITE_POINTS) {
-            return "\n" +
-                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
-                    "\n" +
-                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
-                    "\n\n" +
-                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
-                    "\n" +
-                    "  A =  " + NOT_CALCULABLE_STRING[languageCode] + "\t" +
-                    "  h =  " + NOT_CALCULABLE_STRING[languageCode] +
-                    "\n" +
-                    "  B =  " + NOT_CALCULABLE_STRING[languageCode] +
-                    "\n\n";
-
-        } else if (caseType == CASE.EQUATOR_SAIL) {
-            return "\n" +
-                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
-                    "\n" +
-                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
-                    "\n\n" +
-                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
-                    "\n" +
-                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.height1) +
-                    "\n" +
-                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
-                    "\n\n";
-
-        } else {
-            return "ERROR";
-
-        }
-
-    }
-
-    public String printOrthodromeValue(Orthodrome orthodrome) {
-        return "\n" +
-                "  d = " + ddToDmString("long", orthodrome.distanceAngles) + " = " + String.valueOf(String.format("%.2f", orthodrome.distanceNm)) + " " + LENGTH_UNIT_NM[languageCode] +
-                "\n\n";
-    }
-
-    public String printLoxodromeValue(double loxodrome) {
-        return "\n" +
-                "  s =              " + String.valueOf(String.format("%.2f", loxodrome)) + " " + LENGTH_UNIT_NM[languageCode] +
-                "\n\n";
-    }
-
-    public String printCourseAngles(CourseAngles courseAngles) {
-        if (caseType == CASE.OPPOSITE_POINTS) {
-            return "\n" +
-                    "  α =  " + FREE_TO_CHOOSE_STRING[languageCode] +
-                    "\n" +
-                    "  β =  180° - α" +
-                    "\n\n";
-        } else {
-            return "\n" +
-                    "  α = " + ddToDmString("long", courseAngles.initialCourse) +
-                    "\n" +
-                    "  β = " + ddToDmString("long", courseAngles.finalCourse) +
-                    "\n\n";
-
-        }
-    }
-
-    public String printOrthodromeVertices(Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
-        if (caseType == CASE.EQUATOR_SAIL) {
-            return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                    "  ; xxx°xx,x' E/W )" +
-                    "\n" +
-                    "     " + ANY_POINT_ON_EQUATOR_STRING[languageCode] +
-                    "\n\n";
-
-        } else if (caseType == CASE.MERIDIAN_SAIL) {
-            return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                    " ) - " + NORTH_POLE_STRING[languageCode] +
-                    "\n" +
-                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                    " ) - " + SOUTH_POLE_STRING[languageCode] +
-                    "\n\n";
-
-        } else if (caseType == CASE.OPPOSITE_POINTS) {
-            return "\n" +
-                    "  W1  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
-                    "\n" +
-                    "  W2  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
-                    "\n\n";
-
-        } else {
-            return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                    "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
-                    "\n" +
-                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
-                    "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
-                    "\n\n";
-
-        }
-    }
-
-
     /**
-     * Specific examples implemented on button pressed in GUI
+     * Specific examples implemented on button pressed in GUI with
+     * implemented key events handlers for ENTER/SPACE button
+     *
      */
     //general cases//
     //---A(10°N;050°E) -> B(20°N;170°E)---//
@@ -1141,6 +1137,43 @@ public class Controller extends Converter {
 
         fillEmptyValuesWithZeros();
         inputProcedure();
+    }
+
+
+
+    /**
+     * KEY-EVENTS HANDLERS
+     *
+     * choosing proper actions on ENTER/SPACE key pressed
+     *
+     */
+    @FXML
+    public void inputProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            inputProcedure();
+        }
+    }
+
+    @FXML
+    public void clearProcedureOnSpaceOrEnter(KeyEvent keyEvent) {
+        if(isSpaceOrEnterPressed(keyEvent)) {
+            clearParameters();
+        }
+    }
+
+    @FXML
+    public void inputProcedureOnEnter(KeyEvent keyEvent) {
+        if(isEnterPressed(keyEvent)) {
+            inputProcedure();
+        }
+    }
+
+    private boolean isSpaceOrEnterPressed(KeyEvent keyEvent) {
+        return (keyEvent.getCode().toString().equals("ENTER") || keyEvent.getCode().toString().equals("SPACE"));
+    }
+
+    private boolean isEnterPressed(KeyEvent keyEvent) {
+        return (keyEvent.getCode().toString().equals("ENTER"));
     }
 
 }

@@ -68,7 +68,7 @@
                         <TextField fx:id="aLatMinTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <Label text="'" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                         <TextField fx:id="aLatSideTxt" onKeyPressed="#inputProcedureOnEnter" alignment="CENTER" editable="false" prefWidth="35.0" text="N" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                        <Button fx:id="aChangeLatBtn" onKeyPressed="#aChangeLatOnSpaceOrEnter" onMouseClicked="#aChangeLat" prefWidth="50.0" text="N/S" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <Button onKeyPressed="#aChangeLatOnSpaceOrEnter" onMouseClicked="#aChangeLat" prefWidth="50.0" text="N/S" GridPane.columnIndex="6" GridPane.rowIndex="2" />
 
                     <!--A-point longitude (E/W)-->
                         <TextField fx:id="aLongDegTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -76,7 +76,7 @@
                         <TextField fx:id="aLongMinTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <Label text="'" GridPane.columnIndex="4" GridPane.rowIndex="3" />
                         <TextField fx:id="aLongSideTxt" onKeyPressed="#inputProcedureOnEnter" alignment="CENTER" editable="false" prefWidth="35.0" text="E" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                        <Button fx:id="aChangeLongBtn" onKeyPressed="#aChangeLongOnSpaceOrEnter" onMouseClicked="#aChangeLong" prefWidth="50.0" text="E/W" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                        <Button onKeyPressed="#aChangeLongOnSpaceOrEnter" onMouseClicked="#aChangeLong" prefWidth="50.0" text="E/W" GridPane.columnIndex="6" GridPane.rowIndex="3" />
 
                 <Separator prefWidth="200.0" GridPane.columnSpan="7" GridPane.rowIndex="4" />
 
@@ -89,7 +89,7 @@
                         <TextField fx:id="bLatMinTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                         <Label text="'" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                         <TextField fx:id="bLatSideTxt" onKeyPressed="#inputProcedureOnEnter" alignment="CENTER" editable="false" prefWidth="35.0" text="N" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                        <Button fx:id="bChangeLatBtn" onKeyPressed="#bChangeLatOnSpaceOrEnter" onMouseClicked="#bChangeLat" prefWidth="50.0" text="N/S" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                        <Button onKeyPressed="#bChangeLatOnSpaceOrEnter" onMouseClicked="#bChangeLat" prefWidth="50.0" text="N/S" GridPane.columnIndex="6" GridPane.rowIndex="5" />
 
                     <!--B-point longitude (E/W)-->
                         <TextField fx:id="bLongDegTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
@@ -97,7 +97,7 @@
                         <TextField fx:id="bLongMinTxt" onKeyPressed="#inputProcedureOnEnter" prefWidth="60.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                         <Label text="'" GridPane.columnIndex="4" GridPane.rowIndex="6" />
                         <TextField fx:id="bLongSideTxt" onKeyPressed="#inputProcedureOnEnter" alignment="CENTER" editable="false" prefWidth="35.0" text="E" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-                        <Button fx:id="bChangeLongBtn"  onKeyPressed="#bChangeLongOnSpaceOrEnter" onMouseClicked="#bChangeLong" prefWidth="50.0" text="E/W" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                        <Button onKeyPressed="#bChangeLongOnSpaceOrEnter" onMouseClicked="#bChangeLong" prefWidth="50.0" text="E/W" GridPane.columnIndex="6" GridPane.rowIndex="6" />
 
             </children>
         </GridPane>
@@ -113,9 +113,9 @@
             <RowConstraints />
             </rowConstraints>
             <children>
-                <Button fx:id="clearBtn" onKeyPressed="#clearProcedureOnSpaceOrEnter" onMouseClicked="#clearParameters" styleClass="bigButtonHalf" text="Wyczyść/Info" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <ChoiceBox fx:id="languageCb" onMouseClicked="#changeLanguage" styleClass="languageChoiceBox" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                <Button fx:id="calculateBtn" onKeyPressed="#inputProcedureOnSpaceOrEnter" onMouseClicked="#inputProcedure" styleClass="bigButton" text="Oblicz" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+                <Button fx:id="clearBtn" onKeyPressed="#clearProcedureOnSpaceOrEnter" onMouseClicked="#clearParameters" styleClass="bigButtonHalf" text="Wyczyść/Info" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ChoiceBox fx:id="languageCb" onMouseClicked="#changeLanguage" styleClass="ChoiceBox" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+                <Button fx:id="calculateBtn" onKeyPressed="#inputProcedureOnSpaceOrEnter" onMouseClicked="#inputProcedure" styleClass="bigButton" text="Oblicz" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
             </children>
         </GridPane>
 
@@ -156,13 +156,11 @@
                 <RowConstraints prefHeight="60.0" valignment="CENTER" />
                 <RowConstraints prefHeight="60.0" valignment="CENTER" />
             </rowConstraints>
-            <children>
-                <Label fx:id="specialCasesLabel" styleClass="titleLabel" text="Przypadki szczególne" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                <Button onKeyPressed="#specialCase01onSpaceOrEnter" onMouseClicked="#specialCase01" styleClass="caseButton" text="A(90°N      )&#10;B(90°S      )" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Button onKeyPressed="#specialCase02onSpaceOrEnter" onMouseClicked="#specialCase02" styleClass="caseButton" text="A(40°N;030°E)&#10;B(40°S;150°W)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Button onKeyPressed="#specialCase03onSpaceOrEnter" onMouseClicked="#specialCase03" styleClass="caseButton" text="A(20°N;030°E)&#10;B(40°S;030°E)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Button onKeyPressed="#specialCase04onSpaceOrEnter" onMouseClicked="#specialCase04" styleClass="caseButton" text="A( 0° ;010°E)&#10;B( 0° ;050°W)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            </children>
+            <Label fx:id="specialCasesLabel" styleClass="titleLabel" text="Przypadki szczególne" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+            <Button onKeyPressed="#specialCase01onSpaceOrEnter" onMouseClicked="#specialCase01" styleClass="caseButton" text="A(90°N      )&#10;B(90°S      )" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <Button onKeyPressed="#specialCase02onSpaceOrEnter" onMouseClicked="#specialCase02" styleClass="caseButton" text="A(40°N;030°E)&#10;B(40°S;150°W)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button onKeyPressed="#specialCase03onSpaceOrEnter" onMouseClicked="#specialCase03" styleClass="caseButton" text="A(20°N;030°E)&#10;B(40°S;030°E)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <Button onKeyPressed="#specialCase04onSpaceOrEnter" onMouseClicked="#specialCase04" styleClass="caseButton" text="A( 0° ;010°E)&#10;B( 0° ;050°W)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
         </GridPane>
 
         <Label fx:id="bottomInfoLabel" styleClass="smallLabel" text="kalkulator ortodromy v1.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />

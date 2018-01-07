@@ -31,7 +31,7 @@
     -fx-min-height: 30;
 }
 
-.languageChoiceBox{
+.ChoiceBox{
     -fx-font-family: "Lucida Console";
     -fx-font-size: 15px;
     -fx-font-weight: bold;

@@ -3,9 +3,9 @@ class AllResults {
     Point aPoint;
     Point bPoint;
     Orthodrome orthodrome;
-    double loxodrome;
+    Loxodrome loxodrome;
     SphericalTriangle sphericalTriangle;
-    CourseAngles courseAngles;
+    BearingAngles bearingAngles;
     Point firstOrthodromeVertex;
     Point secondOrthodromeVertex;
 
@@ -14,16 +14,16 @@ class AllResults {
      * the results for easier access by other methods
      *
      */
-    AllResults(Orthodrome orthodrome, double loxodrome, CourseAngles courseAngles, Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
+    AllResults(Orthodrome orthodrome, Loxodrome loxodrome, BearingAngles bearingAngles, Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
         this.orthodrome = orthodrome;
         this.loxodrome = loxodrome;
-        this.courseAngles = courseAngles;
+        this.bearingAngles = bearingAngles;
         this.firstOrthodromeVertex = firstOrthodromeVertex;
         this.secondOrthodromeVertex = secondOrthodromeVertex;
 
-        this.aPoint = courseAngles.aPoint;
-        this.bPoint = courseAngles.bPoint;
-        this.sphericalTriangle = courseAngles.sphericalTriangle;
+        this.aPoint = bearingAngles.aPoint;
+        this.bPoint = bearingAngles.bPoint;
+        this.sphericalTriangle = bearingAngles.sphericalTriangle;
     }
 
 }
