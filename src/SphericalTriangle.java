@@ -3,7 +3,7 @@ public class SphericalTriangle extends Controller {
     //input
     private Point aPoint;
     private Point bPoint;
-    CASE caseType;
+    private CASE caseType;
 
     //output
     double a;

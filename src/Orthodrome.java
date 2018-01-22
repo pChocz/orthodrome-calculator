@@ -16,33 +16,7 @@ class Orthodrome extends Controller {
     Point secondOrthodromeVertex;
 
 
-
-    public double getHeight1() {
-        return height1;
-    }
-
-    public void setHeight1(double height1) {
-        this.height1 = height1;
-    }
-
-    public double getHeight2() {
-        return height2;
-    }
-
-    public void setHeight2(double height2) {
-        this.height2 = height2;
-    }
-
-    public double getDistanceAngles() {
-        return distanceAngles;
-    }
-
-    public double getDistanceNm() {
-        return this.distanceAngles * 60;
-    }
-
-
-    public Orthodrome(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, CASE caseType) {
+    Orthodrome(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, CASE caseType) {
         this.sphericalTriangle = sphericalTriangle;
         this.aPoint = aPoint;
         this.bPoint = bPoint;

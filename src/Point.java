@@ -36,11 +36,9 @@ class Point extends Controller{
             this.lambda *= -1;
         }
         lambdaRadians = toRadians(this.lambda);
-
     }
 
     Point(double phi, double lambda) {
-
         this.phi = phi;
         this.phiRadians = toRadians(phi);
         this.latCalculated = Math.abs(phi);

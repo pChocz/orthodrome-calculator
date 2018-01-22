@@ -39,7 +39,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 28, 51.4,
                 "E", 121, 20.3);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -68,7 +68,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 53, 21,
                 "E", 162, 27.7);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -102,7 +102,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 27, 30.7,
                 "E", 119, 8.2);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -136,7 +136,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 56, 39.2,
                 "E", 137, 36);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -171,7 +171,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 60, 55.5,
                 "E", 164, 46);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -206,7 +206,7 @@ public class CalculationEngineTest extends Controller {
                 "S", 47, 25.5,
                 "E", 36, 56.4);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -240,7 +240,7 @@ public class CalculationEngineTest extends Controller {
                 "S", 43, 20.6,
                 "E", 112, 17);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -274,7 +274,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 55, 6.5,
                 "E", 158, 16.1);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -310,7 +310,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 33, 50.87,
                 "E", 97, 00.57);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -363,7 +363,7 @@ public class CalculationEngineTest extends Controller {
                 "S", 32, 29.6,
                 "E", 164, 40);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expected_a, allResults.sphericalTriangle.a, DELTA_ANGLE);
@@ -405,7 +405,7 @@ public class CalculationEngineTest extends Controller {
 //                "S", 66, 47.77,
 //                "E", 150, 46);
 //
-//        AllResults allResults = calculationProcedure(aPoint, bPoint);
+//        AllResults allResults = new AllResults(aPoint, bPoint);
 //        printAllResultsForDebug(allResults);
 //
 //        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -442,8 +442,8 @@ public class CalculationEngineTest extends Controller {
                 "S", 10, 0,
                 "W", 170, 0);
 
-        calculationProcedure(aPoint, bPoint);
-        assertEquals(CASE.MERIDIAN_SAIL, caseType);
+        AllResults allResults = new AllResults(aPoint, bPoint);
+        assertEquals(CASE.MERIDIAN_SAIL, allResults.caseType);
     }
 
 
@@ -464,10 +464,10 @@ public class CalculationEngineTest extends Controller {
                 "N", 90, 0,
                 "E", 0, 0);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(CASE.MERIDIAN_SAIL, caseType);
+        assertEquals(CASE.MERIDIAN_SAIL, allResults.caseType);
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
         assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
         assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
@@ -493,7 +493,7 @@ public class CalculationEngineTest extends Controller {
                 "N", 90, 0,
                 "E", 999, 0);
 
-        AllResults allResults = calculationProcedure(aPoint, bPoint);
+        AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
         assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -514,8 +514,8 @@ public class CalculationEngineTest extends Controller {
                 "N", 0, 0,
                 "W", 170, 0);
 
-        calculationProcedure(aPoint, bPoint);
-        assertEquals(CASE.EQUATOR_SAIL, caseType);
+        AllResults allResults = new AllResults(aPoint, bPoint);
+        assertEquals(CASE.EQUATOR_SAIL, allResults.caseType);
     }
 
 
@@ -529,8 +529,8 @@ public class CalculationEngineTest extends Controller {
                 "N", 20, 0,
                 "W", 90, 0);
 
-        calculationProcedure(aPoint, bPoint);
-        assertEquals(CASE.SAME_POINT, caseType);
+        AllResults allResults = new AllResults(aPoint, bPoint);
+        assertEquals(CASE.SAME_POINT, allResults.caseType);
     }
 
 
@@ -544,8 +544,8 @@ public class CalculationEngineTest extends Controller {
                 "N", 90, 0,
                 "E", 92, 0);
 
-        calculationProcedure(aPoint, bPoint);
-        assertEquals(CASE.SAME_POINT, caseType);
+        AllResults allResults = new AllResults(aPoint, bPoint);
+        assertEquals(CASE.SAME_POINT, allResults.caseType);
     }
 
     
@@ -559,8 +559,8 @@ public class CalculationEngineTest extends Controller {
                 "S", 20, 0,
                 "W", 60, 0);
 
-        calculationProcedure(aPoint, bPoint);
-        assertEquals(CASE.OPPOSITE_POINTS, caseType);
+        AllResults allResults = new AllResults(aPoint, bPoint);
+        assertEquals(CASE.OPPOSITE_POINTS, allResults.caseType);
     }
 
     
@@ -571,7 +571,7 @@ public class CalculationEngineTest extends Controller {
      * helping methods
      */
     private void printAllResultsForDebug(AllResults allResults) {
-        System.out.println("case = " + caseType);
+        System.out.println("case = " + allResults.caseType);
         System.out.println("A = " + allResults.sphericalTriangle.A);
         System.out.println("B = " + allResults.sphericalTriangle.B);
         System.out.println("C = " + allResults.sphericalTriangle.C);

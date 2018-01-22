@@ -1,0 +1,228 @@
+class PrimaryTextCreator extends Controller {
+
+    private static final String SEPARATOR_LINE = " ---------------------------------------------------------";
+
+    private static final String[] VALUES_LAT_LONG_STRING = {
+            " ----przeliczone szerokości/długości punktów A oraz B-----",
+            " ----calculated latitudes/longitudes of points A and B----"};
+
+    private static final String[] VALUES_SPHERICAL_TRIANGLE_STRING = {
+            " --------podstawowe długości oraz kąty w trójkącie--------",
+            " -----values of sides and angles in spherical triangle----"};
+
+    private static final String[] VALUE_ORTHODROME_STRING = {
+            " -----------------odległość ortodromiczna-----------------",
+            " -----------orthodromic (great circle) distance-----------"};
+
+    private static final String[] VALUE_LOXODROME_STRING = {
+            " -----------------odległość loksodromiczna----------------",
+            " -------------------loxodromic distance-------------------"};
+
+    private static final String[] VALUES_BEARING_ANGLES_STRING = {
+            " -----------------------kąty drogi------------------------",
+            " ----------------------bearing angles----------------------"};
+
+    private static final String[] VALUES_ORTHODROMIC_VERTICES_STRING = {
+            " ------------------wierzchołki ortodromy------------------",
+            " -----------orthodromic (great circle) vertices-----------"};
+
+    private static final String[] NOT_CALCULABLE_STRING = {
+            "nie liczymy",
+            "not calculable"};
+
+    private static final String[] FREE_TO_CHOOSE_STRING = {
+            "dowolny",
+            "free to choose"};
+
+    private static final String[] ANY_POINT_ON_EQUATOR_STRING = {
+            "każdy punkt leżący na równiku",
+            "any point on the equator"};
+
+    private static final String[] NORTH_POLE_STRING = {
+            "biegun północny",
+            "north pole"};
+
+    private static final String[] SOUTH_POLE_STRING = {
+            "biegun południowy",
+            "south pole"};
+
+    private static final String[] LENGTH_UNIT_NM = {
+            "Nm",
+            "Mm"};
+
+    private static final String LENGTH_UNIT_KM = "km";
+
+    private AllResults allResults;
+    private int languageCode;
+    private CASE caseType;
+
+    PrimaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
+        this.allResults = allResults;
+        this.languageCode = languageCode;
+        this.caseType = caseType;
+    }
+
+    String printResultsValues() {
+        if (caseType == CASE.SAME_POINT) {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE;
+
+        } else {
+            return "\n" +
+                    VALUES_LAT_LONG_STRING[languageCode] + "\n" +
+                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
+                    printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUE_ORTHODROME_STRING[languageCode] + "\n" +
+                    printOrthodromeValue(allResults.orthodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUE_LOXODROME_STRING[languageCode] + "\n" +
+                    printLoxodromeValue(allResults.loxodrome) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_BEARING_ANGLES_STRING[languageCode] + "\n" +
+                    printBearingAngles(allResults.bearingAngles) +
+                    SEPARATOR_LINE + "\n\n" +
+
+                    VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
+                    printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
+                    SEPARATOR_LINE;
+        }
+    }
+
+    private String printPhiAndLambdaValues(Point aPoint, Point bPoint) {
+        return "\n" +
+                "  φ_A =" + ddToDmString("lat", aPoint.phi) + "\t\t" +
+                "  λ_A =" + ddToDmString("long", aPoint.lambda) +
+                "\n" +
+                "  φ_B =" + ddToDmString("lat", bPoint.phi) + "\t\t" +
+                "  λ_B =" + ddToDmString("long", bPoint.lambda) +
+                "\n\n";
+    }
+
+    private String printSphericalTriangleValues(SphericalTriangle sphericalTriangle, Orthodrome orthodrome) {
+        if (caseType == CASE.GENERAL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.height1) + "  v " + ddToDmString("long", orthodrome.height2) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL || caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A =  " + NOT_CALCULABLE_STRING[languageCode] + "\t" +
+                    "  h =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n" +
+                    "  B =  " + NOT_CALCULABLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  a = " + ddToDmString("long", sphericalTriangle.a) +
+                    "\n" +
+                    "  b = " + ddToDmString("long", sphericalTriangle.b) +
+                    "\n\n" +
+                    "  C = " + ddToDmString("long", sphericalTriangle.C) +
+                    "\n" +
+                    "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
+                    "  h = " + ddToDmString("long", orthodrome.height1) +
+                    "\n" +
+                    "  B = " + ddToDmString("long", sphericalTriangle.B) +
+                    "\n\n";
+
+        } else {
+            return "ERROR";
+
+        }
+    }
+
+    private String printOrthodromeValue(Orthodrome orthodrome) {
+        return "\n" +
+                "  d = " + ddToDmString("long", orthodrome.distanceAngles) +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceKm)) + " " + LENGTH_UNIT_KM +
+                "\n\n";
+    }
+
+    private String printLoxodromeValue(Loxodrome loxodrome) {
+        return "\n" +
+                "  s =           " +
+                "   " + String.valueOf(String.format("%.2f", loxodrome.lengthNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                " = " + String.valueOf(String.format("%.2f", loxodrome.lengthKm)) + " " + LENGTH_UNIT_KM +
+                "\n\n";
+    }
+
+    private String printBearingAngles(BearingAngles bearingAngles) {
+        if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  α =  " + FREE_TO_CHOOSE_STRING[languageCode] +
+                    "\n" +
+                    "  β =  180° - α" +
+                    "\n\n";
+        } else {
+            return "\n" +
+                    "  α = " + ddToDmString("long", bearingAngles.initialBearing) +
+                    "\n" +
+                    "  β = " + ddToDmString("long", bearingAngles.finalBearing) +
+                    "\n\n";
+
+        }
+    }
+
+    private String printOrthodromeVertices(Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
+        if (caseType == CASE.EQUATOR_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ; xxx°xx,x' E/W )" +
+                    "\n" +
+                    "     " + ANY_POINT_ON_EQUATOR_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.MERIDIAN_SAIL) {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + NORTH_POLE_STRING[languageCode] +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    " ) - " + SOUTH_POLE_STRING[languageCode] +
+                    "\n\n";
+
+        } else if (caseType == CASE.OPPOSITE_POINTS) {
+            return "\n" +
+                    "  W1  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n" +
+                    "  W2  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
+                    "\n\n";
+
+        } else {
+            return "\n" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
+                    "\n" +
+                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
+                    "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
+                    "\n\n";
+        }
+    }
+
+}
