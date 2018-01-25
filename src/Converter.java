@@ -32,28 +32,18 @@ class Converter {
             valueDeg++;
         }
 
-        if (decimalDegreeValue < 0) {
-            returnValue += "-";
-        } else {
-            returnValue += " ";
-        }
+        if (type.equals("phi") || type.equals("lambda")) returnValue += " ";
 
-        if (type.equals("long") && valueDeg < 100) {
-            degPrefix += "0";
-        }
+        returnValue += decimalDegreeValue < 0 ? "-" : " ";
 
-        if (valueDeg < 10) {
-            degPrefix += "0";
-        }
+        if ((type.equals("long") || type.equals("lambda")) && valueDeg < 100) degPrefix += "0";
 
-        if (valueMin < 10) {
-            minPrefix += "0";
-        }
+        if (valueDeg < 10) degPrefix += "0";
 
-        returnValue +=
-                degPrefix + String.valueOf(String.format("%.0f", valueDeg)) + "°" +
-                        minPrefix + String.valueOf(String.format("%.1f", valueMin)) + "'" +
-                        side;
+        if (valueMin < 10) minPrefix += "0";
+
+        returnValue +=  degPrefix + String.valueOf(String.format("%.0f", valueDeg)) + "°" +
+                        minPrefix + String.valueOf(String.format("%.1f", valueMin)) + "'" + side;
 
         return returnValue;
     }

@@ -5,7 +5,6 @@ class Orthodrome extends Controller {
     private Point aPoint;
     private Point bPoint;
     private CASE caseType;
-
     //output
     double distanceAngles;
     double distanceNm;
@@ -14,7 +13,6 @@ class Orthodrome extends Controller {
     double height2;
     Point firstOrthodromeVertex;
     Point secondOrthodromeVertex;
-
 
     Orthodrome(SphericalTriangle sphericalTriangle, Point aPoint, Point bPoint, CASE caseType) {
         this.sphericalTriangle = sphericalTriangle;
@@ -92,13 +90,3 @@ class Orthodrome extends Controller {
     }
 
 }
-
-
-
-
-
-
-
-
-
-

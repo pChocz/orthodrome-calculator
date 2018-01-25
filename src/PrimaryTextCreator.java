@@ -1,5 +1,45 @@
 class PrimaryTextCreator extends Controller {
 
+    public static final String[] PRIMARY_INSTRUCTION_STRING = {
+            "\n" +
+                    " -------------------Kalkulator ortodromy------------------" + "\n\n" +
+                    " -----------------------O PROGRAMIE-----------------------" + "\n\n" +
+                    "  Program wyznaczający podstawowe parametry ortodromy" + "\n" +
+                    "  mając dane współrzędne geograficzne dwóch punktów A,B:" + "\n\n" +
+                    "  - odległość ortodromiczną (w stopniach oraz Mm)," + "\n" +
+                    "  - początkowy oraz końcowy kąt drogi," + "\n" +
+                    "  - współrzędne wierzchołków ortodromy." + "\n\n" +
+                    "  Dodatkowo program oblicza i wypisuje wszystkie parametry " + "\n" +
+                    "  wymagane do obliczeń.",
+            "\n" +
+                    " -------------------Orthodrome calculator-----------------" + "\n\n" +
+                    " ---------------------ABOUT APPLICATION-------------------" + "\n\n" +
+                    "  Application calculates basic parameters of orthodrome" + "\n" +
+                    "  having geographical coordinates of two points A,B:" + "\n\n" +
+                    "  - orthodromic distance (given in degrees and NM)," + "\n" +
+                    "  - initial and final bearing," + "\n" +
+                    "  - vertices of the orthodrome." + "\n\n" +
+                    "  Additionally application is calculating all parameters" + "\n" +
+                    "  that are needed during the calculation."};
+
+    public static final String[] PRIMARY_INVALID_DATA_INSTRUCTION_STRING = {
+            "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ----- niepoprawne dane -----  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                -------- nie liczymy -------  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ----------------------------  ",
+            "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                --- not valid input data ---  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ------- incalculable -------  " + "\n" +
+                    "                ----------------------------  " + "\n" +
+                    "                ----------------------------  "};
+
     private static final String SEPARATOR_LINE = " ---------------------------------------------------------";
 
     private static final String[] VALUES_LAT_LONG_STRING = {
@@ -99,11 +139,11 @@ class PrimaryTextCreator extends Controller {
 
     private String printPhiAndLambdaValues(Point aPoint, Point bPoint) {
         return "\n" +
-                "  φ_A =" + ddToDmString("lat", aPoint.phi) + "\t\t" +
-                "  λ_A =" + ddToDmString("long", aPoint.lambda) +
+                "  φ_A =" + ddToDmString("phi", aPoint.phi) + "\t\t" +
+                "  λ_A =" + ddToDmString("lambda", aPoint.lambda) +
                 "\n" +
-                "  φ_B =" + ddToDmString("lat", bPoint.phi) + "\t\t" +
-                "  λ_B =" + ddToDmString("long", bPoint.lambda) +
+                "  φ_B =" + ddToDmString("phi", bPoint.phi) + "\t\t" +
+                "  λ_B =" + ddToDmString("lambda", bPoint.lambda) +
                 "\n\n";
     }
 

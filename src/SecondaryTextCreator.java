@@ -1,5 +1,42 @@
 class SecondaryTextCreator extends Controller {
 
+    public static final String[] SECONDARY_INSTRUCTION_STRING = {
+            "\n\n\n" +
+                    " -----------------------INSTRUKCJA------------------------" + "\n\n" +
+                    "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
+                    "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
+                    "  długość   od 0°00.0'' do 180°00.0'' " + "\n\n" +
+                    "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
+                    "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
+            "\n\n\n" +
+                    " -----------------------INSTRUCTION----------------------" + "\n\n" +
+                    "  Acceptable range of input parameters are:" + "\n\n" +
+                    "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
+                    "  longitude from 0°00.0'' to 180°00.0'' " + "\n\n" +
+                    "  Degrees are to be given as integers from 0   to 180  " + "\n" +
+                    "  Minutes as floating numbers         from 0.0 do  59.9"};
+
+
+
+    public static final String[] SECONDARY_INVALID_DATA_INSTRUCTION_STRING = {
+            "\n" +
+                    " ---------------------danie niepoprawne-------------------" + "\n\n" +
+                    "  Proszę o podanie poprawnych danych" + "\n\n" +
+                    "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
+                    "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
+                    "  długość   od 0°00.0'' do 180°00.0'' " + "\n\n" +
+                    "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
+                    "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
+            "\n" +
+                    " ----------------------not valid data---------------------" + "\n\n" +
+                    "  Please enter proper input data" + "\n\n" +
+                    "  Acceptable range of input parameters are:" + "\n\n" +
+                    "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
+                    "  longitude from 0°00.0'' to 180°00.0'' " + "\n\n" +
+                    "  Degrees are to be given as integers from 0   to 180  " + "\n" +
+                    "  Minutes as floating numbers         from 0.0 do  59.9"};
+
+
     private static final String SEPARATOR_DASH = " - ";
 
     private static final String[] CORRECT_VALUES_STRING = {

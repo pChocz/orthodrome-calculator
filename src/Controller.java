@@ -69,7 +69,6 @@ public class Controller extends Converter {
 
     private int languageCode;
     private final int PL_LANGUAGE_CODE = 0;
-    private final int EN_LANGUAGE_CODE = 1;
 
     private CASE caseType;
     public enum CASE {
@@ -106,81 +105,6 @@ public class Controller extends Converter {
             "kalkulator ortodromy",
             "orthodrome calculator"};
 
-    private static final String[] PRIMARY_INSTRUCTION_STRING = {
-            "\n" +
-                    " -------------------Kalkulator ortodromy------------------" + "\n\n" +
-                    " -----------------------O PROGRAMIE-----------------------" + "\n\n" +
-                    "  Program wyznaczający podstawowe parametry ortodromy" + "\n" +
-                    "  mając dane współrzędne geograficzne dwóch punktów A,B:" + "\n\n" +
-                    "  - odległość ortodromiczną (w stopniach oraz Mm)," + "\n" +
-                    "  - początkowy oraz końcowy kąt drogi," + "\n" +
-                    "  - współrzędne wierzchołków ortodromy." + "\n\n" +
-                    "  Dodatkowo program oblicza i wypisuje wszystkie parametry " + "\n" +
-                    "  wymagane do obliczeń.",
-            "\n" +
-                    " -------------------Orthodrome calculator-----------------" + "\n\n" +
-                    " ---------------------ABOUT APPLICATION-------------------" + "\n\n" +
-                    "  Application calculates basic parameters of orthodrome" + "\n" +
-                    "  having geographical coordinates of two points A,B:" + "\n\n" +
-                    "  - orthodromic distance (given in degrees and NM)," + "\n" +
-                    "  - initial and final bearing," + "\n" +
-                    "  - vertices of the orthodrome." + "\n\n" +
-                    "  Additionally application is calculating all parameters" + "\n" +
-                    "  that are needed during the calculation."};
-
-    private static final String[] SECONDARY_INSTRUCTION_STRING = {
-            "\n\n\n" +
-                    " -----------------------INSTRUKCJA------------------------" + "\n\n" +
-                    "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
-                    "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
-                    "  długość   od 0°00.0'' do 180°00.0'' " + "\n\n" +
-                    "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
-                    "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
-            "\n\n\n" +
-                    " -----------------------INSTRUCTION----------------------" + "\n\n" +
-                    "  Acceptable range of input parameters are:" + "\n\n" +
-                    "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
-                    "  longitude from 0°00.0'' to 180°00.0'' " + "\n\n" +
-                    "  Degrees are to be given as integers from 0   to 180  " + "\n" +
-                    "  Minutes as floating numbers         from 0.0 do  59.9"};
-
-    private static final String[] PRIMARY_INVALID_DATA_INSTRUCTION_STRING = {
-            "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ----- niepoprawne dane -----  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                -------- nie liczymy -------  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ----------------------------  ",
-            "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                --- not valid input data ---  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ------- incalculable -------  " + "\n" +
-                    "                ----------------------------  " + "\n" +
-                    "                ----------------------------  "};
-
-    private static final String[] SECONDARY_INVALID_DATA_INSTRUCTION_STRING = {
-            "\n" +
-                    " ---------------------danie niepoprawne-------------------" + "\n\n" +
-                    "  Proszę o podanie poprawnych danych" + "\n\n" +
-                    "  Akceptowalny zakres danych wejściowych to:" + "\n\n" +
-                    "  szerokość od 0°00.0'' do  90°00.0'' " + "\n" +
-                    "  długość   od 0°00.0'' do 180°00.0'' " + "\n\n" +
-                    "  Kąty podajemy jako liczby całkowite od 0   do 180  " + "\n" +
-                    "  Minuty jako liczby dziesiętne       od 0.0 do  59.9",
-            "\n" +
-                    " ----------------------not valid data---------------------" + "\n\n" +
-                    "  Please enter proper input data" + "\n\n" +
-                    "  Acceptable range of input parameters are:" + "\n\n" +
-                    "  latitude  from 0°00.0'' to  90°00.0'' " + "\n" +
-                    "  longitude from 0°00.0'' to 180°00.0'' " + "\n\n" +
-                    "  Degrees are to be given as integers from 0   to 180  " + "\n" +
-                    "  Minutes as floating numbers         from 0.0 do  59.9"};
-
-
     /**
      * Initialization and GUI-handling methods
      */
@@ -199,7 +123,8 @@ public class Controller extends Converter {
         languageCb.getItems().add("PL");
         languageCb.getItems().add("EN");
         languageCb.setValue("PL");
-        languageCb.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> changeLanguage());
+        languageCb.getSelectionModel().selectedItemProperty().
+                addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> changeLanguage());
 
         languageCode = PL_LANGUAGE_CODE;
         clearParameters();
@@ -216,6 +141,7 @@ public class Controller extends Converter {
     }
 
     public void changeLanguage() {
+        int EN_LANGUAGE_CODE = 1;
         languageCode = languageCb.getValue().equals("PL") ? PL_LANGUAGE_CODE : EN_LANGUAGE_CODE;
 
         titleLabel.setText(INPUT_PARAMETERS_STRING[languageCode]);
@@ -401,13 +327,13 @@ public class Controller extends Converter {
     }
 
     private void printInstructions() {
-        primaryTextArea.setText(PRIMARY_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INSTRUCTION_STRING[languageCode]);
+        primaryTextArea.setText(PrimaryTextCreator.PRIMARY_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SecondaryTextCreator.SECONDARY_INSTRUCTION_STRING[languageCode]);
     }
 
     private void printInstructionsInvalidData() {
-        primaryTextArea.setText(PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
-        secondaryTextArea.setText(SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+        primaryTextArea.setText(PrimaryTextCreator.PRIMARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
+        secondaryTextArea.setText(SecondaryTextCreator.SECONDARY_INVALID_DATA_INSTRUCTION_STRING[languageCode]);
     }
 
 
