@@ -1,25 +1,31 @@
-class Converter {
+package Utility;
 
-    double toRadians(double value) {
+public class Converter {
+
+    private Converter(){
+        // private constructor to prevent initializing
+    }
+
+    public static double toRadians(double value) {
         return value * Math.PI / 180;
     }
 
-    double toDegrees(double value) {
+    public static double toDegrees(double value) {
         return value / Math.PI * 180;
     }
 
-    double dmToDdDouble(double degree, double minute) {
+    public static double dmToDdDouble(double degree, double minute) {
         return degree + minute/60;
     }
 
-    //decimal degree (dd) to degree minute (dm)
+    // decimal degree (dd) to degree minute (dm)
     // ex: 00,00 to  00°00,0′ when type == lat
     //     00,00 to 000°00,0′ when type == long
-    String ddToDmString(String type, double decimalDegreeValue) {
+    public static String ddToDmString(String type, double decimalDegreeValue) {
         return ddToDmString(type, decimalDegreeValue, "");
     }
 
-    String ddToDmString(String type, double decimalDegreeValue, String side) {
+    public static String ddToDmString(String type, double decimalDegreeValue, String side) {
         double valueDeg = Math.floor(Math.abs(decimalDegreeValue));
         double valueMin = (Math.abs(decimalDegreeValue) - valueDeg) * 60;
 

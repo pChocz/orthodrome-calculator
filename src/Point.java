@@ -1,4 +1,6 @@
-class Point extends Controller{
+import static Utility.Converter.toRadians;
+
+class Point {
 
     String latSide;
     double latDeg;

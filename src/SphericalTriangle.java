@@ -1,3 +1,6 @@
+import static Utility.Converter.toDegrees;
+import static Utility.Converter.toRadians;
+
 public class SphericalTriangle extends Controller {
 
     //input

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Controller extends Converter {
+public class Controller {
 
     @FXML
     private Label titleLabel;

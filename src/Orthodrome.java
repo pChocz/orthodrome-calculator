@@ -1,3 +1,6 @@
+import static Utility.Converter.toDegrees;
+import static Utility.Converter.toRadians;
+
 class Orthodrome extends Controller {
 
     //input

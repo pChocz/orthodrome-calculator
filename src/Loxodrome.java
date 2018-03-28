@@ -1,3 +1,5 @@
+import static Utility.Converter.toDegrees;
+
 class Loxodrome extends Controller{
 
     //input

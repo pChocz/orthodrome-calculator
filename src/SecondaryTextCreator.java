@@ -1,3 +1,5 @@
+import static Utility.Converter.ddToDmString;
+
 class SecondaryTextCreator extends Controller {
 
     public static final String[] SECONDARY_INSTRUCTION_STRING = {

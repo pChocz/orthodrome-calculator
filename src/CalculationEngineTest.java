@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import static Utility.Converter.ddToDmString;
+import static Utility.Converter.dmToDdDouble;
 import static org.junit.Assert.assertEquals;
 
 public class CalculationEngineTest extends Controller {
