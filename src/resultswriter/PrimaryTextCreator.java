@@ -1,6 +1,11 @@
-import static Utility.Converter.ddToDmString;
+package resultswriter;
 
-class PrimaryTextCreator extends Controller {
+import calculationengine.*;
+import gui.Controller;
+
+import static util.Converter.ddToDmString;
+
+public class PrimaryTextCreator extends Controller {
 
     public static final String[] PRIMARY_INSTRUCTION_STRING = {
             "\n" +
@@ -98,13 +103,13 @@ class PrimaryTextCreator extends Controller {
     private int languageCode;
     private CASE caseType;
 
-    PrimaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
+    public PrimaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
         this.allResults = allResults;
         this.languageCode = languageCode;
         this.caseType = caseType;
     }
 
-    String printResultsValues() {
+    public String printResultsValues() {
         if (caseType == CASE.SAME_POINT) {
             return "\n" +
                     VALUES_LAT_LONG_STRING[languageCode] + "\n" +

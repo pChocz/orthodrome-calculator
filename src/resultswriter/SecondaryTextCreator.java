@@ -1,6 +1,13 @@
-import static Utility.Converter.ddToDmString;
+package resultswriter;
 
-class SecondaryTextCreator extends Controller {
+import calculationengine.AllResults;
+import calculationengine.Point;
+import calculationengine.SphericalTriangle;
+import gui.Controller;
+
+import static util.Converter.ddToDmString;
+
+public class SecondaryTextCreator extends Controller {
 
     public static final String[] SECONDARY_INSTRUCTION_STRING = {
             "\n\n\n" +
@@ -164,13 +171,13 @@ class SecondaryTextCreator extends Controller {
     private int languageCode;
     private CASE caseType;
 
-    SecondaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
+    public SecondaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
         this.allResults = allResults;
         this.languageCode = languageCode;
         this.caseType = caseType;
     }
 
-    String printHelpInformation() {
+    public String printHelpInformation() {
         if (caseType == CASE.OPPOSITE_POINTS) {
             return "\n" +
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +

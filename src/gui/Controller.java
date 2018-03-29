@@ -1,7 +1,12 @@
+package gui;
+
+import calculationengine.*;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import resultswriter.PrimaryTextCreator;
+import resultswriter.SecondaryTextCreator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -289,7 +294,7 @@ public class Controller {
         printResults(allResults);
     }
 
-    CASE verifySpecialCases(Point aPoint, Point bPoint) {
+    public CASE verifySpecialCases(Point aPoint, Point bPoint) {
         double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
         double sumPhi = aPoint.phi + bPoint.phi;
 

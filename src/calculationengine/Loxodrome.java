@@ -1,6 +1,11 @@
-import static Utility.Converter.toDegrees;
+package calculationengine;
 
-class Loxodrome extends Controller{
+import gui.Controller;
+
+import static util.Converter.toDegrees;
+
+
+public class Loxodrome extends Controller {
 
     //input
     private Point aPoint;
@@ -9,13 +14,13 @@ class Loxodrome extends Controller{
     private CASE caseType;
 
     //output
-    double lengthKm;
-    double lengthNm;
-    double orthodromeGainKm;
-    double orthodromeGainNm;
-    double bearing;
+    public double lengthKm;
+    public double lengthNm;
+    public double orthodromeGainKm;
+    public double orthodromeGainNm;
+    public double bearing;
 
-    Loxodrome(Point aPoint, Point bPoint, Orthodrome orthodrome, CASE caseType) {
+    public Loxodrome(Point aPoint, Point bPoint, Orthodrome orthodrome, CASE caseType) {
         this.aPoint = aPoint;
         this.bPoint = bPoint;
         this.orthodrome = orthodrome;

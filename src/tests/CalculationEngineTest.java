@@ -1,8 +1,13 @@
+package tests;
+
+import calculationengine.AllResults;
+import calculationengine.Point;
+import gui.Controller;
 import org.junit.Test;
 
-import static Utility.Converter.ddToDmString;
-import static Utility.Converter.dmToDdDouble;
 import static org.junit.Assert.assertEquals;
+import static util.Converter.ddToDmString;
+import static util.Converter.dmToDdDouble;
 
 public class CalculationEngineTest extends Controller {
 

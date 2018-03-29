@@ -1,5 +1,9 @@
-import static Utility.Converter.toDegrees;
-import static Utility.Converter.toRadians;
+package calculationengine;
+
+import gui.Controller;
+
+import static util.Converter.toDegrees;
+import static util.Converter.toRadians;
 
 public class SphericalTriangle extends Controller {
 
@@ -9,12 +13,12 @@ public class SphericalTriangle extends Controller {
     private CASE caseType;
 
     //output
-    double a;
-    double b;
-    double d;
-    double A;
-    double B;
-    double C;
+    public double a;
+    public double b;
+    public double d;
+    public double A;
+    public double B;
+    public double C;
     private double aRadians;
     private double bRadians;
     private double dRadians;
@@ -22,7 +26,7 @@ public class SphericalTriangle extends Controller {
     private double BRadians;
     private double CRadians;
 
-    SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
+    public SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
         this.aPoint = startPoint;
         this.bPoint = endPoint;
         this.caseType = caseType;
