@@ -1,28 +1,29 @@
-import static Utility.Converter.toDegrees;
-import static Utility.Converter.toRadians;
+package calculationengine;
+
+import gui.Controller;
+
+import static util.Converter.toDegrees;
+import static util.Converter.toRadians;
 
 public class SphericalTriangle extends Controller {
 
     //input
     private Point aPoint;
     private Point bPoint;
-    private CASE caseType;
+    private Controller.CASE caseType;
 
     //output
-    double a;
-    double b;
-    double d;
-    double A;
-    double B;
-    double C;
+    public double a;
+    public double b;
+    public double d;
+    public double A;
+    public double B;
+    public double C;
     private double aRadians;
     private double bRadians;
-    private double dRadians;
-    private double ARadians;
-    private double BRadians;
     private double CRadians;
 
-    SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
+    public SphericalTriangle(Point startPoint, Point endPoint, Controller.CASE caseType) {
         this.aPoint = startPoint;
         this.bPoint = endPoint;
         this.caseType = caseType;
@@ -31,23 +32,23 @@ public class SphericalTriangle extends Controller {
     }
 
     private void calculateSphericalTriangle() {
-        this.a = 90 - bPoint.phi;
+        this.a = 90 - bPoint.getPhi();
         this.aRadians = toRadians(a);
 
-        this.b = 90 - aPoint.phi;
+        this.b = 90 - aPoint.getPhi();
         this.bRadians = toRadians(b);
 
         this.C = calculateC();
         this.CRadians = toRadians(C);
 
         this.A = calculateA();
-        this.ARadians = toRadians(A);
+        double ARadians = toRadians(A);
 
         this.B = calculateB();
-        this.BRadians = toRadians(B);
+        double BRadians = toRadians(B);
 
         this.d = calculateOrthodrome();
-        this.dRadians = toRadians(d);
+        double dRadians = toRadians(d);
 
         if (!caseType.equals(Controller.CASE.GENERAL)) {
             verifySpecialCasesSphericalTriangle();
@@ -55,7 +56,7 @@ public class SphericalTriangle extends Controller {
     }
 
     private double calculateC() {
-        double C = Math.abs(bPoint.lambda - aPoint.lambda);
+        double C = Math.abs(bPoint.getLambda() - aPoint.getLambda());
         return (C <= 180) ? (C) : (360 - C);
     }
 

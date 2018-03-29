@@ -1,13 +1,21 @@
+package gui;
+
+import calculationengine.*;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import resultswriter.PrimaryTextCreator;
+import resultswriter.SecondaryTextCreator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Controller {
+
+    public Controller() {
+    }
 
     @FXML
     private Label titleLabel;
@@ -254,7 +262,7 @@ public class Controller {
     }
 
     private boolean validateLatitude(Point point) {
-        if ((point.latCalculated > 90) || (point.latMin < 0 || point.latMin >= 60) || (point.latDeg < 0 || point.latDeg > 90)) {
+        if ((point.getLatCalculated() > 90) || (point.getLatMin() < 0 || point.getLatMin() >= 60) || (point.getLatDeg() < 0 || point.getLatDeg() > 90)) {
             printInstructionsInvalidData();
             return false;
         }
@@ -262,7 +270,7 @@ public class Controller {
     }
 
     private boolean validateLongitude(Point point) {
-        if ((point.longCalculated > 180) || (point.longMin < 0 || point.longMin >= 60) || (point.longDeg < 0 || point.longDeg > 180)) {
+        if ((point.getLongCalculated() > 180) || (point.getLongMin() < 0 || point.getLongMin() >= 60) || (point.getLongDeg() < 0 || point.getLongDeg() > 180)) {
             printInstructionsInvalidData();
             return false;
         }
@@ -289,20 +297,20 @@ public class Controller {
         printResults(allResults);
     }
 
-    CASE verifySpecialCases(Point aPoint, Point bPoint) {
-        double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
-        double sumPhi = aPoint.phi + bPoint.phi;
+    protected CASE verifySpecialCases(Point aPoint, Point bPoint) {
+        double difLambda = Math.abs(aPoint.getLambda() - bPoint.getLambda());
+        double sumPhi = aPoint.getPhi() + bPoint.getPhi();
 
-        if (((aPoint.lambda == bPoint.lambda) && (aPoint.phi == bPoint.phi)) || (aPoint.phi*bPoint.phi == 8100)) {
+        if (((aPoint.getLambda() == bPoint.getLambda()) && (aPoint.getPhi() == bPoint.getPhi())) || (aPoint.getPhi()*bPoint.getPhi() == 8100)) {
             return CASE.SAME_POINT;
 
-        } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.lambda == 0) && (bPoint.lambda == 0) && (sumPhi == 0))) {
+        } else if (((difLambda == 180) && (sumPhi == 0)) || ((aPoint.getLambda() == 0) && (bPoint.getLambda() == 0) && (sumPhi == 0))) {
             return CASE.OPPOSITE_POINTS;
 
-        } else if ((aPoint.phi == 0) && (bPoint.phi == 0)) {
+        } else if ((aPoint.getPhi() == 0) && (bPoint.getPhi() == 0)) {
             return CASE.EQUATOR_SAIL;
 
-        } else if ((aPoint.lambda == bPoint.lambda) || (difLambda == 180) || (aPoint.phi*bPoint.phi == -8100) || (Math.abs(aPoint.phi) == 90 || Math.abs(bPoint.phi) == 90)) {
+        } else if ((aPoint.getLambda() == bPoint.getLambda()) || (difLambda == 180) || (aPoint.getPhi()*bPoint.getPhi() == -8100) || (Math.abs(aPoint.getPhi()) == 90 || Math.abs(bPoint.getPhi()) == 90)) {
             return CASE.MERIDIAN_SAIL;
 
         } else {

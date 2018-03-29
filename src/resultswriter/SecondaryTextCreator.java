@@ -1,6 +1,13 @@
-import static Utility.Converter.ddToDmString;
+package resultswriter;
 
-class SecondaryTextCreator extends Controller {
+import calculationengine.AllResults;
+import calculationengine.Point;
+import calculationengine.SphericalTriangle;
+import gui.Controller;
+
+import static util.Converter.ddToDmString;
+
+public class SecondaryTextCreator extends Controller {
 
     public static final String[] SECONDARY_INSTRUCTION_STRING = {
             "\n\n\n" +
@@ -162,55 +169,55 @@ class SecondaryTextCreator extends Controller {
 
     private AllResults allResults;
     private int languageCode;
-    private CASE caseType;
+    private Controller.CASE caseType;
 
-    SecondaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
+    public SecondaryTextCreator(AllResults allResults, int languageCode, Controller.CASE caseType) {
         this.allResults = allResults;
         this.languageCode = languageCode;
         this.caseType = caseType;
     }
 
-    String printHelpInformation() {
-        if (caseType == CASE.OPPOSITE_POINTS) {
+    public String printHelpInformation() {
+        if (caseType == Controller.CASE.OPPOSITE_POINTS) {
             return "\n" +
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
                     SPECIAL_CASE_OPPOSITE_STRING[languageCode] + "\n\n" +
                     SPECIAL_CASE_OPPOSITE_INFO_STRING[languageCode];
 
-        } else if (caseType == CASE.MERIDIAN_SAIL) {
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
             return "\n" +
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
                     SPECIAL_CASE_MERIDIAN_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
                     SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    meridianSailBearingAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    meridianSailBearingAnglesInfo(allResults.getaPoint(), allResults.getbPoint())[languageCode] + "\n\n\n\n\n\n" +
                     SPECIAL_CASE_MERIDIAN_SAIL_INFO_STRING_ENDING[languageCode];
 
-        } else if (caseType == CASE.EQUATOR_SAIL) {
+        } else if (caseType == Controller.CASE.EQUATOR_SAIL) {
             return "\n" +
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + SPECIAL_CASE_STRING[languageCode] + "\n" +
                     SPECIAL_CASE_EQUATOR_SAILING_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n" +
                     SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_BEGIN[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    equatorSailBearingAnglesInfo(allResults.aPoint, allResults.bPoint)[languageCode] + "\n\n\n\n\n\n" +
+                    equatorSailBearingAnglesInfo(allResults.getaPoint(), allResults.getbPoint())[languageCode] + "\n\n\n\n\n\n" +
                     SPECIAL_CASE_EQUATOR_SAIL_INFO_STRING_ENDING[languageCode];
 
-        } else if (caseType == CASE.SAME_POINT) {
+        } else if (caseType == Controller.CASE.SAME_POINT) {
             return "\n\n" +
                     SPECIAL_CASE_SAME_POINT_INFO_STRING[languageCode];
 
         } else {
             return "\n" +
                     CORRECT_VALUES_STRING[languageCode] + SEPARATOR_DASH + GENERAL_CASE_STRING[languageCode] + "\n\n\n\n\n\n\n\n\n\n\n\n\n" +
-                    checkHomogeneousAngles(allResults.sphericalTriangle) + "\n\n\n\n\n\n\n\n\n\n\n" +
+                    checkHomogeneousAngles(allResults.getSphericalTriangle()) + "\n\n\n\n\n\n\n\n\n\n\n" +
                     ORTHODROME_GAIN_STRING[languageCode] +
-                    String.valueOf(String.format("%.2f", allResults.loxodrome.orthodromeGainNm)) + " " + LENGTH_UNIT_NM[languageCode] +
-                    " (" +  String.valueOf(String.format("%.2f", allResults.loxodrome.orthodromeGainKm)) + " " + LENGTH_UNIT_KM + ")." + "\n\n" +
-                    LOXODROMIC_BEARING_STRING[languageCode] + ddToDmString("", allResults.loxodrome.bearing) + "\n\n\n\n\n" +
-                    SAIL_DIRECTION_STRING[languageCode] + allResults.bearingAngles.direction;
+                    String.valueOf(String.format("%.2f", allResults.getLoxodrome().orthodromeGainNm)) + " " + LENGTH_UNIT_NM[languageCode] +
+                    " (" +  String.valueOf(String.format("%.2f", allResults.getLoxodrome().orthodromeGainKm)) + " " + LENGTH_UNIT_KM + ")." + "\n\n" +
+                    LOXODROMIC_BEARING_STRING[languageCode] + ddToDmString("", allResults.getLoxodrome().bearing) + "\n\n\n\n\n" +
+                    SAIL_DIRECTION_STRING[languageCode] + allResults.getBearingAngles().getDirection();
         }
     }
 
     private String[] meridianSailBearingAnglesInfo(Point aPoint, Point bPoint) {
-        if (aPoint.phi > bPoint.phi) {
+        if (aPoint.getPhi() > bPoint.getPhi()) {
             return new String[] {
                     " - Kąt drogi wynosi stale 180°00.0' (prosto na południe)",
                     " - Angle of the bearing is 180°00.0' (straight south)"};
@@ -222,7 +229,7 @@ class SecondaryTextCreator extends Controller {
     }
 
     private String[] equatorSailBearingAnglesInfo(Point aPoint, Point bPoint) {
-        if (aPoint.lambda > bPoint.lambda) {
+        if (aPoint.getLambda() > bPoint.getLambda()) {
             return new String[] {
                     " - Kąt drogi wynosi stale 270°00.0' (prosto na zachód)",
                     " - Angle of the bearing is 270°00.0' (straight west)"};

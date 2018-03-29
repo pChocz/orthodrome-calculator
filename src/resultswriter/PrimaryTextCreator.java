@@ -1,6 +1,11 @@
-import static Utility.Converter.ddToDmString;
+package resultswriter;
 
-class PrimaryTextCreator extends Controller {
+import calculationengine.*;
+import gui.Controller;
+
+import static util.Converter.ddToDmString;
+
+public class PrimaryTextCreator extends Controller {
 
     public static final String[] PRIMARY_INSTRUCTION_STRING = {
             "\n" +
@@ -96,61 +101,61 @@ class PrimaryTextCreator extends Controller {
 
     private AllResults allResults;
     private int languageCode;
-    private CASE caseType;
+    private Controller.CASE caseType;
 
-    PrimaryTextCreator(AllResults allResults, int languageCode, CASE caseType) {
+    public PrimaryTextCreator(AllResults allResults, int languageCode, Controller.CASE caseType) {
         this.allResults = allResults;
         this.languageCode = languageCode;
         this.caseType = caseType;
     }
 
-    String printResultsValues() {
-        if (caseType == CASE.SAME_POINT) {
+    public String printResultsValues() {
+        if (caseType == Controller.CASE.SAME_POINT) {
             return "\n" +
                     VALUES_LAT_LONG_STRING[languageCode] + "\n" +
-                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    printPhiAndLambdaValues(allResults.getaPoint(), allResults.getbPoint()) +
                     SEPARATOR_LINE;
 
         } else {
             return "\n" +
                     VALUES_LAT_LONG_STRING[languageCode] + "\n" +
-                    printPhiAndLambdaValues(allResults.aPoint, allResults.bPoint) +
+                    printPhiAndLambdaValues(allResults.getaPoint(), allResults.getbPoint()) +
                     SEPARATOR_LINE + "\n\n" +
 
                     VALUES_SPHERICAL_TRIANGLE_STRING[languageCode] + "\n" +
-                    printSphericalTriangleValues(allResults.sphericalTriangle, allResults.orthodrome) +
+                    printSphericalTriangleValues(allResults.getSphericalTriangle(), allResults.getOrthodrome()) +
                     SEPARATOR_LINE + "\n\n" +
 
                     VALUE_ORTHODROME_STRING[languageCode] + "\n" +
-                    printOrthodromeValue(allResults.orthodrome) +
+                    printOrthodromeValue(allResults.getOrthodrome()) +
                     SEPARATOR_LINE + "\n\n" +
 
                     VALUE_LOXODROME_STRING[languageCode] + "\n" +
-                    printLoxodromeValue(allResults.loxodrome) +
+                    printLoxodromeValue(allResults.getLoxodrome()) +
                     SEPARATOR_LINE + "\n\n" +
 
                     VALUES_BEARING_ANGLES_STRING[languageCode] + "\n" +
-                    printBearingAngles(allResults.bearingAngles) +
+                    printBearingAngles(allResults.getBearingAngles()) +
                     SEPARATOR_LINE + "\n\n" +
 
                     VALUES_ORTHODROMIC_VERTICES_STRING[languageCode] + "\n" +
-                    printOrthodromeVertices(allResults.firstOrthodromeVertex, allResults.secondOrthodromeVertex) +
+                    printOrthodromeVertices(allResults.getFirstOrthodromeVertex(), allResults.getSecondOrthodromeVertex()) +
                     SEPARATOR_LINE;
         }
     }
 
     private String printPhiAndLambdaValues(Point aPoint, Point bPoint) {
         return "\n" +
-                "  φ_A =" + ddToDmString("phi", aPoint.phi) + "\t\t" +
-                "  λ_A =" + ddToDmString("lambda", aPoint.lambda) +
+                "  φ_A =" + ddToDmString("phi", aPoint.getPhi()) + "\t\t" +
+                "  λ_A =" + ddToDmString("lambda", aPoint.getLambda()) +
                 "\n" +
-                "  φ_B =" + ddToDmString("phi", bPoint.phi) + "\t\t" +
-                "  λ_B =" + ddToDmString("lambda", bPoint.lambda) +
+                "  φ_B =" + ddToDmString("phi", bPoint.getPhi()) + "\t\t" +
+                "  λ_B =" + ddToDmString("lambda", bPoint.getLambda()) +
                 "\n\n";
     }
 
     private String printSphericalTriangleValues(SphericalTriangle sphericalTriangle, Orthodrome orthodrome) {
-        if (caseType == CASE.GENERAL) {
+        if (caseType == Controller.CASE.GENERAL) {
             return "\n" +
                     "  a = " + ddToDmString("long", sphericalTriangle.a) +
                     "\n" +
@@ -159,12 +164,12 @@ class PrimaryTextCreator extends Controller {
                     "  C = " + ddToDmString("long", sphericalTriangle.C) +
                     "\n" +
                     "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.height1) + "  v " + ddToDmString("long", orthodrome.height2) +
+                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) + "  v " + ddToDmString("long", orthodrome.getHeight2()) +
                     "\n" +
                     "  B = " + ddToDmString("long", sphericalTriangle.B) +
                     "\n\n";
 
-        } else if (caseType == CASE.MERIDIAN_SAIL || caseType == CASE.OPPOSITE_POINTS) {
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL || caseType == Controller.CASE.OPPOSITE_POINTS) {
             return "\n" +
                     "  a = " + ddToDmString("long", sphericalTriangle.a) +
                     "\n" +
@@ -178,7 +183,7 @@ class PrimaryTextCreator extends Controller {
                     "  B =  " + NOT_CALCULABLE_STRING[languageCode] +
                     "\n\n";
 
-        } else if (caseType == CASE.EQUATOR_SAIL) {
+        } else if (caseType == Controller.CASE.EQUATOR_SAIL) {
             return "\n" +
                     "  a = " + ddToDmString("long", sphericalTriangle.a) +
                     "\n" +
@@ -187,7 +192,7 @@ class PrimaryTextCreator extends Controller {
                     "  C = " + ddToDmString("long", sphericalTriangle.C) +
                     "\n" +
                     "  A = " + ddToDmString("long", sphericalTriangle.A) + "\t" +
-                    "  h = " + ddToDmString("long", orthodrome.height1) +
+                    "  h = " + ddToDmString("long", orthodrome.getHeight1()) +
                     "\n" +
                     "  B = " + ddToDmString("long", sphericalTriangle.B) +
                     "\n\n";
@@ -200,9 +205,9 @@ class PrimaryTextCreator extends Controller {
 
     private String printOrthodromeValue(Orthodrome orthodrome) {
         return "\n" +
-                "  d = " + ddToDmString("long", orthodrome.distanceAngles) +
-                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceNm)) + " " + LENGTH_UNIT_NM[languageCode] +
-                " = " + String.valueOf(String.format("%.2f", orthodrome.distanceKm)) + " " + LENGTH_UNIT_KM +
+                "  d = " + ddToDmString("long", orthodrome.getDistanceAngles()) +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.getDistanceNm())) + " " + LENGTH_UNIT_NM[languageCode] +
+                " = " + String.valueOf(String.format("%.2f", orthodrome.getDistanceKm())) + " " + LENGTH_UNIT_KM +
                 "\n\n";
     }
 
@@ -215,7 +220,7 @@ class PrimaryTextCreator extends Controller {
     }
 
     private String printBearingAngles(BearingAngles bearingAngles) {
-        if (caseType == CASE.OPPOSITE_POINTS) {
+        if (caseType == Controller.CASE.OPPOSITE_POINTS) {
             return "\n" +
                     "  α =  " + FREE_TO_CHOOSE_STRING[languageCode] +
                     "\n" +
@@ -223,33 +228,33 @@ class PrimaryTextCreator extends Controller {
                     "\n\n";
         } else {
             return "\n" +
-                    "  α = " + ddToDmString("long", bearingAngles.initialBearing) +
+                    "  α = " + ddToDmString("long", bearingAngles.getInitialBearing()) +
                     "\n" +
-                    "  β = " + ddToDmString("long", bearingAngles.finalBearing) +
+                    "  β = " + ddToDmString("long", bearingAngles.getFinalBearing()) +
                     "\n\n";
 
         }
     }
 
     private String printOrthodromeVertices(Point firstOrthodromeVertex, Point secondOrthodromeVertex) {
-        if (caseType == CASE.EQUATOR_SAIL) {
+        if (caseType == Controller.CASE.EQUATOR_SAIL) {
             return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.getLatCalculated(), firstOrthodromeVertex.getLatSide()) +
                     "  ; xxx°xx,x' E/W )" +
                     "\n" +
                     "     " + ANY_POINT_ON_EQUATOR_STRING[languageCode] +
                     "\n\n";
 
-        } else if (caseType == CASE.MERIDIAN_SAIL) {
+        } else if (caseType == Controller.CASE.MERIDIAN_SAIL) {
             return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.getLatCalculated(), firstOrthodromeVertex.getLatSide()) +
                     " ) - " + NORTH_POLE_STRING[languageCode] +
                     "\n" +
-                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
+                    "  W2  (" + ddToDmString("lat", firstOrthodromeVertex.getLatCalculated(), firstOrthodromeVertex.getLatSide()) +
                     " ) - " + SOUTH_POLE_STRING[languageCode] +
                     "\n\n";
 
-        } else if (caseType == CASE.OPPOSITE_POINTS) {
+        } else if (caseType == Controller.CASE.OPPOSITE_POINTS) {
             return "\n" +
                     "  W1  ( xx°xx,x' N/S ; xxx°xx.x' E/W )" +
                     "\n" +
@@ -258,11 +263,11 @@ class PrimaryTextCreator extends Controller {
 
         } else {
             return "\n" +
-                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.latCalculated, firstOrthodromeVertex.latSide) +
-                    "  ," + ddToDmString("long", firstOrthodromeVertex.longCalculated, firstOrthodromeVertex.longSide) + "  )" +
+                    "  W1  (" + ddToDmString("lat", firstOrthodromeVertex.getLatCalculated(), firstOrthodromeVertex.getLatSide()) +
+                    "  ," + ddToDmString("long", firstOrthodromeVertex.getLongCalculated(), firstOrthodromeVertex.getLongSide()) + "  )" +
                     "\n" +
-                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.latCalculated, secondOrthodromeVertex.latSide) +
-                    "  ," + ddToDmString("long", secondOrthodromeVertex.longCalculated, secondOrthodromeVertex.longSide) + "  )" +
+                    "  W2  (" + ddToDmString("lat", secondOrthodromeVertex.getLatCalculated(), secondOrthodromeVertex.getLatSide()) +
+                    "  ," + ddToDmString("long", secondOrthodromeVertex.getLongCalculated(), secondOrthodromeVertex.getLongSide()) + "  )" +
                     "\n\n";
         }
     }

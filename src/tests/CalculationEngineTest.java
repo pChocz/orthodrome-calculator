@@ -1,8 +1,15 @@
+package tests;
+
+import calculationengine.AllResults;
+import calculationengine.Point;
+import gui.Controller;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static Utility.Converter.ddToDmString;
-import static Utility.Converter.dmToDdDouble;
+import static gui.Controller.CASE.*;
 import static org.junit.Assert.assertEquals;
+import static util.Converter.ddToDmString;
+import static util.Converter.dmToDdDouble;
 
 public class CalculationEngineTest extends Controller {
 
@@ -17,7 +24,7 @@ public class CalculationEngineTest extends Controller {
      * - opposite points
      * - exactly the same points
      * 
-     * Orthodrome elements that are asserted:
+     * calculationengine.Orthodrome elements that are asserted:
      * - orthodrome length
      * - initial and final bearing
      * - one orthodrome vertex
@@ -44,11 +51,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -73,11 +80,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -107,11 +114,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -141,11 +148,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -176,11 +183,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -211,11 +218,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -245,11 +252,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -279,11 +286,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -315,11 +322,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -330,7 +337,7 @@ public class CalculationEngineTest extends Controller {
      * - opposite points
      * - exactly the same points
      *
-     * Orthodrome elements that are asserted:
+     * calculationengine.Orthodrome elements that are asserted:
      * - orthodrome length
      * - initial and final bearing
      * - one orthodrome vertex
@@ -368,18 +375,18 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expected_a, allResults.sphericalTriangle.a, DELTA_ANGLE);
-        assertEquals(expected_b, allResults.sphericalTriangle.b, DELTA_ANGLE);
-        assertEquals(expected_C, allResults.sphericalTriangle.C, DELTA_ANGLE);
-        assertEquals(expected_A, allResults.sphericalTriangle.A, DELTA_ANGLE);
-        assertEquals(expected_B, allResults.sphericalTriangle.B, DELTA_ANGLE);
-        assertEquals(expected_h1, allResults.orthodrome.height1, DELTA_ANGLE);
-        assertEquals(expected_h2, allResults.orthodrome.height2, DELTA_ANGLE);
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expected_a, allResults.getSphericalTriangle().a, DELTA_ANGLE);
+        assertEquals(expected_b, allResults.getSphericalTriangle().b, DELTA_ANGLE);
+        assertEquals(expected_C, allResults.getSphericalTriangle().C, DELTA_ANGLE);
+        assertEquals(expected_A, allResults.getSphericalTriangle().A, DELTA_ANGLE);
+        assertEquals(expected_B, allResults.getSphericalTriangle().B, DELTA_ANGLE);
+        assertEquals(expected_h1, allResults.getOrthodrome().getHeight1(), DELTA_ANGLE);
+        assertEquals(expected_h2, allResults.getOrthodrome().getHeight2(), DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -392,10 +399,10 @@ public class CalculationEngineTest extends Controller {
 //    @Test
 //    public void generalExample_11() {
 //        //input
-//        Point aPoint = new Point(
+//        calculationengine.Point aPoint = new calculationengine.Point(
 //                "N", 0, 0,
 //                "E", 60, 46);
-//        Point bPoint = new Point(
+//        calculationengine.Point bPoint = new calculationengine.Point(
 //                "S", 23, 52,
 //                "E", 130, 10);
 //
@@ -403,11 +410,11 @@ public class CalculationEngineTest extends Controller {
 //        double expectedOrthodrome = 9232.93;
 //        double expectedInitialBearing = dmToDdDouble(156, 47.77);
 //        double expectedFinalBearing = dmToDdDouble(25, 31.28);
-//        Point expectedOrthodromeVertex = new Point(
+//        calculationengine.Point expectedOrthodromeVertex = new calculationengine.Point(
 //                "S", 66, 47.77,
 //                "E", 150, 46);
 //
-//        AllResults allResults = new AllResults(aPoint, bPoint);
+//        calculationengine.AllResults allResults = new calculationengine.AllResults(aPoint, bPoint);
 //        printAllResultsForDebug(allResults);
 //
 //        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
@@ -425,7 +432,7 @@ public class CalculationEngineTest extends Controller {
      * - opposite points
      * - exactly the same points
      *
-     * Orthodrome elements that are asserted:
+     * calculationengine.Orthodrome elements that are asserted:
      * - orthodrome length
      * - initial and final bearing
      * - one orthodrome vertex
@@ -445,7 +452,7 @@ public class CalculationEngineTest extends Controller {
                 "W", 170, 0);
 
         AllResults allResults = new AllResults(aPoint, bPoint);
-        assertEquals(CASE.MERIDIAN_SAIL, allResults.caseType);
+        Assert.assertEquals(MERIDIAN_SAIL, allResults.getCaseType());
     }
 
 
@@ -469,11 +476,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(CASE.MERIDIAN_SAIL, allResults.caseType);
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
+        Assert.assertEquals(MERIDIAN_SAIL, allResults.getCaseType());
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
     }
 
 
@@ -498,11 +505,11 @@ public class CalculationEngineTest extends Controller {
         AllResults allResults = new AllResults(aPoint, bPoint);
         printAllResultsForDebug(allResults);
 
-        assertEquals(expectedOrthodrome, allResults.orthodrome.distanceNm, DELTA_LENGTH);
-        assertEquals(expectedInitialBearing, allResults.bearingAngles.initialBearing, DELTA_ANGLE);
-        assertEquals(expectedFinalBearing, allResults.bearingAngles.finalBearing, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.phi, allResults.firstOrthodromeVertex.phi, DELTA_ANGLE);
-        assertEquals(expectedOrthodromeVertex.lambda, allResults.firstOrthodromeVertex.lambda, DELTA_ANGLE);
+        assertEquals(expectedOrthodrome, allResults.getOrthodrome().getDistanceNm(), DELTA_LENGTH);
+        assertEquals(expectedInitialBearing, allResults.getBearingAngles().getInitialBearing(), DELTA_ANGLE);
+        assertEquals(expectedFinalBearing, allResults.getBearingAngles().getFinalBearing(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getPhi(), allResults.getFirstOrthodromeVertex().getPhi(), DELTA_ANGLE);
+        assertEquals(expectedOrthodromeVertex.getLambda(), allResults.getFirstOrthodromeVertex().getLambda(), DELTA_ANGLE);
     }
 
 
@@ -517,7 +524,7 @@ public class CalculationEngineTest extends Controller {
                 "W", 170, 0);
 
         AllResults allResults = new AllResults(aPoint, bPoint);
-        assertEquals(CASE.EQUATOR_SAIL, allResults.caseType);
+        Assert.assertEquals(CASE.EQUATOR_SAIL, allResults.getCaseType());
     }
 
 
@@ -532,7 +539,7 @@ public class CalculationEngineTest extends Controller {
                 "W", 90, 0);
 
         AllResults allResults = new AllResults(aPoint, bPoint);
-        assertEquals(CASE.SAME_POINT, allResults.caseType);
+        Assert.assertEquals(SAME_POINT, allResults.getCaseType());
     }
 
 
@@ -547,7 +554,7 @@ public class CalculationEngineTest extends Controller {
                 "E", 92, 0);
 
         AllResults allResults = new AllResults(aPoint, bPoint);
-        assertEquals(CASE.SAME_POINT, allResults.caseType);
+        Assert.assertEquals(SAME_POINT, allResults.getCaseType());
     }
 
     
@@ -562,7 +569,7 @@ public class CalculationEngineTest extends Controller {
                 "W", 60, 0);
 
         AllResults allResults = new AllResults(aPoint, bPoint);
-        assertEquals(CASE.OPPOSITE_POINTS, allResults.caseType);
+        Assert.assertEquals(OPPOSITE_POINTS, allResults.getCaseType());
     }
 
     
@@ -573,24 +580,24 @@ public class CalculationEngineTest extends Controller {
      * helping methods
      */
     private void printAllResultsForDebug(AllResults allResults) {
-        System.out.println("case = " + allResults.caseType);
-        System.out.println("A = " + allResults.sphericalTriangle.A);
-        System.out.println("B = " + allResults.sphericalTriangle.B);
-        System.out.println("C = " + allResults.sphericalTriangle.C);
-        System.out.println("a = " + allResults.sphericalTriangle.a);
-        System.out.println("b = " + allResults.sphericalTriangle.b);
-        System.out.println("d = " + allResults.sphericalTriangle.d + " = " + allResults.orthodrome.distanceNm + " Mm");
-        System.out.println("α = " + allResults.bearingAngles.initialBearing);
-        System.out.println("β = " + allResults.bearingAngles.finalBearing);
-        System.out.println(allResults.bearingAngles.direction);
-        System.out.println("W1.phi    = " + allResults.orthodrome.calculateFirstOrthodromeVertex().phi +
+        System.out.println("case = " + allResults.getCaseType());
+        System.out.println("A = " + allResults.getSphericalTriangle().A);
+        System.out.println("B = " + allResults.getSphericalTriangle().B);
+        System.out.println("C = " + allResults.getSphericalTriangle().C);
+        System.out.println("a = " + allResults.getSphericalTriangle().a);
+        System.out.println("b = " + allResults.getSphericalTriangle().b);
+        System.out.println("d = " + allResults.getSphericalTriangle().d + " = " + allResults.getOrthodrome().getDistanceNm() + " Mm");
+        System.out.println("α = " + allResults.getBearingAngles().getInitialBearing());
+        System.out.println("β = " + allResults.getBearingAngles().getFinalBearing());
+        System.out.println(allResults.getBearingAngles().getDirection());
+        System.out.println("W1.phi    = " + allResults.getOrthodrome().calculateFirstOrthodromeVertex().getPhi() +
                 " =  " +
-                ddToDmString("lat", allResults.orthodrome.calculateFirstOrthodromeVertex().latCalculated) +
-                " " + allResults.orthodrome.calculateFirstOrthodromeVertex().latSide);
-        System.out.println("W2.phi    = " + allResults.orthodrome.calculateFirstOrthodromeVertex().lambda +
+                ddToDmString("lat", allResults.getOrthodrome().calculateFirstOrthodromeVertex().getLatCalculated()) +
+                " " + allResults.getOrthodrome().calculateFirstOrthodromeVertex().getLatSide());
+        System.out.println("W2.phi    = " + allResults.getOrthodrome().calculateFirstOrthodromeVertex().getLambda() +
                 " = " +
-                ddToDmString("long", allResults.orthodrome.calculateFirstOrthodromeVertex().longCalculated) +
-                " " + allResults.orthodrome.calculateFirstOrthodromeVertex().longSide);
+                ddToDmString("long", allResults.getOrthodrome().calculateFirstOrthodromeVertex().getLongCalculated()) +
+                " " + allResults.getOrthodrome().calculateFirstOrthodromeVertex().getLongSide());
     }
     
 }
