@@ -41,7 +41,7 @@ public class AllResults extends Controller {
         this.setLoxodrome(new Loxodrome(aPoint, bPoint, getOrthodrome(), getCaseType()));
     }
 
-    public Point getaPoint() {
+    private Point getaPoint() {
         return aPoint;
     }
 
@@ -49,7 +49,7 @@ public class AllResults extends Controller {
         this.aPoint = aPoint;
     }
 
-    public Point getbPoint() {
+    private Point getbPoint() {
         return bPoint;
     }
 
@@ -57,7 +57,7 @@ public class AllResults extends Controller {
         this.bPoint = bPoint;
     }
 
-    public Orthodrome getOrthodrome() {
+    private Orthodrome getOrthodrome() {
         return orthodrome;
     }
 
@@ -65,15 +65,11 @@ public class AllResults extends Controller {
         this.orthodrome = orthodrome;
     }
 
-    public Loxodrome getLoxodrome() {
-        return loxodrome;
-    }
-
     private void setLoxodrome(Loxodrome loxodrome) {
         this.loxodrome = loxodrome;
     }
 
-    public SphericalTriangle getSphericalTriangle() {
+    private SphericalTriangle getSphericalTriangle() {
         return sphericalTriangle;
     }
 
@@ -81,31 +77,19 @@ public class AllResults extends Controller {
         this.sphericalTriangle = sphericalTriangle;
     }
 
-    public BearingAngles getBearingAngles() {
-        return bearingAngles;
-    }
-
     private void setBearingAngles(BearingAngles bearingAngles) {
         this.bearingAngles = bearingAngles;
-    }
-
-    public Point getFirstOrthodromeVertex() {
-        return firstOrthodromeVertex;
     }
 
     private void setFirstOrthodromeVertex(Point firstOrthodromeVertex) {
         this.firstOrthodromeVertex = firstOrthodromeVertex;
     }
 
-    public Point getSecondOrthodromeVertex() {
-        return secondOrthodromeVertex;
-    }
-
     private void setSecondOrthodromeVertex(Point secondOrthodromeVertex) {
         this.secondOrthodromeVertex = secondOrthodromeVertex;
     }
 
-    public CASE getCaseType() {
+    private CASE getCaseType() {
         return caseType;
     }
 

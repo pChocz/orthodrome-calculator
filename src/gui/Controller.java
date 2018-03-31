@@ -294,7 +294,7 @@ public class Controller {
         printResults(allResults);
     }
 
-    public CASE verifySpecialCases(Point aPoint, Point bPoint) {
+    protected CASE verifySpecialCases(Point aPoint, Point bPoint) {
         double difLambda = Math.abs(aPoint.lambda - bPoint.lambda);
         double sumPhi = aPoint.phi + bPoint.phi;
 

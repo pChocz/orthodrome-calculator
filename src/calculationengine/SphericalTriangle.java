@@ -21,9 +21,6 @@ public class SphericalTriangle extends Controller {
     public double C;
     private double aRadians;
     private double bRadians;
-    private double dRadians;
-    private double ARadians;
-    private double BRadians;
     private double CRadians;
 
     public SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
@@ -45,13 +42,10 @@ public class SphericalTriangle extends Controller {
         this.CRadians = toRadians(C);
 
         this.A = calculateA();
-        this.ARadians = toRadians(A);
 
         this.B = calculateB();
-        this.BRadians = toRadians(B);
 
         this.d = calculateOrthodrome();
-        this.dRadians = toRadians(d);
 
         if (!caseType.equals(Controller.CASE.GENERAL)) {
             verifySpecialCasesSphericalTriangle();

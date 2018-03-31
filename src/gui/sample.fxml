@@ -2,8 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<GridPane hgap="10.0" prefHeight="700" prefWidth="1500" stylesheets="@styles.css" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<?import javafx.scene.layout.*?><GridPane hgap="10.0" prefHeight="700" prefWidth="1500" stylesheets="@styles.css" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
 
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -24,7 +23,6 @@
         <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
     </rowConstraints>
-    <children>
 
         <!--Input data elements-->
         <GridPane alignment="CENTER" hgap="10.0" GridPane.rowIndex="0">
@@ -46,8 +44,8 @@
                 <RowConstraints prefHeight="40.0" valignment="CENTER" />
                 <RowConstraints prefHeight="40.0" valignment="CENTER" />
             </rowConstraints>
-            <children>
-                <Label fx:id="titleLabel" styleClass="titleLabel" text="Parametry wejściowe" GridPane.columnIndex="0" GridPane.columnSpan="7" GridPane.rowIndex="0"/>
+
+            <Label fx:id="titleLabel" styleClass="titleLabel" text="Parametry wejściowe" GridPane.columnIndex="0" GridPane.columnSpan="7" GridPane.rowIndex="0"/>
 
                 <Separator prefWidth="200.0" GridPane.columnSpan="7" GridPane.rowIndex="1" />
 
@@ -91,8 +89,7 @@
                         <TextField fx:id="bLongSideTxt" onKeyPressed="#inputProcedureOnEnter_bLongSideTxt" alignment="CENTER" editable="false" prefWidth="35.0" text="E" GridPane.columnIndex="5" GridPane.rowIndex="6" />
                         <Button fx:id="bLongSideBtn" onKeyPressed="#bChangeLongOnSpaceOrEnter" onMouseClicked="#bChangeLong" prefWidth="50.0" text="E/W" GridPane.columnIndex="6" GridPane.rowIndex="6" />
 
-            </children>
-        </GridPane>
+            /GridPane>
 
         <!--Action buttons-->
         <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" GridPane.rowIndex="2">
@@ -104,12 +101,11 @@
                 <RowConstraints valignment="CENTER" />
             <RowConstraints />
             </rowConstraints>
-            <children>
-                <Button fx:id="clearBtn" onKeyPressed="#clearProcedureOnSpaceOrEnter" onMouseClicked="#clearParameters" styleClass="bigButtonHalf" text="Wyczyść/Info" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+            <Button fx:id="clearBtn" onKeyPressed="#clearProcedureOnSpaceOrEnter" onMouseClicked="#clearParameters" styleClass="bigButtonHalf" text="Wyczyść/Info" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
                 <ChoiceBox fx:id="languageCb" onMouseClicked="#changeLanguage" styleClass="ChoiceBox" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
                 <Button fx:id="calculateBtn" onKeyPressed="#inputProcedureOnSpaceOrEnter" onMouseClicked="#inputProcedure" styleClass="bigButton" text="Oblicz" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
-            </children>
-        </GridPane>
+            /GridPane>
 
         <!--General cases part-->
         <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" GridPane.rowIndex="4">
@@ -123,16 +119,15 @@
                 <RowConstraints prefHeight="60.0" valignment="CENTER" />
                 <RowConstraints prefHeight="60.0" valignment="CENTER" />
             </rowConstraints>
-            <children>
-                <Label fx:id="generalCasesLabel" styleClass="titleLabel" text="Przypadki ogólne" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+
+            <Label fx:id="generalCasesLabel" styleClass="titleLabel" text="Przypadki ogólne" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
                 <Button onKeyPressed="#generalCase01onSpaceOrEnter" onMouseClicked="#generalCase01" styleClass="caseButton" text="A(10°N;050°E)&#10;B(20°N;170°E)" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <Button onKeyPressed="#generalCase02onSpaceOrEnter" onMouseClicked="#generalCase02" styleClass="caseButton" text="A(50°N;020°W)&#10;B(50°N;090°E)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Button onKeyPressed="#generalCase03onSpaceOrEnter" onMouseClicked="#generalCase03" styleClass="caseButton" text="A(50°N;030°E)&#10;B(30°N;060°E)" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <Button onKeyPressed="#generalCase04onSpaceOrEnter" onMouseClicked="#generalCase04" styleClass="caseButton" text="A(50°N;170°W)&#10;B(10°S;100°W)" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Button onKeyPressed="#generalCase05onSpaceOrEnter" onMouseClicked="#generalCase05" styleClass="caseButton" text="A(30°S;060°E)&#10;B(40°S;140°E)" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <Button onKeyPressed="#generalCase06onSpaceOrEnter" onMouseClicked="#generalCase06" styleClass="caseButton" text="A(20°S;100°W)&#10;B(30°N;160°W)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            </children>
-        </GridPane>
+            /GridPane>
 
         <Separator GridPane.rowIndex="5" />
         <Separator GridPane.rowIndex="3" />
@@ -162,5 +157,4 @@
         <TextArea fx:id="primaryTextArea" onKeyPressed="#primaryTextAreaNavigation" editable="false" styleClass="bigTextArea" GridPane.columnIndex="1" GridPane.rowSpan="7" />
         <TextArea fx:id="secondaryTextArea" onKeyPressed="#secondaryTextAreaNavigation" editable="false" styleClass="bigTextArea" GridPane.columnIndex="2" GridPane.rowSpan="7" />
 
-    </children>
-</GridPane>
+    </GridPane>

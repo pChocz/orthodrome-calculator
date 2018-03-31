@@ -109,23 +109,15 @@ public class BearingAngles extends Controller {
         this.caseType = caseType;
     }
 
-    public double getInitialBearing() {
-        return initialBearing;
-    }
-
     private void setInitialBearing(double initialBearing) {
         this.initialBearing = initialBearing;
-    }
-
-    public double getFinalBearing() {
-        return finalBearing;
     }
 
     private void setFinalBearing(double finalBearing) {
         this.finalBearing = finalBearing;
     }
 
-    public String getDirection() {
+    private String getDirection() {
         return direction;
     }
 

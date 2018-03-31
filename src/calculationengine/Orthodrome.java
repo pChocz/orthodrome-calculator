@@ -10,7 +10,6 @@ public class Orthodrome extends Controller {
     private Point aPoint;
     private Point bPoint;
     private Controller.CASE caseType;
-    //output
     public double distanceAngles;
     public double distanceNm;
     public double distanceKm;
@@ -122,7 +121,7 @@ public class Orthodrome extends Controller {
         this.caseType = caseType;
     }
 
-    public double getDistanceAngles() {
+    private double getDistanceAngles() {
         return distanceAngles;
     }
 
@@ -130,7 +129,7 @@ public class Orthodrome extends Controller {
         this.distanceAngles = distanceAngles;
     }
 
-    public double getDistanceNm() {
+    private double getDistanceNm() {
         return distanceNm;
     }
 
@@ -138,24 +137,16 @@ public class Orthodrome extends Controller {
         this.distanceNm = distanceNm;
     }
 
-    public double getDistanceKm() {
-        return distanceKm;
-    }
-
     private void setDistanceKm(double distanceKm) {
         this.distanceKm = distanceKm;
     }
 
-    public double getHeight1() {
+    private double getHeight1() {
         return height1;
     }
 
     private void setHeight1(double height1) {
         this.height1 = height1;
-    }
-
-    public double getHeight2() {
-        return height2;
     }
 
     private void setHeight2(double height2) {

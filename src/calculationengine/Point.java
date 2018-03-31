@@ -14,8 +14,8 @@ public class Point {
     public double longCalculated;
     public double phi;
     public double lambda;
-    public double phiRadians;
-    public double lambdaRadians;
+    double phiRadians;
+    double lambdaRadians;
 
     public Point(String latSide, double latDeg, double latMin, String longSide, double longDeg, double longMin) {
         this.setLatSide(latSide);
@@ -68,71 +68,39 @@ public class Point {
         }
     }
 
-    public String getLatSide() {
-        return latSide;
-    }
-
     private void setLatSide(String latSide) {
         this.latSide = latSide;
-    }
-
-    public double getLatDeg() {
-        return latDeg;
     }
 
     private void setLatDeg(double latDeg) {
         this.latDeg = latDeg;
     }
 
-    public double getLatMin() {
-        return latMin;
-    }
-
     private void setLatMin(double latMin) {
         this.latMin = latMin;
-    }
-
-    public String getLongSide() {
-        return longSide;
     }
 
     private void setLongSide(String longSide) {
         this.longSide = longSide;
     }
 
-    public double getLongDeg() {
-        return longDeg;
-    }
-
     private void setLongDeg(double longDeg) {
         this.longDeg = longDeg;
-    }
-
-    public double getLongMin() {
-        return longMin;
     }
 
     private void setLongMin(double longMin) {
         this.longMin = longMin;
     }
 
-    public double getLatCalculated() {
-        return latCalculated;
-    }
-
     private void setLatCalculated(double latCalculated) {
         this.latCalculated = latCalculated;
-    }
-
-    public double getLongCalculated() {
-        return longCalculated;
     }
 
     private void setLongCalculated(double longCalculated) {
         this.longCalculated = longCalculated;
     }
 
-    public double getPhi() {
+    double getPhi() {
         return phi;
     }
 
@@ -140,7 +108,8 @@ public class Point {
         this.phi = phi;
     }
 
-    public double getLambda() {
+
+    double getLambda() {
         return lambda;
     }
 
