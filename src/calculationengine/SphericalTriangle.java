@@ -10,7 +10,7 @@ public class SphericalTriangle extends Controller {
     //input
     private Point aPoint;
     private Point bPoint;
-    private Controller.CASE caseType;
+    private CASE caseType;
 
     //output
     public double a;
@@ -23,7 +23,7 @@ public class SphericalTriangle extends Controller {
     private double bRadians;
     private double CRadians;
 
-    public SphericalTriangle(Point startPoint, Point endPoint, Controller.CASE caseType) {
+    public SphericalTriangle(Point startPoint, Point endPoint, CASE caseType) {
         this.aPoint = startPoint;
         this.bPoint = endPoint;
         this.caseType = caseType;
@@ -32,23 +32,20 @@ public class SphericalTriangle extends Controller {
     }
 
     private void calculateSphericalTriangle() {
-        this.a = 90 - bPoint.getPhi();
+        this.a = 90 - bPoint.phi;
         this.aRadians = toRadians(a);
 
-        this.b = 90 - aPoint.getPhi();
+        this.b = 90 - aPoint.phi;
         this.bRadians = toRadians(b);
 
         this.C = calculateC();
         this.CRadians = toRadians(C);
 
         this.A = calculateA();
-        double ARadians = toRadians(A);
 
         this.B = calculateB();
-        double BRadians = toRadians(B);
 
         this.d = calculateOrthodrome();
-        double dRadians = toRadians(d);
 
         if (!caseType.equals(Controller.CASE.GENERAL)) {
             verifySpecialCasesSphericalTriangle();
@@ -56,7 +53,7 @@ public class SphericalTriangle extends Controller {
     }
 
     private double calculateC() {
-        double C = Math.abs(bPoint.getLambda() - aPoint.getLambda());
+        double C = Math.abs(bPoint.lambda - aPoint.lambda);
         return (C <= 180) ? (C) : (360 - C);
     }
 

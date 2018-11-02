@@ -1,4 +1,4 @@
-package Utility;
+package util;
 
 public class Converter {
 
