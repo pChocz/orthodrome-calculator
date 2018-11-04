@@ -13,7 +13,7 @@ points on the surface of the sphere.
 
 ![Great Circle distance](https://upload.wikimedia.org/wikipedia/commons/c/cb/Illustration_of_great-circle_distance.svg =100x)
 
-![Great Circle distance](/pictures/example.svg){:height="36px"}
+![Great Circle distance](/pictures/example.svg?s=200)
 
 <img src="/pictures/example.svg" width="200">
 
