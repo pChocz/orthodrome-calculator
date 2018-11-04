@@ -9,9 +9,10 @@ Orthodrome is a part of the great circle that crosses any pair of the points on 
 Through any two points on a sphere (that are not directly opposite each other), there is 
 a unique great circle. The length of the shorter arc of such great circle is so called
 great-circle distance (or orthodromic distance) and is the shortest path between two 
-points on the surface of the sphere.  
+points on the surface of the sphere. On below picture, the orthodromic path between 
+points `A` and `B` has been marked as `d` side of the spherical triangle.
 
-<img src="/pictures/example.svg" width="300">
+<img src="/pictures/example.svg" width="400">
 
 In case of antipodal points (directly opposite to each other) there exist infinitely many
 great circles. For such cases there are also infinitely many shortest paths equal to the
@@ -28,12 +29,12 @@ the hand calculation.
 Application covers most of the program of the Spherical Trigonometry section
 that is introduced at the first semester of Navigation major on the
 Gdynia Maritime University. It can be used by the students to verify their 
-calculations performed by hand and to spot exact place of an error, in case
-of results discrepancies.
+calculations performed by hand and to spot exact place of an error occurence,
+in case of results discrepancies.
 
 ## Getting Started
 
-### Program logic
+### What it does?
 
 `Orthodrome Calculator` can be used in order to calculate several orthodrome/loxodrome 
 parameters for the navigation purposes:
