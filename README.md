@@ -1,9 +1,9 @@
-# Orthodrome Calculator
-
-### Theory first
+# `Orthodrome Calculator`
 
 Calculator for the orthodrome (great circle) and loxodrome parameters for the navigation 
 purposes.
+
+### Theory first
 
 Orthodrome is a part of the great circle that crosses any pair of the points on the sphere.
 Through any two points on a sphere (that are not directly opposite each other), there is 
