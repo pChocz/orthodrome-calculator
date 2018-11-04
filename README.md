@@ -11,11 +11,7 @@ a unique great circle. The length of the shorter arc of such great circle is so 
 great-circle distance (or orthodromic distance) and is the shortest path between two 
 points on the surface of the sphere.  
 
-![Great Circle distance](https://upload.wikimedia.org/wikipedia/commons/c/cb/Illustration_of_great-circle_distance.svg =100x)
-
-![Great Circle distance](/pictures/example.svg?s=200)
-
-<img src="/pictures/example.svg" width="200">
+<img src="/pictures/example.svg" width="300">
 
 In case of antipodal points (directly opposite to each other) there exist infinitely many
 great circles. For such cases there are also infinitely many shortest paths equal to the
