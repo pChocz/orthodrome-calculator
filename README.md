@@ -9,11 +9,15 @@ Orthodrome is a part of the great circle that crosses any pair of the points on 
 Through any two points on a sphere (that are not directly opposite each other), there is 
 a unique great circle. The length of the shorter arc of such great circle is so called
 great-circle distance (or orthodromic distance) and is the shortest path between two 
-points on the surface of the sphere.
+points on the surface of the sphere.  
+
+![Great Circle distance](https://upload.wikimedia.org/wikipedia/commons/c/cb/Illustration_of_great-circle_distance.svg)
+
+![Great Circle distance](/pictures/example.pdf)
 
 In case of antipodal points (directly opposite to each other) there exist infinitely many
-great circles. For such cases there are also infinitely many shortest paths, as each one
-will be equal to the half of the sphere circumference.
+great circles. For such cases there are also infinitely many shortest paths equal to the
+half of the sphere circumference.
 
 ### Why I created the application
 
@@ -25,7 +29,9 @@ the hand calculation.
 
 Application covers most of the program of the Spherical Trigonometry section
 that is introduced at the first semester of Navigation major on the
-Gdynia Maritime University.
+Gdynia Maritime University. It can be used by the students to verify their 
+calculations performed by hand and to spot exact place of an error, in case
+of results discrepancies.
 
 ## Getting Started
 
@@ -67,7 +73,7 @@ Special cases are checked first. Only if any of following conditions is met:
 is performed based on the `General Case`. In case if several parameters are
 not calculable, appropriate information is added in the results window.
 
-#### Input format
+#### Data input format
 
 You need to specify co-ordinates of two points in following format:
 
@@ -90,14 +96,15 @@ not performed and instruction is printed
 
 Simply download the most recent executable [jar file](orthodrome-calculator_newest.jar)
 and run it from your computer. Languages available to choose within the application 
-are `EN` and `PL`.
+are `EN` and `PL` and it's possible to change it dynamically, also with the 
+data inputted. 
 
 ## Contributing
 
-If you spot any issue or have an idea how to improve the project please contact me via my 
-GitHub account.
+If you spot any issue or have an idea how to improve the application, please contact 
+me via my GitHub account.
 
 ## License
 
-This project is licensed under the MIT License, therefore it's free to use and modify - see 
-the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License, therefore it's free to use and modify,
+but comes without warranty of any kind - see the [LICENSE](LICENSE) file for details.
