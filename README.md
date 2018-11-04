@@ -13,7 +13,7 @@ points on the surface of the sphere.
 
 ![Great Circle distance](https://upload.wikimedia.org/wikipedia/commons/c/cb/Illustration_of_great-circle_distance.svg)
 
-![Great Circle distance](/pictures/example.pdf)
+![Great Circle distance](/pictures/example.svg)
 
 In case of antipodal points (directly opposite to each other) there exist infinitely many
 great circles. For such cases there are also infinitely many shortest paths equal to the
